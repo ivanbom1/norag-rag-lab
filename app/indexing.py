@@ -89,6 +89,10 @@ def index_document(path, settings):
     return len(chunks)
 
 
+def is_indexed(source, settings):
+    return len(get_collection(settings).get(where={"source": source}, limit=1)["ids"]) > 0
+
+
 def delete_document(source):
     for collection in client.list_collections():
         if collection.name.startswith("chunks_"):

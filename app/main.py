@@ -1,20 +1,69 @@
 import os
 import shutil
+import time
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, UploadFile
+from pydantic import BaseModel, Field
 
-from app.indexing import ChunkSettings, delete_document, index_document
+from app.indexing import ChunkSettings, delete_document, index_document, is_indexed
 
 DOCUMENTS_DIR = "data/documents"
 SEED_DIR = "corpus"
 ALLOWED_EXTENSIONS = {".md", ".txt"}
 
 settings = ChunkSettings()
+top_k = 5
 
 if not os.path.isdir(DOCUMENTS_DIR):
     shutil.copytree(SEED_DIR, DOCUMENTS_DIR)
 
-app = FastAPI(title="Monte Cristo RAG")
+
+def document_names():
+    return sorted(os.listdir(DOCUMENTS_DIR))
+
+
+def index_missing_documents():
+    indexed = []
+    for name in document_names():
+        if not is_indexed(name, settings):
+            index_document(os.path.join(DOCUMENTS_DIR, name), settings)
+            indexed.append(name)
+    return indexed
+
+
+@asynccontextmanager
+async def lifespan(app):
+    index_missing_documents()
+    yield
+
+
+app = FastAPI(title="Monte Cristo RAG", lifespan=lifespan)
+
+
+class SettingsUpdate(BaseModel):
+    chunk_size: int = Field(ge=100, le=4000)
+    overlap_percent: int = Field(ge=0, le=50)
+    top_k: int = Field(ge=1, le=20)
+
+
+def settings_response():
+    return {"chunk_size": settings.chunk_size, "overlap_percent": settings.overlap_percent, "top_k": top_k}
+
+
+@app.get("/api/settings")
+def get_settings():
+    return settings_response()
+
+
+@app.put("/api/settings")
+def update_settings(update: SettingsUpdate):
+    global settings, top_k
+    settings = ChunkSettings(chunk_size=update.chunk_size, overlap_percent=update.overlap_percent)
+    top_k = update.top_k
+    started = time.time()
+    indexed = index_missing_documents()
+    return {**settings_response(), "reindexed": indexed, "seconds": round(time.time() - started, 1)}
 
 
 def document_path(name):
@@ -27,7 +76,7 @@ def document_path(name):
 def list_documents():
     return [
         {"name": name, "size": os.path.getsize(os.path.join(DOCUMENTS_DIR, name))}
-        for name in sorted(os.listdir(DOCUMENTS_DIR))
+        for name in document_names()
     ]
 
 
