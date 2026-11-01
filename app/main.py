@@ -6,6 +6,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, UploadFile
 from pydantic import BaseModel, Field
 
+from app.answering import ask
 from app.indexing import ChunkSettings, delete_document, index_document, is_indexed
 
 DOCUMENTS_DIR = "data/documents"
@@ -64,6 +65,23 @@ def update_settings(update: SettingsUpdate):
     started = time.time()
     indexed = index_missing_documents()
     return {**settings_response(), "reindexed": indexed, "seconds": round(time.time() - started, 1)}
+
+
+class Question(BaseModel):
+    question: str = Field(min_length=1, max_length=1000)
+    documents: list[str] | None = None
+
+
+@app.post("/api/ask")
+def ask_question(body: Question):
+    available = document_names()
+    sources = available if body.documents is None else body.documents
+    unknown = [name for name in sources if name not in available]
+    if unknown:
+        raise HTTPException(400, f"Unknown documents: {', '.join(unknown)}")
+    if not sources:
+        raise HTTPException(400, "Select at least one document.")
+    return ask(body.question, sources, settings, top_k)
 
 
 def document_path(name):
