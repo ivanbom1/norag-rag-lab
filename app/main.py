@@ -4,6 +4,8 @@ import time
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, UploadFile
+from fastapi.responses import PlainTextResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from app.answering import ask
@@ -115,6 +117,15 @@ def upload_document(file: UploadFile):
     return {"name": file.filename, "chunks": index_document(path, settings)}
 
 
+@app.get("/api/documents/{name}/text", response_class=PlainTextResponse)
+def document_text(name: str):
+    path = document_path(name)
+    if not os.path.exists(path):
+        raise HTTPException(404, f"{name} not found.")
+    with open(path, encoding="utf-8") as f:
+        return f.read()
+
+
 @app.delete("/api/documents/{name}", status_code=204)
 def remove_document(name: str):
     path = document_path(name)
@@ -122,3 +133,6 @@ def remove_document(name: str):
         raise HTTPException(404, f"{name} not found.")
     os.remove(path)
     delete_document(name)
+
+
+app.mount("/", StaticFiles(directory="app/static", html=True), name="static")

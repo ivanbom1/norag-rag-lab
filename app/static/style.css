@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  display: flex;
+  font-family: system-ui, sans-serif;
+  color: #222;
+  background: #fafafa;
+}
+
+aside {
+  width: 280px;
+  padding: 16px;
+  border-right: 1px solid #ddd;
+  background: #fff;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  padding: 16px;
+  max-width: 900px;
+}
+
+ul { list-style: none; padding: 0; }
+li { margin: 4px 0; }
+label { display: block; margin: 6px 0; }
+input[type="number"] { width: 80px; float: right; }
+textarea { width: 100%; box-sizing: border-box; font: inherit; }
+
+pre {
+  white-space: pre-wrap;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+mark { background: #ffe58a; }
+.message { color: #555; font-size: 0.9em; }
+.link { cursor: pointer; color: #0b5cad; text-decoration: underline; }
+.unverified { color: #b00020; }
+
+.status-answered { color: #1b7a2a; }
+.status-unverified { color: #b06f00; }
+.status-not_found { color: #555; }
+.status-invalid_response, .status-llm_error { color: #b00020; }

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monte Cristo RAG</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside>
+    <section>
+      <h2>Documents</h2>
+      <ul id="documents"></ul>
+      <input type="file" id="upload" accept=".md,.txt">
+      <p class="message" id="documents-message"></p>
+    </section>
+
+    <section>
+      <h2>Settings</h2>
+      <form id="settings">
+        <label>Chunk size (chars) <input type="number" name="chunk_size" min="100" max="4000"></label>
+        <label>Overlap (%) <input type="number" name="overlap_percent" min="0" max="50"></label>
+        <label>Top-k <input type="number" name="top_k" min="1" max="20"></label>
+        <button type="submit">Apply</button>
+      </form>
+      <p class="message" id="settings-message"></p>
+    </section>
+  </aside>
+
+  <main>
+    <form id="ask">
+      <textarea name="question" rows="3" maxlength="1000" placeholder="Ask a question about the selected documents"></textarea>
+      <button type="submit">Ask</button>
+    </form>
+
+    <section id="result" hidden>
+      <p id="status"></p>
+      <p id="answer"></p>
+      <h3>Citations</h3>
+      <ul id="citations"></ul>
+      <h3>Retrieved chunks</h3>
+      <ul id="retrieved"></ul>
+    </section>
+
+    <section id="reference" hidden>
+      <h3 id="reference-title"></h3>
+      <pre id="reference-text"></pre>
+      <button id="show-in-document">Show in document</button>
+    </section>
+
+    <section id="document" hidden>
+      <h3 id="document-title"></h3>
+      <pre id="document-text"></pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
