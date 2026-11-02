@@ -1,0 +1,652 @@
+{
+  "settings": {
+    "chunk_size": 800,
+    "overlap_percent": 10,
+    "top_k": 5
+  },
+  "model": "gemini-3.5-flash-lite",
+  "summary": {
+    "retrieval": {
+      "questions": 25,
+      "hit_at_k": 0.48,
+      "mrr": 0.36
+    },
+    "retrieval_by_type": {
+      "direct": {
+        "questions": 11,
+        "hit_at_k": 0.455,
+        "mrr": 0.394
+      },
+      "hard": {
+        "questions": 7,
+        "hit_at_k": 0.571,
+        "mrr": 0.31
+      },
+      "planted": {
+        "questions": 2,
+        "hit_at_k": 0.5,
+        "mrr": 0.25
+      },
+      "split": {
+        "questions": 3,
+        "hit_at_k": 0.0,
+        "mrr": 0.0
+      },
+      "contradiction": {
+        "questions": 2,
+        "hit_at_k": 1.0,
+        "mrr": 1.0
+      }
+    },
+    "answer_accuracy": 0.6,
+    "answer_accuracy_by_type": {
+      "direct": 0.545,
+      "hard": 0.571,
+      "planted": 0.5,
+      "split": 0.0,
+      "contradiction": 1.0,
+      "unanswerable": 1.0
+    },
+    "no_context_matches_corpus": 15
+  },
+  "results": [
+    {
+      "id": "d01",
+      "type": "direct",
+      "question": "From which ports was the Pharaon coming when it arrived at Marseilles?",
+      "retrieval": {
+        "hit": true,
+        "rank": 1,
+        "part_ranks": [
+          1
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "When the Pharaon arrived at Marseilles, it was coming from Smyrna, Trieste, and Naples.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "The *Pharaon* was coming from Smyrna, Trieste, and Naples when it arrived at Marseilles.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "d02",
+      "type": "direct",
+      "question": "What illness did Captain Leclere fall ill with after the Pharaon left Naples?",
+      "retrieval": {
+        "hit": true,
+        "rank": 3,
+        "part_ranks": [
+          3
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "After leaving Naples, Captain Leclere was attacked by a brain-fever.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "Captain Leclere contracted brain fever after the *Pharaon* left Naples.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "d03",
+      "type": "direct",
+      "question": "What number was Edmond Dantès known by in the Château d’If?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          null
+        ]
+      },
+      "answer": {
+        "status": "not_found",
+        "answer": "I am sorry, but the provided documents do not contain information about the number Edmond Dantès was known by in the Château d’If.",
+        "correct": false
+      },
+      "no_context": {
+        "answer": "Edmond Dantès was known as prisoner number 34 in the Château d’If.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "d04",
+      "type": "direct",
+      "question": "What is the address of the Count of Monte Cristo’s house in Paris?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          null
+        ]
+      },
+      "answer": {
+        "status": "not_found",
+        "answer": "The provided documents do not contain the address of the Count of Monte Cristo's house in Paris.",
+        "correct": false
+      },
+      "no_context": {
+        "answer": "The Count of Monte Cristo's house in Paris is located at number 30, Avenue des Champs-Élysées.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "d05",
+      "type": "direct",
+      "question": "At what address is the Count’s country house in Auteuil?",
+      "retrieval": {
+        "hit": true,
+        "rank": 1,
+        "part_ranks": [
+          1
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "The Count's house in Auteuil is located at No. 28, Rue de la Fontaine.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "The Count’s country house in Auteuil is located at number 28 Rue de la Fontaine.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "d06",
+      "type": "direct",
+      "question": "What kind of fits did Abbé Faria suffer from in prison?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          null
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "Abbé Faria suffered from paralysis and madness while in prison.",
+        "correct": false
+      },
+      "no_context": {
+        "answer": "Abbé Faria suffered from cataleptic fits in prison.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "d07",
+      "type": "direct",
+      "question": "Where did Luigi Vampa’s bandits hold Albert de Morcerf in Rome?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          null
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "Albert de Morcerf was confined in a cell that was probably kept for accommodating strangers.",
+        "correct": false
+      },
+      "no_context": {
+        "answer": "Luigi Vampa’s bandits held Albert de Morcerf in the Catacombs of Saint Sebastian in Rome.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "d08",
+      "type": "direct",
+      "question": "How much did the bandits ask Danglars to pay for a fowl?",
+      "retrieval": {
+        "hit": true,
+        "rank": 1,
+        "part_ranks": [
+          1
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "The bandits asked Danglars to pay 100,000 francs (or 5,000 louis) for a fowl.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "The bandits demanded 5,000 francs for a single fowl.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "d09",
+      "type": "direct",
+      "question": "Who are Haydée’s parents?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          null
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "According to the documents, Haydée is the daughter of the Vizier of Yanina (and Vasiliki, as mentioned by Morcerf when referring to the Vizier of Yanina's wife and daughter).",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "Haydée's parents are Ali Pasha, the Ali of Janina, and his wife, Basilissa.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "d10",
+      "type": "direct",
+      "question": "In which two words is all human wisdom summed up, according to the count?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          null
+        ]
+      },
+      "answer": {
+        "status": "not_found",
+        "answer": "The provided documents do not contain information about the two words in which all human wisdom is summed up, nor do they mention the count.",
+        "correct": false
+      },
+      "no_context": {
+        "answer": "According to the Count, all human wisdom is summed up in the two words, \"Wait and hope.\"",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "d11",
+      "type": "direct",
+      "question": "How much was the diamond that the abbé showed Caderousse worth?",
+      "retrieval": {
+        "hit": true,
+        "rank": 1,
+        "part_ranks": [
+          1
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "The diamond that the abbé showed Caderousse was estimated to be worth fifty thousand francs.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "The diamond was worth fifty thousand francs.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "h01",
+      "type": "hard",
+      "question": "What trick did the supercargo use so that nobody would recognise his handwriting on the anonymous letter?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          null
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "The supercargo disguised his handwriting on the anonymous letter.",
+        "correct": false
+      },
+      "no_context": {
+        "answer": "The supercargo, Caderousse, wrote the anonymous letter using his left hand to disguise his handwriting.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "h02",
+      "type": "hard",
+      "question": "What was tied to the hero’s feet when the jailers threw him from the fortress into the sea?",
+      "retrieval": {
+        "hit": true,
+        "rank": 3,
+        "part_ranks": [
+          3
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "A thirty-six-pound shot was tied to his feet when he was thrown into the sea.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "A heavy cannonball was tied to Edmond Dantès's feet when he was thrown into the sea.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "h03",
+      "type": "hard",
+      "question": "Which poison did the count say a person could get used to by taking a slightly bigger dose every day?",
+      "retrieval": {
+        "hit": true,
+        "rank": 3,
+        "part_ranks": [
+          3
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "The count discussed getting used to brucine by gradually increasing the daily dose.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "The count stated that a person could get used to brucine by taking a slightly bigger dose every day.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "h04",
+      "type": "hard",
+      "question": "Where was the young man who passed himself off as the son of an Italian major really born?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          null
+        ]
+      },
+      "answer": {
+        "status": "not_found",
+        "answer": "I am sorry, but the provided documents do not contain information about where the young man was really born.",
+        "correct": false
+      },
+      "no_context": {
+        "answer": "He was really born in a Corsican village.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "h05",
+      "type": "hard",
+      "question": "What false news, printed after a telegraph message, made the banker sell his Spanish bonds?",
+      "retrieval": {
+        "hit": true,
+        "rank": 1,
+        "part_ranks": [
+          1
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "The false news that caused the banker to sell his Spanish bonds was that Don Carlos had fled from Bourges and returned to Spain.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "The false news that Don Carlos had escaped from the Basque Provinces caused the banker to sell his Spanish bonds.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "h06",
+      "type": "hard",
+      "question": "What drug did the host of the hidden grotto offer Franz after dinner?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          null
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "After dinner, the host offered Franz a small silver cup containing a greenish paste, something like preserved angelica.",
+        "correct": false
+      },
+      "no_context": {
+        "answer": "Vampire (or hashish).",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "h07",
+      "type": "hard",
+      "question": "In which exact spot did the cardinal’s will say the treasure was hidden?",
+      "retrieval": {
+        "hit": true,
+        "rank": 2,
+        "part_ranks": [
+          2
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "According to the cardinal's will, the treasure is located in the furthest angle of the second cave, found by raising the twentieth rock from the small creek to the east in a right line.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "The cardinal's will stated that the treasure was hidden in the furthest corner of the second cave on the island of Monte Cristo.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "p01",
+      "type": "planted",
+      "question": "Where did La Réserve buy the paper the waiter brought, and what watermark did it have?",
+      "retrieval": {
+        "hit": true,
+        "rank": 2,
+        "part_ranks": [
+          2
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "La Réserve bought the paper from a stationer named Mère Brigaud in the Rue de Rome, and it had a small watermark in the shape of a swallow in one corner.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "La Réserve bought the paper from a manufacturer in Beaucaire, and it bore the watermark of the manufacturer's name.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "p02",
+      "type": "planted",
+      "question": "What was the very first entry in Bertuccio’s expense ledger?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          null
+        ]
+      },
+      "answer": {
+        "status": "not_found",
+        "answer": "The provided documents do not contain information about the very first entry in Bertuccio's expense ledger.",
+        "correct": false
+      },
+      "no_context": {
+        "answer": "The very first entry in Bertuccio's expense ledger recorded the purchase of a bay horse.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "s01",
+      "type": "split",
+      "question": "Who engraved the seal that Danglars pressed into the denunciation, and where had Danglars taken it from?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          null,
+          null
+        ]
+      },
+      "answer": {
+        "status": "not_found",
+        "answer": "The provided documents do not contain information about who engraved the seal Danglars pressed into the denunciation or where he had taken it from.",
+        "correct": false
+      },
+      "no_context": {
+        "answer": "Cadousseau engraved the seal, and Danglars stole it from the desk of the shipowner Morrel.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "s02",
+      "type": "split",
+      "question": "To whom did Danglars hand the denunciation after writing it, and what postmark did the letter bear?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          2,
+          null
+        ]
+      },
+      "answer": {
+        "status": "not_found",
+        "answer": "The provided documents do not contain information about the postmark the letter bore.",
+        "correct": false
+      },
+      "no_context": {
+        "answer": "Danglars handed the denunciation to a fisherman named Pedroto, and the letter bore a postmark from Marseilles.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "s03",
+      "type": "split",
+      "question": "What name was the child buried alive at Auteuil given by the steward’s sister-in-law, and who was his real father?",
+      "retrieval": {
+        "hit": false,
+        "rank": null,
+        "part_ranks": [
+          null,
+          1
+        ]
+      },
+      "answer": {
+        "status": "not_found",
+        "answer": "The provided documents do not contain information about the name given to the child by the steward's sister-in-law.",
+        "correct": false
+      },
+      "no_context": {
+        "answer": "The child was named Benedetto and his real father was Gérard de Villefort.",
+        "matches_corpus": true
+      }
+    },
+    {
+      "id": "c01",
+      "type": "contradiction",
+      "question": "On what date did the Pharaon arrive at Marseilles?",
+      "retrieval": {
+        "hit": true,
+        "rank": 1,
+        "part_ranks": [
+          1
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "The Pharaon arrived at Marseilles on February 25, 1815.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "The *Pharaon* arrived at Marseilles on February 28, 1815.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "c02",
+      "type": "contradiction",
+      "question": "What jewel was in the purse that saved Morrel from ruin?",
+      "retrieval": {
+        "hit": true,
+        "rank": 1,
+        "part_ranks": [
+          1
+        ]
+      },
+      "answer": {
+        "status": "answered",
+        "answer": "The purse that saved Morrel contained a ruby as large as a pigeon’s egg.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "A magnificent diamond was in the purse that saved Morrel from ruin.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "u01",
+      "type": "unanswerable",
+      "question": "What was the name of Edmond Dantès’s dog?",
+      "answer": {
+        "status": "not_found",
+        "answer": "I am sorry, but the provided documents do not contain information about the name of Edmond Dantès's dog.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "Edmond Dantès did not have a dog in Alexandre Dumas's novel *The Count of Monte Cristo*.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "u02",
+      "type": "unanswerable",
+      "question": "Who directed the 2002 film adaptation of The Count of Monte Cristo?",
+      "answer": {
+        "status": "not_found",
+        "answer": "I am sorry, but the provided documents do not contain information about the 2002 film adaptation of The Count of Monte Cristo or its director.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "The 2002 film adaptation of *The Count of Monte Cristo* was directed by Kevin Reynolds.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "u03",
+      "type": "unanswerable",
+      "question": "In what year did Alexandre Dumas publish the novel?",
+      "answer": {
+        "status": "not_found",
+        "answer": "I am sorry, but the provided documents do not contain information about the year Alexandre Dumas published the novel.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "Alexandre Dumas published *The Count of Monte Cristo* in 1844.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "u04",
+      "type": "unanswerable",
+      "question": "What was the name of the cook on board the Pharaon?",
+      "answer": {
+        "status": "not_found",
+        "answer": "I am sorry, but the provided documents do not contain information about the name of the cook on board the Pharaon.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "The cook on board the *Pharaon* was named Penelon.",
+        "matches_corpus": false
+      }
+    },
+    {
+      "id": "u05",
+      "type": "unanswerable",
+      "question": "How many children did Albert de Morcerf have?",
+      "answer": {
+        "status": "not_found",
+        "answer": "The provided documents do not contain information about whether Albert de Morcerf had any children.",
+        "correct": true
+      },
+      "no_context": {
+        "answer": "Albert de Morcerf did not have any children, as he enlisted in the army and left to start a new life at the end of the novel.",
+        "matches_corpus": false
+      }
+    }
+  ]
+}
