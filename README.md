@@ -89,3 +89,62 @@ python ask_rag_google.py
 - https://www.gutenberg.org/ebooks/2554
 # Huckleberry Finn by Mark Twain
 - https://www.gutenberg.org/ebooks/76
+
+---
+
+# RAG web app (V2)
+
+A web app that answers questions about two corpora, with verified references to the chunks it used. It uses FastAPI, ChromaDB, all-MiniLM-L6-v2 embeddings and Gemini.
+
+| Corpus | Documents | Question set |
+|---|---|---|
+| `kestrel` | `kestrel-kb/docs/` (provided) | `kestrel-kb/eval/questions.starter.jsonl` (10) |
+| `monte-cristo` | `corpus/` (*The Count of Monte Cristo* in 5 volumes, with planted facts) | `eval/questions/monte-cristo.jsonl` (33, changes in `eval/questions/CHANGES.md`) |
+
+## Run the app
+
+```bash
+pip install -r requirements.txt      # .env must contain GOOGLE_API_KEY
+uvicorn app.main:app --reload
+```
+
+Open http://localhost:8000; the API docs are at `/docs`. On the first start the app copies each corpus to `data/corpora/<corpus>/` and indexes it, which takes about 4 minutes.
+
+The page has a **corpus selector** and the **document list** on the left, plus the chunk size, overlap and top-k settings. The main area has three tabs: **Ask**, **Evaluate** and **Words**.
+
+## Run the evaluation
+
+From the terminal, from the project root:
+
+```bash
+python -m eval.evaluate                                   # retrieval only, both corpora, 800 chars / 10 % overlap
+python -m eval.evaluate --chunk-size 400 --overlap 10     # another configuration (indexes it first if needed)
+python -m eval.evaluate --corpus kestrel --answers --delay 6   # also generate answers (LLM calls)
+python -m eval.evaluate --no-context --delay 4            # no-context test: ask the LLM without retrieval
+```
+
+From the front-end, open the **Evaluate** tab, optionally tick **Also generate answers**, and click **Run evaluation**. It uses the corpus and settings currently selected.
+
+**Measures.** A retrieved chunk is relevant if it comes from the evidence source and contains the evidence quote, ignoring whitespace. Both measures are computed for k = 1, 3, 5 and 10, overall and per question type. Unanswerable questions are not included.
+
+- **HitRate@k:** at least one evidence quote is in the top k.
+- **Recall@k:** the share of a question's evidence quotes found in the top k.
+
+**Output** goes to `eval/results/`:
+
+- **`<corpus>_<size>_<overlap>_20_minilm.json`:** the retrieval run, with the 10 retrieved chunks per question and the rank at which each evidence item was found.
+- **`...-answers-<timestamp>.json`:** each answer next to the chunks it used, with `evidence_in_context` and empty `grade` / `failure` fields for hand grading. A new file is written each time, so grades are never overwritten.
+- **`no-context-<corpus>.jsonl`:** the LLM's answer without retrieval and an LLM judge's verdict. An `override` field holds the human decision. Re-running only re-asks questions that failed, so overrides are kept.
+
+## Reach the Words tab
+
+Open http://localhost:8000, pick a corpus, and click the **Words** tab. The counts are for the chunks of that corpus at the current chunk size. Words are lowercased with no stemming, and identifiers like `KST-2044` stay one word.
+
+- **Question mode.** Type a question, or pick one from the question set, then click **Analyze words**. For each word you get its count and how many chunks contain it; for a picked question, you also see whether it appears in the chunks that hold the evidence. Words absent from the corpus are shown in red.
+- **Corpus mode.** Shows the vocabulary (word, count, number of chunks), with a filter and an option to show stopwords. Click a word to list the chunks that contain it, and click a chunk to read it with the word highlighted.
+
+## Tests
+
+```bash
+python -m pytest tests     # chunk offsets and tokenizer
+```
