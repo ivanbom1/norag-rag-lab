@@ -44,6 +44,9 @@ label.inline { display: inline; margin-right: 12px; }
 table { border-collapse: collapse; font-size: 0.9em; margin-bottom: 16px; }
 th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; }
 th { background: #f0f0f0; }
+tr.absent td { color: #b00020; }
+tr.stopword td { color: #999; }
+#question-words select { width: 100%; margin-bottom: 6px; }
 .message { color: #555; font-size: 0.9em; }
 .link { cursor: pointer; color: #0b5cad; text-decoration: underline; }
 .unverified { color: #b00020; }

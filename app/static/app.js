@@ -267,6 +267,119 @@ function renderEvaluation(report) {
   );
 }
 
+const TOKEN = /[\p{L}\p{N}]+(?:[-.'’][\p{L}\p{N}]+)*/gu;
+
+function linkCell(text, onclick) {
+  const td = el("td");
+  const link = el("span", text, "link");
+  link.onclick = onclick;
+  td.append(link);
+  return td;
+}
+
+function highlightWord(container, text, word) {
+  const nodes = [];
+  let last = 0;
+  for (const match of text.matchAll(TOKEN)) {
+    if (match[0].toLowerCase() !== word) continue;
+    nodes.push(document.createTextNode(text.slice(last, match.index)), el("mark", match[0]));
+    last = match.index + match[0].length;
+  }
+  nodes.push(document.createTextNode(text.slice(last)));
+  container.replaceChildren(...nodes);
+}
+
+async function showWordChunks(word) {
+  const data = await (await api(corpusPath(`/words/${encodeURIComponent(word)}`))).json();
+  document.getElementById("word-chunks").hidden = false;
+  document.getElementById("word-chunk-text").hidden = true;
+  const shown = data.chunks.length < data.chunk_count ? ` (top ${data.chunks.length} shown)` : "";
+  document.getElementById("word-chunks-title").textContent =
+    `“${data.word}”: ${data.count} occurrences in ${data.chunk_count} chunks${shown}`;
+  document.getElementById("word-chunks-table").replaceChildren(
+    row(["chunk", "source", "chars", "count"], "th"),
+    ...data.chunks.map((chunk) => {
+      const tr = el("tr");
+      tr.append(
+        linkCell(chunk.id, () => {
+          const pre = document.getElementById("word-chunk-text");
+          pre.hidden = false;
+          highlightWord(pre, chunk.text, data.word);
+          pre.scrollIntoView({ behavior: "smooth" });
+        }),
+        el("td", chunk.source), el("td", `${chunk.start}–${chunk.end}`), el("td", String(chunk.count)),
+      );
+      return tr;
+    }),
+  );
+  document.getElementById("word-chunks").scrollIntoView({ behavior: "smooth" });
+}
+
+document.getElementById("vocabulary").onsubmit = async (event) => {
+  event.preventDefault();
+  const form = event.target;
+  const params = new URLSearchParams({ contains: form.elements.contains.value, stopwords: form.elements.stopwords.checked });
+  const data = await (await api(corpusPath(`/words?${params}`))).json();
+  document.getElementById("vocabulary-summary").textContent =
+    `${data.distinct_words} distinct words, ${data.tokens} words in total, ${data.chunks} chunks. ` +
+    `${data.matching_words} match; showing ${data.words.length}.`;
+  document.getElementById("vocabulary-table").replaceChildren(
+    row(["word", "count", "chunks"], "th"),
+    ...data.words.map((entry) => {
+      const tr = el("tr");
+      tr.append(linkCell(entry.word, () => showWordChunks(entry.word)), el("td", String(entry.count)), el("td", String(entry.chunks)));
+      return tr;
+    }),
+  );
+};
+
+async function loadQuestionSet() {
+  const select = document.querySelector("#question-words select");
+  const questions = await (await api(corpusPath("/questions"))).json();
+  select.replaceChildren(select.options[0], ...questions.map((q) => {
+    const option = el("option", `${q.id} [${q.type}] ${q.question}`);
+    option.value = q.id;
+    option.dataset.question = q.question;
+    return option;
+  }));
+  select.onchange = () => {
+    const option = select.selectedOptions[0];
+    if (option.value) document.querySelector("#question-words textarea").value = option.dataset.question;
+  };
+}
+
+document.getElementById("question-words").onsubmit = async (event) => {
+  event.preventDefault();
+  const form = event.target;
+  const question = form.elements.question.value.trim();
+  const option = form.elements.question_id.selectedOptions[0];
+  const questionId = option.value && option.dataset.question === question ? option.value : null;
+  const data = await (await api(corpusPath("/words/question"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question, question_id: questionId }),
+  })).json();
+
+  document.getElementById("question-words-result").hidden = false;
+  const evidence = data.evidence_chunks.map((chunk) => chunk.id);
+  document.getElementById("question-words-summary").textContent =
+    `${data.words.length} distinct words; absent from the corpus: ${data.absent.join(", ") || "none"}. ` +
+    (questionId ? `Chunks holding the evidence: ${evidence.join(", ") || "none at this chunk setting"}.` : "");
+  document.getElementById("question-words-table").replaceChildren(
+    row(["word", "count", `chunks (of ${data.total_chunks})`, ...(questionId ? ["in evidence chunks"] : [])], "th"),
+    ...data.words.map((entry) => {
+      const tr = el("tr", undefined, entry.count ? (entry.stopword ? "stopword" : "") : "absent");
+      tr.append(
+        entry.count ? linkCell(entry.word, () => showWordChunks(entry.word)) : el("td", `${entry.word} (absent)`),
+        el("td", String(entry.count)),
+        el("td", entry.stopword ? `${entry.chunks} (stopword)` : String(entry.chunks)),
+      );
+      if (questionId) tr.append(el("td", `${entry.in_evidence_chunks.length} / ${evidence.length}`));
+      return tr;
+    }),
+  );
+};
+
 async function loadCorpora() {
   const corpora = await (await api("/api/corpora")).json();
   const select = document.getElementById("corpus");
@@ -278,10 +391,15 @@ async function loadCorpora() {
   corpus = corpora[0];
   select.onchange = () => {
     corpus = select.value;
-    for (const id of ["result", "reference", "document"]) document.getElementById(id).hidden = true;
+    for (const id of ["result", "reference", "document", "evaluation", "question-words-result", "word-chunks"]) {
+      document.getElementById(id).hidden = true;
+    }
+    document.getElementById("vocabulary-table").replaceChildren();
     loadDocuments();
+    loadQuestionSet();
   };
   await loadDocuments();
+  await loadQuestionSet();
 }
 
 loadCorpora();

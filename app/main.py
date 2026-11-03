@@ -3,7 +3,7 @@ import shutil
 import time
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException, UploadFile
+from fastapi import FastAPI, HTTPException, Query, UploadFile
 from fastapi.responses import PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 from app.answering import ask, retrieve
 from app.evaluation import check_quotes, load_questions, run_evaluation
 from app.indexing import ChunkSettings, delete_document, index_document, is_indexed
+from app.words import question_words, vocabulary, word_chunks
 
 CORPORA_DIR = "data/corpora"
 SEED_DIRS = {"monte-cristo": "corpus", "kestrel": "kestrel-kb/docs"}
@@ -127,6 +128,41 @@ def evaluate(corpus: str, body: EvaluationRequest):
     path, report = run_evaluation(corpus, document_names(corpus), settings, body.answers, top_k,
                                   delay=4 if body.answers else 0)
     return {"path": path, **report}
+
+
+@app.get("/api/corpora/{corpus}/questions")
+def list_questions(corpus: str):
+    corpus_dir(corpus)
+    return [{key: question[key] for key in ("id", "type", "question", "answerable")} for question in load_questions(corpus)]
+
+
+@app.get("/api/corpora/{corpus}/words")
+def get_vocabulary(corpus: str, contains: str = "", stopwords: bool = False, limit: int = Query(200, ge=1, le=5000)):
+    corpus_dir(corpus)
+    return vocabulary(corpus, settings, contains, stopwords, limit)
+
+
+@app.get("/api/corpora/{corpus}/words/{word}")
+def get_word_chunks(corpus: str, word: str):
+    corpus_dir(corpus)
+    return word_chunks(corpus, settings, word)
+
+
+class WordsQuestion(BaseModel):
+    question: str = Field(min_length=1, max_length=1000)
+    question_id: str | None = None
+
+
+@app.post("/api/corpora/{corpus}/words/question")
+def get_question_words(corpus: str, body: WordsQuestion):
+    corpus_dir(corpus)
+    evidence = None
+    if body.question_id:
+        match = [q for q in load_questions(corpus) if q["id"] == body.question_id]
+        if not match:
+            raise HTTPException(404, f"Unknown question id: {body.question_id}")
+        evidence = match[0]["evidence"]
+    return question_words(corpus, settings, body.question, evidence)
 
 
 def document_path(corpus, name):

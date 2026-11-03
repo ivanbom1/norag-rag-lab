@@ -36,6 +36,7 @@
     <nav id="tabs">
       <button data-tab="tab-ask" class="active">Ask</button>
       <button data-tab="tab-evaluate">Evaluate</button>
+      <button data-tab="tab-words">Words</button>
     </nav>
 
     <div id="tab-ask">
@@ -77,6 +78,36 @@
         <table id="evaluation-summary"></table>
         <h3>Per question</h3>
         <table id="evaluation-questions"></table>
+      </section>
+    </div>
+
+    <div id="tab-words" hidden>
+      <p class="message">Words of the selected corpus, counted in its chunks at the current chunk setting. Lowercased, no stemming.</p>
+
+      <h3>Question mode</h3>
+      <form id="question-words">
+        <select name="question_id"><option value="">Type a question, or pick one from the question set</option></select>
+        <textarea name="question" rows="2" maxlength="1000"></textarea>
+        <button type="submit">Analyze words</button>
+      </form>
+      <section id="question-words-result" hidden>
+        <p id="question-words-summary"></p>
+        <table id="question-words-table"></table>
+      </section>
+
+      <h3>Corpus mode</h3>
+      <form id="vocabulary">
+        <input name="contains" placeholder="Filter words, e.g. kst or phone">
+        <label class="inline"><input type="checkbox" name="stopwords"> Show stopwords</label>
+        <button type="submit">Show vocabulary</button>
+      </form>
+      <p id="vocabulary-summary" class="message"></p>
+      <table id="vocabulary-table"></table>
+
+      <section id="word-chunks" hidden>
+        <h3 id="word-chunks-title"></h3>
+        <table id="word-chunks-table"></table>
+        <pre id="word-chunk-text" hidden></pre>
       </section>
     </div>
   </main>
