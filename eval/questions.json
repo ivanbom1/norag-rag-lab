@@ -1,0 +1,263 @@
+[
+  {
+    "id": "d01", "type": "direct",
+    "question": "From which ports was the Pharaon coming when it arrived at Marseilles?",
+    "expected": ["Smyrna", "Trieste", "Naples"],
+    "evidence": [[
+      {"file": "monte-cristo-vol1.txt", "quote": "the _Pharaon_ from Smyrna, Trieste, and Naples"}
+    ]]
+  },
+  {
+    "id": "d02", "type": "direct",
+    "question": "What illness did Captain Leclere fall ill with after the Pharaon left Naples?",
+    "expected": ["brain fever|brain-fever"],
+    "evidence": [[
+      {"file": "monte-cristo-vol1.txt", "quote": "Captain Leclere was attacked with a brain fever"}
+    ]]
+  },
+  {
+    "id": "d03", "type": "direct",
+    "question": "What number was Edmond Dantès known by in the Château d’If?",
+    "expected": ["34"],
+    "evidence": [[
+      {"file": "monte-cristo-vol1.txt", "quote": "he was now number 34"},
+      {"file": "monte-cristo-vol1.txt", "quote": "he laid the request of number 34 before the governor"},
+      {"file": "monte-cristo-vol5.txt", "quote": "but only as No. 34"}
+    ]]
+  },
+  {
+    "id": "d04", "type": "direct",
+    "question": "What is the address of the Count of Monte Cristo’s house in Paris?",
+    "expected": ["30", "Champs"],
+    "evidence": [[
+      {"file": "monte-cristo-vol2.txt", "quote": "My place of abode is No. 30, Avenue des Champs-Élysées"},
+      {"file": "monte-cristo-vol2.txt", "quote": "drove that same night to No. 30 in the Avenue des Champs-Élysées"},
+      {"file": "monte-cristo-vol3.txt", "quote": "demanded if it was not at No. 30 in the Avenue des Champs-Élysées that the Count of Monte Cristo lived"},
+      {"file": "monte-cristo-vol3.txt", "quote": "demand of the Count of Monte Cristo, Avenue des Champs-Élysées, No. 30"},
+      {"file": "monte-cristo-vol3.txt", "quote": "told the coachman to drive to the Avenue des Champs-Élysées, No. 30"},
+      {"file": "monte-cristo-vol4.txt", "quote": "And does he not live in the Champs-Élysées?” “Yes, No. 30."},
+      {"file": "monte-cristo-vol4.txt", "quote": "They ordered the driver to take them to No. 30 Champs-Élysées"}
+    ]]
+  },
+  {
+    "id": "d05", "type": "direct",
+    "question": "At what address is the Count’s country house in Auteuil?",
+    "expected": ["Fontaine", "28"],
+    "evidence": [[
+      {"file": "monte-cristo-vol2.txt", "quote": "Auteuil, Rue de la Fontaine, No. 28;"},
+      {"file": "monte-cristo-vol2.txt", "quote": "Tell them to stop at Rue de la Fontaine, No. 28"},
+      {"file": "monte-cristo-vol2.txt", "quote": "this house should be No. 28, Rue de la Fontaine"},
+      {"file": "monte-cristo-vol3.txt", "quote": "I am to dine at my country house, at Auteuil, on that day, Rue de la Fontaine, No. 28"},
+      {"file": "monte-cristo-vol3.txt", "quote": "“Rue de la Fontaine!” exclaimed Villefort in an agitated tone"}
+    ]]
+  },
+  {
+    "id": "d06", "type": "direct",
+    "question": "What kind of fits did Abbé Faria suffer from in prison?",
+    "expected": ["catalep"],
+    "evidence": [[
+      {"file": "monte-cristo-vol1.txt", "quote": "I am about to be seized with a fit of catalepsy"},
+      {"file": "monte-cristo-vol1.txt", "quote": "Had we escaped before my attack of catalepsy"},
+      {"file": "monte-cristo-vol2.txt", "quote": "the Abbé Faria had an attack of catalepsy, and died"}
+    ]]
+  },
+  {
+    "id": "d07", "type": "direct",
+    "question": "Where did Luigi Vampa’s bandits hold Albert de Morcerf in Rome?",
+    "expected": ["Sebastian"],
+    "evidence": [[
+      {"file": "monte-cristo-vol2.txt", "quote": "who were waiting for him in the catacombs of St. Sebastian"},
+      {"file": "monte-cristo-vol2.txt", "quote": "do you know the catacombs of St. Sebastian?"},
+      {"file": "monte-cristo-vol2.txt", "quote": "conducted me to a gloomy spot, called the Catacombs of Saint Sebastian"},
+      {"file": "monte-cristo-vol2.txt", "quote": "I should now have been sleeping in the Catacombs of St. Sebastian"},
+      {"file": "monte-cristo-vol2.txt", "quote": "dragged me, to the Catacombs of St. Sebastian"}
+    ]]
+  },
+  {
+    "id": "d08", "type": "direct",
+    "question": "How much did the bandits ask Danglars to pay for a fowl?",
+    "expected": ["hundred thousand|100,000|100 000"],
+    "evidence": [[
+      {"file": "monte-cristo-vol5.txt", "quote": "A hundred thousand francs for a fowl!"},
+      {"file": "monte-cristo-vol5.txt", "quote": "But you only asked 100,000 francs for a fowl!"}
+    ]]
+  },
+  {
+    "id": "d09", "type": "direct",
+    "question": "Who are Haydée’s parents?",
+    "expected": ["Ali|Yanina|Janina", "Vasiliki"],
+    "evidence": [[
+      {"file": "monte-cristo-vol4.txt", "quote": "Of Ali Pasha and the beautiful Vasiliki."},
+      {"file": "monte-cristo-vol4.txt", "quote": "the daughter of Ali Tepelini, pasha of Yanina, and of Vasiliki, his beloved wife"}
+    ]]
+  },
+  {
+    "id": "d10", "type": "direct",
+    "question": "In which two words is all human wisdom summed up, according to the count?",
+    "expected": ["wait", "hope"],
+    "evidence": [[
+      {"file": "monte-cristo-vol5.txt", "quote": "all human wisdom is summed up in two words"}
+    ]]
+  },
+  {
+    "id": "d11", "type": "direct",
+    "question": "How much was the diamond that the abbé showed Caderousse worth?",
+    "expected": ["fifty thousand|50,000|50 000"],
+    "evidence": [[
+      {"file": "monte-cristo-vol1.txt", "quote": "It was estimated at fifty thousand francs."},
+      {"file": "monte-cristo-vol1.txt", "quote": "you say, is worth fifty thousand francs?"}
+    ]]
+  },
+  {
+    "id": "h01", "type": "hard",
+    "question": "What trick did the supercargo use so that nobody would recognise his handwriting on the anonymous letter?",
+    "expected": ["left hand"],
+    "evidence": [[
+      {"file": "monte-cristo-vol1.txt", "quote": "write with the left hand (that the writing may not be recognized)"}
+    ]]
+  },
+  {
+    "id": "h02", "type": "hard",
+    "question": "What was tied to the hero’s feet when the jailers threw him from the fortress into the sea?",
+    "expected": ["thirty-six|36"],
+    "evidence": [[
+      {"file": "monte-cristo-vol1.txt", "quote": "dragged into its depths by a thirty-six-pound shot tied to his feet"},
+      {"file": "monte-cristo-vol2.txt", "quote": "after fastening a thirty-six-pound cannon-ball to their feet"}
+    ]]
+  },
+  {
+    "id": "h03", "type": "hard",
+    "question": "Which poison did the count say a person could get used to by taking a slightly bigger dose every day?",
+    "expected": ["brucine"],
+    "evidence": [[
+      {"file": "monte-cristo-vol3.txt", "quote": "suppose the poison was, for instance, brucine"},
+      {"file": "monte-cristo-vol3.txt", "quote": "suppose, then, that this poison was brucine, and you were to take a milligramme the first day"}
+    ]]
+  },
+  {
+    "id": "h04", "type": "hard",
+    "question": "Where was the young man who passed himself off as the son of an Italian major really born?",
+    "expected": ["Fontaine|Auteuil"],
+    "evidence": [[
+      {"file": "monte-cristo-vol5.txt", "quote": "I was born at Auteuil on the night of the 27th of September, 1817"},
+      {"file": "monte-cristo-vol5.txt", "quote": "I was born in No. 28, Rue de la Fontaine, in a room hung with red damask"}
+    ]]
+  },
+  {
+    "id": "h05", "type": "hard",
+    "question": "What false news, printed after a telegraph message, made the banker sell his Spanish bonds?",
+    "expected": ["Don Carlos"],
+    "evidence": [[
+      {"file": "monte-cristo-vol3.txt", "quote": "Because Don Carlos has fled from Bourges, and has returned to Spain."},
+      {"file": "monte-cristo-vol3.txt", "quote": "The king, Don Carlos, has escaped the vigilance of his guardians at Bourges"},
+      {"file": "monte-cristo-vol3.txt", "quote": "announced the flight of Don Carlos and the revolt of Barcelona"}
+    ]]
+  },
+  {
+    "id": "h06", "type": "hard",
+    "question": "What drug did the host of the hidden grotto offer Franz after dinner?",
+    "expected": ["hashish"],
+    "evidence": [[
+      {"file": "monte-cristo-vol2.txt", "quote": "the purest and most unadulterated hashish of Alexandria"},
+      {"file": "monte-cristo-vol2.txt", "quote": "Taste the hashish, guest of mine"},
+      {"file": "monte-cristo-vol2.txt", "quote": "an excellent supper, and a spoonful of hashish"},
+      {"file": "monte-cristo-vol2.txt", "quote": "supper, Sinbad, hashish, statues"},
+      {"file": "monte-cristo-vol2.txt", "quote": "all the particulars of the supper, the hashish, the statues"}
+    ]]
+  },
+  {
+    "id": "h07", "type": "hard",
+    "question": "In which exact spot did the cardinal’s will say the treasure was hidden?",
+    "expected": ["angle|corner", "second"],
+    "evidence": [[
+      {"file": "monte-cristo-vol1.txt", "quote": "In the farthest angle of the second opening"},
+      {"file": "monte-cristo-vol1.txt", "quote": "being the farthest angle in the second opening"},
+      {"file": "monte-cristo-vol1.txt", "quote": "Two open...ings have been made in these caves"}
+    ]]
+  },
+  {
+    "id": "p01", "type": "planted",
+    "question": "Where did La Réserve buy the paper the waiter brought, and what watermark did it have?",
+    "expected": ["Brigaud", "swallow"],
+    "evidence": [[
+      {"file": "monte-cristo-vol1.txt", "quote": "La Réserve bought it from a stationer named Mère Brigaud in the Rue de Rome, and every sheet bore in one corner a small watermark in the shape of a swallow"}
+    ]]
+  },
+  {
+    "id": "p02", "type": "planted",
+    "question": "What was the very first entry in Bertuccio’s expense ledger?",
+    "expected": ["Barrat"],
+    "evidence": [[
+      {"file": "monte-cristo-vol4.txt", "quote": "its very first entry was four hundred and twelve francs paid to a glazier named Théophile Barrat"}
+    ]]
+  },
+  {
+    "id": "s01", "type": "split",
+    "question": "Who engraved the seal that Danglars pressed into the denunciation, and where had Danglars taken it from?",
+    "expected": ["Lanfrey", "captain"],
+    "evidence": [
+      [{"file": "monte-cristo-vol1.txt", "quote": "a small seal of green wax bearing the figure of an anchor, which he had taken that morning from the captain’s desk on board the Pharaon"}],
+      [{"file": "monte-cristo-vol2.txt", "quote": "an anchor cut in 1811 by Joseph Lanfrey, an engraver of Toulon, for old Morrel himself"}]
+    ]
+  },
+  {
+    "id": "s02", "type": "split",
+    "question": "To whom did Danglars hand the denunciation after writing it, and what postmark did the letter bear?",
+    "expected": ["Fernand", "27"],
+    "evidence": [
+      [{"file": "monte-cristo-vol1.txt", "quote": "the following lines, which he handed to Fernand"}],
+      [{"file": "monte-cristo-vol2.txt", "quote": "Marseilles, 27th February, delivery 6 o’clock"}]
+    ]
+  },
+  {
+    "id": "s03", "type": "split",
+    "question": "What name was the child buried alive at Auteuil given by the steward’s sister-in-law, and who was his real father?",
+    "expected": ["Benedetto", "Villefort"],
+    "evidence": [
+      [{"file": "monte-cristo-vol2.txt", "quote": "have called it Benedetto"}],
+      [{"file": "monte-cristo-vol5.txt", "quote": "I am the son of the procureur, M. de Villefort"}]
+    ]
+  },
+  {
+    "id": "c01", "type": "contradiction",
+    "question": "On what date did the Pharaon arrive at Marseilles?",
+    "expected": ["25"],
+    "evidence": [[
+      {"file": "monte-cristo-vol1.txt", "quote": "On the 25th of February, 1815"}
+    ]]
+  },
+  {
+    "id": "c02", "type": "contradiction",
+    "question": "What jewel was in the purse that saved Morrel from ruin?",
+    "expected": ["ruby"],
+    "evidence": [[
+      {"file": "monte-cristo-vol2.txt", "quote": "a ruby as large as a pigeon’s egg"},
+      {"file": "monte-cristo-vol3.txt", "quote": "the large ruby at the other"}
+    ]]
+  },
+  {
+    "id": "u01", "type": "unanswerable",
+    "question": "What was the name of Edmond Dantès’s dog?",
+    "expected": [], "evidence": []
+  },
+  {
+    "id": "u02", "type": "unanswerable",
+    "question": "Who directed the 2002 film adaptation of The Count of Monte Cristo?",
+    "expected": [], "evidence": []
+  },
+  {
+    "id": "u03", "type": "unanswerable",
+    "question": "In what year did Alexandre Dumas publish the novel?",
+    "expected": [], "evidence": []
+  },
+  {
+    "id": "u04", "type": "unanswerable",
+    "question": "What was the name of the cook on board the Pharaon?",
+    "expected": [], "evidence": []
+  },
+  {
+    "id": "u05", "type": "unanswerable",
+    "question": "How many children did Albert de Morcerf have?",
+    "expected": [], "evidence": []
+  }
+]

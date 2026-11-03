@@ -26,3 +26,10 @@ chroma_db/
 
 # Files located in the future/ directory must be ignored
 future/
+
+# Documents managed by the app
+data/
+
+# Evaluation runs, except the V1 baseline
+eval/results/*
+!eval/results/chunks_800_10_20_minilm_k5.json
