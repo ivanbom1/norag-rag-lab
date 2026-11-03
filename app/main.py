@@ -11,27 +11,35 @@ from pydantic import BaseModel, Field
 from app.answering import ask
 from app.indexing import ChunkSettings, delete_document, index_document, is_indexed
 
-DOCUMENTS_DIR = "data/documents"
-SEED_DIR = "corpus"
+CORPORA_DIR = "data/corpora"
+SEED_DIRS = {"monte-cristo": "corpus", "kestrel": "kestrel-kb/docs"}
 ALLOWED_EXTENSIONS = {".md", ".txt"}
 
 settings = ChunkSettings()
 top_k = 5
 
-if not os.path.isdir(DOCUMENTS_DIR):
-    shutil.copytree(SEED_DIR, DOCUMENTS_DIR)
+for corpus, seed in SEED_DIRS.items():
+    if not os.path.isdir(os.path.join(CORPORA_DIR, corpus)):
+        shutil.copytree(seed, os.path.join(CORPORA_DIR, corpus), ignore=shutil.ignore_patterns(".*"))
 
 
-def document_names():
-    return sorted(os.listdir(DOCUMENTS_DIR))
+def corpus_dir(corpus):
+    if corpus not in SEED_DIRS:
+        raise HTTPException(404, f"Unknown corpus: {corpus}")
+    return os.path.join(CORPORA_DIR, corpus)
+
+
+def document_names(corpus):
+    return sorted(os.listdir(corpus_dir(corpus)))
 
 
 def index_missing_documents():
     indexed = []
-    for name in document_names():
-        if not is_indexed(name, settings):
-            index_document(os.path.join(DOCUMENTS_DIR, name), settings)
-            indexed.append(name)
+    for corpus in SEED_DIRS:
+        for name in document_names(corpus):
+            if not is_indexed(name, corpus, settings):
+                index_document(os.path.join(corpus_dir(corpus), name), corpus, settings)
+                indexed.append(f"{corpus}/{name}")
     return indexed
 
 
@@ -69,40 +77,49 @@ def update_settings(update: SettingsUpdate):
     return {**settings_response(), "reindexed": indexed, "seconds": round(time.time() - started, 1)}
 
 
+@app.get("/api/corpora")
+def list_corpora():
+    return list(SEED_DIRS)
+
+
 class Question(BaseModel):
     question: str = Field(min_length=1, max_length=1000)
     documents: list[str] | None = None
 
 
-@app.post("/api/ask")
-def ask_question(body: Question):
-    available = document_names()
-    sources = available if body.documents is None else body.documents
+def selected_sources(corpus, documents):
+    available = document_names(corpus)
+    sources = available if documents is None else documents
     unknown = [name for name in sources if name not in available]
     if unknown:
         raise HTTPException(400, f"Unknown documents: {', '.join(unknown)}")
     if not sources:
         raise HTTPException(400, "Select at least one document.")
-    return ask(body.question, sources, settings, top_k)
+    return sources
 
 
-def document_path(name):
+@app.post("/api/corpora/{corpus}/ask")
+def ask_question(corpus: str, body: Question):
+    return ask(body.question, corpus, selected_sources(corpus, body.documents), settings, top_k)
+
+
+def document_path(corpus, name):
     if name != os.path.basename(name) or os.path.splitext(name)[1].lower() not in ALLOWED_EXTENSIONS:
         raise HTTPException(400, "Only .md and .txt file names are accepted.")
-    return os.path.join(DOCUMENTS_DIR, name)
+    return os.path.join(corpus_dir(corpus), name)
 
 
-@app.get("/api/documents")
-def list_documents():
+@app.get("/api/corpora/{corpus}/documents")
+def list_documents(corpus: str):
     return [
-        {"name": name, "size": os.path.getsize(os.path.join(DOCUMENTS_DIR, name))}
-        for name in document_names()
+        {"name": name, "size": os.path.getsize(os.path.join(corpus_dir(corpus), name))}
+        for name in document_names(corpus)
     ]
 
 
-@app.post("/api/documents", status_code=201)
-def upload_document(file: UploadFile):
-    path = document_path(file.filename)
+@app.post("/api/corpora/{corpus}/documents", status_code=201)
+def upload_document(corpus: str, file: UploadFile):
+    path = document_path(corpus, file.filename)
     if os.path.exists(path):
         raise HTTPException(409, f"{file.filename} already exists. Delete it first.")
     try:
@@ -114,25 +131,25 @@ def upload_document(file: UploadFile):
 
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
-    return {"name": file.filename, "chunks": index_document(path, settings)}
+    return {"name": file.filename, "chunks": index_document(path, corpus, settings)}
 
 
-@app.get("/api/documents/{name}/text", response_class=PlainTextResponse)
-def document_text(name: str):
-    path = document_path(name)
+@app.get("/api/corpora/{corpus}/documents/{name}/text", response_class=PlainTextResponse)
+def document_text(corpus: str, name: str):
+    path = document_path(corpus, name)
     if not os.path.exists(path):
         raise HTTPException(404, f"{name} not found.")
     with open(path, encoding="utf-8") as f:
         return f.read()
 
 
-@app.delete("/api/documents/{name}", status_code=204)
-def remove_document(name: str):
-    path = document_path(name)
+@app.delete("/api/corpora/{corpus}/documents/{name}", status_code=204)
+def remove_document(corpus: str, name: str):
+    path = document_path(corpus, name)
     if not os.path.exists(path):
         raise HTTPException(404, f"{name} not found.")
     os.remove(path)
-    delete_document(name)
+    delete_document(name, corpus)
 
 
 app.mount("/", StaticFiles(directory="app/static", html=True), name="static")

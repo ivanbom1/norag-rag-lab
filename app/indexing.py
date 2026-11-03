@@ -19,9 +19,8 @@ class ChunkSettings:
     overlap_percent: int = 10
     min_paragraph_length: int = 20
 
-    @property
-    def collection_name(self):
-        return f"chunks_{self.chunk_size}_{self.overlap_percent}_{self.min_paragraph_length}_minilm"
+    def collection_name(self, corpus):
+        return f"{corpus}_{self.chunk_size}_{self.overlap_percent}_{self.min_paragraph_length}_minilm"
 
 
 def chunk_text(text, settings):
@@ -65,16 +64,16 @@ def chunk_text(text, settings):
     return chunks
 
 
-def get_collection(settings):
-    return client.get_or_create_collection(name=settings.collection_name, embedding_function=embedding_function)
+def get_collection(corpus, settings):
+    return client.get_or_create_collection(name=settings.collection_name(corpus), embedding_function=embedding_function)
 
 
-def index_document(path, settings):
+def index_document(path, corpus, settings):
     source = os.path.basename(path)
     with open(path, encoding="utf-8") as f:
         chunks = chunk_text(f.read(), settings)
 
-    collection = get_collection(settings)
+    collection = get_collection(corpus, settings)
     collection.delete(where={"source": source})
     for batch_start in range(0, len(chunks), BATCH_SIZE):
         batch = chunks[batch_start:batch_start + BATCH_SIZE]
@@ -89,11 +88,11 @@ def index_document(path, settings):
     return len(chunks)
 
 
-def is_indexed(source, settings):
-    return len(get_collection(settings).get(where={"source": source}, limit=1)["ids"]) > 0
+def is_indexed(source, corpus, settings):
+    return len(get_collection(corpus, settings).get(where={"source": source}, limit=1)["ids"]) > 0
 
 
-def delete_document(source):
+def delete_document(source, corpus):
     for collection in client.list_collections():
-        if collection.name.startswith("chunks_"):
+        if collection.name.startswith(f"{corpus}_"):
             collection.delete(where={"source": source})

@@ -53,8 +53,8 @@ RESPONSE_SCHEMA = {
 }
 
 
-def retrieve(question, sources, settings, top_k):
-    results = get_collection(settings).query(
+def retrieve(question, corpus, sources, settings, top_k):
+    results = get_collection(corpus, settings).query(
         query_texts=[question], n_results=top_k, where={"source": {"$in": sources}}
     )
     return [
@@ -83,8 +83,8 @@ def verify_citations(citations, chunks):
     return verified
 
 
-def ask(question, sources, settings, top_k):
-    chunks = retrieve(question, sources, settings, top_k)
+def ask(question, corpus, sources, settings, top_k):
+    chunks = retrieve(question, corpus, sources, settings, top_k)
     result = {"status": None, "answer": None, "citations": [], "retrieved": chunks, "model": MODEL}
 
     documents = "\n\n".join(f"[{chunk['label']}] {chunk['text']}" for chunk in chunks)

@@ -10,6 +10,7 @@ from openai import APIError
 from app.answering import MODEL, ask, llm, retrieve
 from app.indexing import ChunkSettings, index_document, is_indexed
 
+CORPUS = "monte-cristo"
 CORPUS_DIR = "corpus"
 QUESTIONS_PATH = "eval/questions.json"
 RESULTS_DIR = "eval/results"
@@ -46,7 +47,7 @@ def first_hit_rank(evidence, chunks):
 
 # Evidence is a list of required parts; each part lists alternative locations that state it.
 def evaluate_retrieval(question, sources, settings, top_k):
-    chunks = retrieve(question["question"], sources, settings, top_k)
+    chunks = retrieve(question["question"], CORPUS, sources, settings, top_k)
     part_ranks = []
     for part in question["evidence"]:
         found = [rank for rank in (first_hit_rank(evidence, chunks) for evidence in part) if rank]
@@ -61,7 +62,7 @@ def contains_expected(answer, expected):
 
 
 def evaluate_answer(question, sources, settings, top_k):
-    result = ask(question["question"], sources, settings, top_k)
+    result = ask(question["question"], CORPUS, sources, settings, top_k)
     if question["type"] == "unanswerable":
         correct = result["status"] == "not_found"
     else:
@@ -96,9 +97,9 @@ def main():
     settings = ChunkSettings(chunk_size=args.chunk_size, overlap_percent=args.overlap)
     sources = sorted(os.listdir(CORPUS_DIR))
     for name in sources:
-        if not is_indexed(name, settings):
-            print(f"Indexing {name} for {settings.collection_name}...")
-            index_document(os.path.join(CORPUS_DIR, name), settings)
+        if not is_indexed(name, CORPUS, settings):
+            print(f"Indexing {name} for {settings.collection_name(CORPUS)}...")
+            index_document(os.path.join(CORPUS_DIR, name), CORPUS, settings)
 
     questions = load_questions()
     results = []
@@ -119,7 +120,7 @@ def main():
     print_summary(summary, settings, args.top_k)
 
     os.makedirs(RESULTS_DIR, exist_ok=True)
-    path = os.path.join(RESULTS_DIR, f"{settings.collection_name}_k{args.top_k}.json")
+    path = os.path.join(RESULTS_DIR, f"{settings.collection_name(CORPUS)}_k{args.top_k}.json")
     with open(path, "w", encoding="utf-8") as f:
         json.dump({"settings": {"chunk_size": args.chunk_size, "overlap_percent": args.overlap, "top_k": args.top_k},
                    "model": MODEL if args.answers or args.no_context else None,
@@ -169,7 +170,7 @@ def summarize(results):
 
 
 def print_summary(summary, settings, top_k):
-    print(f"\n{settings.collection_name}, top-k={top_k}")
+    print(f"\n{settings.collection_name(CORPUS)}, top-k={top_k}")
     retrieval = summary["retrieval"]
     print(f"Retrieval: hit@{top_k}={retrieval['hit_at_k']}  MRR={retrieval['mrr']}  ({retrieval['questions']} answerable questions)")
     for kind, stats in summary["retrieval_by_type"].items():

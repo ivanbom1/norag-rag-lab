@@ -8,6 +8,9 @@ const STATUS_TEXT = {
 
 let lastResult = null;
 let openedChunk = null;
+let corpus = null;
+
+const corpusPath = (path) => `/api/corpora/${encodeURIComponent(corpus)}${path}`;
 
 async function api(path, options = {}) {
   const response = await fetch(path, options);
@@ -42,7 +45,7 @@ function findQuote(text, quote) {
 }
 
 async function loadDocuments() {
-  const documents = await (await api("/api/documents")).json();
+  const documents = await (await api(corpusPath("/documents"))).json();
   const list = document.getElementById("documents");
   list.replaceChildren(...documents.map((doc) => {
     const item = el("li");
@@ -61,7 +64,7 @@ async function deleteDocument(name) {
   if (!confirm(`Delete ${name}?`)) return;
   const message = document.getElementById("documents-message");
   try {
-    await api(`/api/documents/${encodeURIComponent(name)}`, { method: "DELETE" });
+    await api(corpusPath(`/documents/${encodeURIComponent(name)}`), { method: "DELETE" });
     message.textContent = `${name} deleted.`;
     await loadDocuments();
   } catch (error) {
@@ -77,7 +80,7 @@ document.getElementById("upload").onchange = async (event) => {
   const form = new FormData();
   form.append("file", file);
   try {
-    const result = await (await api("/api/documents", { method: "POST", body: form })).json();
+    const result = await (await api(corpusPath("/documents"), { method: "POST", body: form })).json();
     message.textContent = `${result.name} indexed (${result.chunks} chunks).`;
     await loadDocuments();
   } catch (error) {
@@ -122,7 +125,7 @@ document.getElementById("ask").onsubmit = async (event) => {
   const button = event.target.querySelector("button");
   button.disabled = true;
   try {
-    const response = await api("/api/ask", {
+    const response = await api(corpusPath("/ask"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question, documents }),
@@ -189,7 +192,7 @@ document.getElementById("show-in-document").onclick = async () => {
   const panel = document.getElementById("document");
   const pre = document.getElementById("document-text");
   try {
-    const text = await (await api(`/api/documents/${encodeURIComponent(chunk.source)}/text`)).text();
+    const text = await (await api(corpusPath(`/documents/${encodeURIComponent(chunk.source)}/text`))).text();
     document.getElementById("document-title").textContent = chunk.source;
     renderHighlighted(pre, text, chunk.start, chunk.end);
     panel.hidden = false;
@@ -201,5 +204,22 @@ document.getElementById("show-in-document").onclick = async () => {
   }
 };
 
-loadDocuments();
+async function loadCorpora() {
+  const corpora = await (await api("/api/corpora")).json();
+  const select = document.getElementById("corpus");
+  select.replaceChildren(...corpora.map((name) => {
+    const option = el("option", name);
+    option.value = name;
+    return option;
+  }));
+  corpus = corpora[0];
+  select.onchange = () => {
+    corpus = select.value;
+    for (const id of ["result", "reference", "document"]) document.getElementById(id).hidden = true;
+    loadDocuments();
+  };
+  await loadDocuments();
+}
+
+loadCorpora();
 loadSettings();

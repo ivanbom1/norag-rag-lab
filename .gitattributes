@@ -1,1 +1,2 @@
 corpus/*.txt text eol=lf
+kestrel-kb/docs/*.md text eol=lf
