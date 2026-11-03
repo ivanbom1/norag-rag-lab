@@ -33,6 +33,12 @@
   </aside>
 
   <main>
+    <nav id="tabs">
+      <button data-tab="tab-ask" class="active">Ask</button>
+      <button data-tab="tab-evaluate">Evaluate</button>
+    </nav>
+
+    <div id="tab-ask">
     <form id="ask">
       <textarea name="question" rows="3" maxlength="1000" placeholder="Ask a question about the selected documents"></textarea>
       <button type="submit">Ask</button>
@@ -57,6 +63,22 @@
       <h3 id="document-title"></h3>
       <pre id="document-text"></pre>
     </section>
+    </div>
+
+    <div id="tab-evaluate" hidden>
+      <form id="evaluate">
+        <p>Runs the question set of the selected corpus with the current settings and saves the results to a file.</p>
+        <label class="inline"><input type="checkbox" name="answers"> Also generate answers (calls the LLM, takes a few minutes)</label>
+        <button type="submit">Run evaluation</button>
+      </form>
+      <p class="message" id="evaluate-message"></p>
+      <section id="evaluation" hidden>
+        <h3>Retrieval, per question type</h3>
+        <table id="evaluation-summary"></table>
+        <h3>Per question</h3>
+        <table id="evaluation-questions"></table>
+      </section>
+    </div>
   </main>
 
   <script src="app.js"></script>

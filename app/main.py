@@ -9,6 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from app.answering import ask, retrieve
+from app.evaluation import check_quotes, load_questions, run_evaluation
 from app.indexing import ChunkSettings, delete_document, index_document, is_indexed
 
 CORPORA_DIR = "data/corpora"
@@ -111,6 +112,21 @@ class SearchQuery(Question):
 def search(corpus: str, body: SearchQuery):
     sources = selected_sources(corpus, body.documents)
     return {"retrieved": retrieve(body.question, corpus, sources, settings, body.top_k or top_k)}
+
+
+class EvaluationRequest(BaseModel):
+    answers: bool = False
+
+
+@app.post("/api/corpora/{corpus}/evaluate")
+def evaluate(corpus: str, body: EvaluationRequest):
+    directory = corpus_dir(corpus)
+    problems = check_quotes(load_questions(corpus), directory)
+    if problems:
+        raise HTTPException(400, "Question set does not match the corpus: " + "; ".join(problems))
+    path, report = run_evaluation(corpus, document_names(corpus), settings, body.answers, top_k,
+                                  delay=4 if body.answers else 0)
+    return {"path": path, **report}
 
 
 def document_path(corpus, name):

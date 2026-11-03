@@ -36,6 +36,14 @@ pre {
 }
 
 mark { background: #ffe58a; }
+
+#tabs { margin-bottom: 16px; border-bottom: 1px solid #ddd; }
+#tabs button { border: none; background: none; padding: 8px 14px; cursor: pointer; font: inherit; }
+#tabs button.active { border-bottom: 2px solid #0b5cad; color: #0b5cad; }
+label.inline { display: inline; margin-right: 12px; }
+table { border-collapse: collapse; font-size: 0.9em; margin-bottom: 16px; }
+th, td { border: 1px solid #ddd; padding: 4px 8px; text-align: left; vertical-align: top; }
+th { background: #f0f0f0; }
 .message { color: #555; font-size: 0.9em; }
 .link { cursor: pointer; color: #0b5cad; text-decoration: underline; }
 .unverified { color: #b00020; }

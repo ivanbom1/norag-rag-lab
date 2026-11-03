@@ -204,6 +204,69 @@ document.getElementById("show-in-document").onclick = async () => {
   }
 };
 
+for (const button of document.querySelectorAll("#tabs button")) {
+  button.onclick = () => {
+    for (const other of document.querySelectorAll("#tabs button")) {
+      other.classList.toggle("active", other === button);
+      document.getElementById(other.dataset.tab).hidden = other !== button;
+    }
+  };
+}
+
+const KS = [1, 3, 5, 10];
+
+function row(cells, tag = "td") {
+  const tr = el("tr");
+  tr.append(...cells.map((cell) => el(tag, String(cell))));
+  return tr;
+}
+
+document.getElementById("evaluate").onsubmit = async (event) => {
+  event.preventDefault();
+  const button = event.target.querySelector("button");
+  const answers = event.target.elements.answers.checked;
+  const message = document.getElementById("evaluate-message");
+  button.disabled = true;
+  message.textContent = answers ? "Running retrieval and answers… this takes a few minutes." : "Running retrieval…";
+  try {
+    const report = await (await api(corpusPath("/evaluate"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ answers }),
+    })).json();
+    renderEvaluation(report);
+    const s = report.settings;
+    message.textContent = `${report.corpus}, chunk size ${s.chunk_size}, overlap ${s.overlap_percent}%. Saved ${report.path}`;
+  } catch (error) {
+    message.textContent = error.message;
+  }
+  button.disabled = false;
+};
+
+function renderEvaluation(report) {
+  document.getElementById("evaluation").hidden = false;
+  const header = ["type", "n", ...KS.map((k) => `hit@${k}`), ...KS.map((k) => `recall@${k}`)];
+  const groups = [["overall", report.summary.overall], ...Object.entries(report.summary.by_type)];
+  document.getElementById("evaluation-summary").replaceChildren(
+    row(header, "th"),
+    ...groups.map(([kind, stats]) => row([
+      kind, stats.questions, ...KS.map((k) => stats[`hit@${k}`].toFixed(2)), ...KS.map((k) => stats[`recall@${k}`].toFixed(2)),
+    ])),
+  );
+
+  const withAnswers = report.results.some((result) => result.answer);
+  document.getElementById("evaluation-questions").replaceChildren(
+    row(["id", "type", "question", "evidence ranks", ...(withAnswers ? ["answer status", "answer"] : [])], "th"),
+    ...report.results.map((result) => row([
+      result.id,
+      result.type,
+      result.question,
+      result.retrieval ? result.retrieval.evidence_ranks.map((rank) => rank ?? "miss").join(", ") : "unanswerable",
+      ...(withAnswers ? [result.answer.status, result.answer.answer ?? ""] : []),
+    ])),
+  );
+}
+
 async function loadCorpora() {
   const corpora = await (await api("/api/corpora")).json();
   const select = document.getElementById("corpus");
