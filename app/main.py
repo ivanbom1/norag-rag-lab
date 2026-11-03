@@ -8,7 +8,7 @@ from fastapi.responses import PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app.answering import ask
+from app.answering import ask, retrieve
 from app.indexing import ChunkSettings, delete_document, index_document, is_indexed
 
 CORPORA_DIR = "data/corpora"
@@ -101,6 +101,16 @@ def selected_sources(corpus, documents):
 @app.post("/api/corpora/{corpus}/ask")
 def ask_question(corpus: str, body: Question):
     return ask(body.question, corpus, selected_sources(corpus, body.documents), settings, top_k)
+
+
+class SearchQuery(Question):
+    top_k: int | None = Field(default=None, ge=1, le=20)
+
+
+@app.post("/api/corpora/{corpus}/search")
+def search(corpus: str, body: SearchQuery):
+    sources = selected_sources(corpus, body.documents)
+    return {"retrieved": retrieve(body.question, corpus, sources, settings, body.top_k or top_k)}
 
 
 def document_path(corpus, name):

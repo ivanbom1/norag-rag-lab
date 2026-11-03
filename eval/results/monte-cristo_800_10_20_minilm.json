@@ -1,0 +1,3429 @@
+{
+  "corpus": "monte-cristo",
+  "created": "2026-11-03T11:35:48",
+  "settings": {
+    "chunk_size": 800,
+    "overlap_percent": 10,
+    "min_paragraph_length": 20,
+    "embedding": "all-MiniLM-L6-v2",
+    "answer_top_k": null
+  },
+  "model": null,
+  "sources": [
+    "monte-cristo-vol1.txt",
+    "monte-cristo-vol2.txt",
+    "monte-cristo-vol3.txt",
+    "monte-cristo-vol4.txt",
+    "monte-cristo-vol5.txt"
+  ],
+  "summary": {
+    "overall": {
+      "questions": 28,
+      "hit@1": 0.286,
+      "hit@3": 0.5,
+      "hit@5": 0.5,
+      "hit@10": 0.643,
+      "recall@1": 0.268,
+      "recall@3": 0.464,
+      "recall@5": 0.464,
+      "recall@10": 0.589
+    },
+    "by_type": {
+      "other": {
+        "questions": 15,
+        "hit@1": 0.4,
+        "hit@3": 0.533,
+        "hit@5": 0.533,
+        "hit@10": 0.6,
+        "recall@1": 0.4,
+        "recall@3": 0.533,
+        "recall@5": 0.533,
+        "recall@10": 0.6
+      },
+      "vocabulary": {
+        "questions": 7,
+        "hit@1": 0.143,
+        "hit@3": 0.571,
+        "hit@5": 0.571,
+        "hit@10": 0.714,
+        "recall@1": 0.143,
+        "recall@3": 0.571,
+        "recall@5": 0.571,
+        "recall@10": 0.714
+      },
+      "split_answer": {
+        "questions": 3,
+        "hit@1": 0.333,
+        "hit@3": 0.667,
+        "hit@5": 0.667,
+        "hit@10": 1.0,
+        "recall@1": 0.167,
+        "recall@3": 0.333,
+        "recall@5": 0.333,
+        "recall@10": 0.5
+      },
+      "two_hop": {
+        "questions": 2,
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 0.5,
+        "recall@1": 0.0,
+        "recall@3": 0.0,
+        "recall@5": 0.0,
+        "recall@10": 0.5
+      },
+      "exact_identifier": {
+        "questions": 1,
+        "hit@1": 0.0,
+        "hit@3": 0.0,
+        "hit@5": 0.0,
+        "hit@10": 0.0,
+        "recall@1": 0.0,
+        "recall@3": 0.0,
+        "recall@5": 0.0,
+        "recall@10": 0.0
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "d01",
+      "type": "other",
+      "question": "From which ports was the Pharaon coming when it arrived at Marseilles?",
+      "answerable": true,
+      "expected_answer": "Smyrna, Trieste and Naples.",
+      "retrieval": {
+        "evidence_ranks": [
+          1
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol1.txt#0",
+            "source": "monte-cristo-vol1.txt",
+            "start": 15,
+            "end": 815,
+            "distance": 0.291,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol2.txt#91",
+            "source": "monte-cristo-vol2.txt",
+            "start": 65874,
+            "end": 66677,
+            "distance": 0.514,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol5.txt#414",
+            "source": "monte-cristo-vol5.txt",
+            "start": 300110,
+            "end": 300910,
+            "distance": 0.517,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol2.txt#93",
+            "source": "monte-cristo-vol2.txt",
+            "start": 67317,
+            "end": 68117,
+            "distance": 0.519,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol2.txt#792",
+            "source": "monte-cristo-vol2.txt",
+            "start": 573051,
+            "end": 573891,
+            "distance": 0.57,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol2.txt#47",
+            "source": "monte-cristo-vol2.txt",
+            "start": 34124,
+            "end": 34927,
+            "distance": 0.571,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol2.txt#55",
+            "source": "monte-cristo-vol2.txt",
+            "start": 39917,
+            "end": 40717,
+            "distance": 0.584,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol1.txt#9",
+            "source": "monte-cristo-vol1.txt",
+            "start": 6510,
+            "end": 7313,
+            "distance": 0.594,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#24",
+            "source": "monte-cristo-vol1.txt",
+            "start": 17448,
+            "end": 18248,
+            "distance": 0.596,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#671",
+            "source": "monte-cristo-vol1.txt",
+            "start": 485903,
+            "end": 486706,
+            "distance": 0.6,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "d02",
+      "type": "other",
+      "question": "What illness did Captain Leclere fall ill with after the Pharaon left Naples?",
+      "answerable": true,
+      "expected_answer": "Brain fever.",
+      "retrieval": {
+        "evidence_ranks": [
+          3
+        ],
+        "hit": {
+          "1": false,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol1.txt#4",
+            "source": "monte-cristo-vol1.txt",
+            "start": 2907,
+            "end": 3710,
+            "distance": 0.328,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol1.txt#3",
+            "source": "monte-cristo-vol1.txt",
+            "start": 2175,
+            "end": 2987,
+            "distance": 0.414,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol1.txt#185",
+            "source": "monte-cristo-vol1.txt",
+            "start": 133664,
+            "end": 134464,
+            "distance": 0.496,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol1.txt#434",
+            "source": "monte-cristo-vol1.txt",
+            "start": 314217,
+            "end": 315030,
+            "distance": 0.511,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol2.txt#56",
+            "source": "monte-cristo-vol2.txt",
+            "start": 40637,
+            "end": 41437,
+            "distance": 0.523,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol2.txt#91",
+            "source": "monte-cristo-vol2.txt",
+            "start": 65874,
+            "end": 66677,
+            "distance": 0.536,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol1.txt#7",
+            "source": "monte-cristo-vol1.txt",
+            "start": 5070,
+            "end": 5870,
+            "distance": 0.54,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol1.txt#92",
+            "source": "monte-cristo-vol1.txt",
+            "start": 66627,
+            "end": 67427,
+            "distance": 0.555,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol5.txt#470",
+            "source": "monte-cristo-vol5.txt",
+            "start": 340611,
+            "end": 341414,
+            "distance": 0.555,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol3.txt#684",
+            "source": "monte-cristo-vol3.txt",
+            "start": 497409,
+            "end": 498209,
+            "distance": 0.556,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "d03",
+      "type": "other",
+      "question": "What number was Edmond Dantès known by in the Château d’If?",
+      "answerable": true,
+      "expected_answer": "Number 34.",
+      "retrieval": {
+        "evidence_ranks": [
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": false
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol1.txt#728",
+            "source": "monte-cristo-vol1.txt",
+            "start": 527017,
+            "end": 527817,
+            "distance": 0.307,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol1.txt#206",
+            "source": "monte-cristo-vol1.txt",
+            "start": 148852,
+            "end": 149699,
+            "distance": 0.331,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol1.txt#542",
+            "source": "monte-cristo-vol1.txt",
+            "start": 392896,
+            "end": 393699,
+            "distance": 0.346,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol2.txt#9",
+            "source": "monte-cristo-vol2.txt",
+            "start": 6589,
+            "end": 7389,
+            "distance": 0.351,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol1.txt#590",
+            "source": "monte-cristo-vol1.txt",
+            "start": 427522,
+            "end": 428322,
+            "distance": 0.361,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol4.txt#472",
+            "source": "monte-cristo-vol4.txt",
+            "start": 343211,
+            "end": 344012,
+            "distance": 0.367,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol1.txt#700",
+            "source": "monte-cristo-vol1.txt",
+            "start": 506814,
+            "end": 507614,
+            "distance": 0.368,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol1.txt#660",
+            "source": "monte-cristo-vol1.txt",
+            "start": 477977,
+            "end": 478780,
+            "distance": 0.368,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#626",
+            "source": "monte-cristo-vol1.txt",
+            "start": 453482,
+            "end": 454282,
+            "distance": 0.374,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#196",
+            "source": "monte-cristo-vol1.txt",
+            "start": 141634,
+            "end": 142434,
+            "distance": 0.377,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "d04",
+      "type": "other",
+      "question": "What is the address of the Count of Monte Cristo’s house in Paris?",
+      "answerable": true,
+      "expected_answer": "No. 30, Avenue des Champs-Élysées.",
+      "retrieval": {
+        "evidence_ranks": [
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": false
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol2.txt#587",
+            "source": "monte-cristo-vol2.txt",
+            "start": 424985,
+            "end": 425785,
+            "distance": 0.273,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol2.txt#598",
+            "source": "monte-cristo-vol2.txt",
+            "start": 432920,
+            "end": 433723,
+            "distance": 0.317,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol2.txt#552",
+            "source": "monte-cristo-vol2.txt",
+            "start": 399650,
+            "end": 400462,
+            "distance": 0.338,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol3.txt#412",
+            "source": "monte-cristo-vol3.txt",
+            "start": 298863,
+            "end": 299663,
+            "distance": 0.365,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol5.txt#191",
+            "source": "monte-cristo-vol5.txt",
+            "start": 138349,
+            "end": 139149,
+            "distance": 0.368,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol3.txt#411",
+            "source": "monte-cristo-vol3.txt",
+            "start": 298088,
+            "end": 298943,
+            "distance": 0.377,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol2.txt#592",
+            "source": "monte-cristo-vol2.txt",
+            "start": 428600,
+            "end": 429400,
+            "distance": 0.38,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol2.txt#632",
+            "source": "monte-cristo-vol2.txt",
+            "start": 457425,
+            "end": 458225,
+            "distance": 0.381,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol3.txt#476",
+            "source": "monte-cristo-vol3.txt",
+            "start": 345707,
+            "end": 346507,
+            "distance": 0.383,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol5.txt#351",
+            "source": "monte-cristo-vol5.txt",
+            "start": 254633,
+            "end": 255445,
+            "distance": 0.391,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "d05",
+      "type": "other",
+      "question": "At what address is the Count’s country house in Auteuil?",
+      "answerable": true,
+      "expected_answer": "No. 28, Rue de la Fontaine, at Auteuil.",
+      "retrieval": {
+        "evidence_ranks": [
+          1
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol3.txt#411",
+            "source": "monte-cristo-vol3.txt",
+            "start": 298088,
+            "end": 298943,
+            "distance": 0.414,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol2.txt#642",
+            "source": "monte-cristo-vol2.txt",
+            "start": 464645,
+            "end": 465475,
+            "distance": 0.417,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol2.txt#657",
+            "source": "monte-cristo-vol2.txt",
+            "start": 475530,
+            "end": 476330,
+            "distance": 0.476,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol4.txt#297",
+            "source": "monte-cristo-vol4.txt",
+            "start": 216168,
+            "end": 217027,
+            "distance": 0.528,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol2.txt#643",
+            "source": "monte-cristo-vol2.txt",
+            "start": 465395,
+            "end": 466195,
+            "distance": 0.549,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol2.txt#648",
+            "source": "monte-cristo-vol2.txt",
+            "start": 469044,
+            "end": 469844,
+            "distance": 0.549,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol4.txt#292",
+            "source": "monte-cristo-vol4.txt",
+            "start": 212567,
+            "end": 213367,
+            "distance": 0.561,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol2.txt#587",
+            "source": "monte-cristo-vol2.txt",
+            "start": 424985,
+            "end": 425785,
+            "distance": 0.569,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol3.txt#412",
+            "source": "monte-cristo-vol3.txt",
+            "start": 298863,
+            "end": 299663,
+            "distance": 0.571,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol4.txt#284",
+            "source": "monte-cristo-vol4.txt",
+            "start": 206636,
+            "end": 207449,
+            "distance": 0.581,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "d06",
+      "type": "other",
+      "question": "What kind of fits did Abbé Faria suffer from in prison?",
+      "answerable": true,
+      "expected_answer": "Fits of catalepsy.",
+      "retrieval": {
+        "evidence_ranks": [
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": false
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol5.txt#445",
+            "source": "monte-cristo-vol5.txt",
+            "start": 322448,
+            "end": 323248,
+            "distance": 0.442,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol1.txt#340",
+            "source": "monte-cristo-vol1.txt",
+            "start": 246103,
+            "end": 246921,
+            "distance": 0.472,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol1.txt#331",
+            "source": "monte-cristo-vol1.txt",
+            "start": 239617,
+            "end": 240417,
+            "distance": 0.479,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol1.txt#416",
+            "source": "monte-cristo-vol1.txt",
+            "start": 301192,
+            "end": 301995,
+            "distance": 0.493,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol1.txt#483",
+            "source": "monte-cristo-vol1.txt",
+            "start": 349971,
+            "end": 350771,
+            "distance": 0.501,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol1.txt#704",
+            "source": "monte-cristo-vol1.txt",
+            "start": 509697,
+            "end": 510497,
+            "distance": 0.503,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol1.txt#449",
+            "source": "monte-cristo-vol1.txt",
+            "start": 325384,
+            "end": 326184,
+            "distance": 0.512,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol1.txt#484",
+            "source": "monte-cristo-vol1.txt",
+            "start": 350691,
+            "end": 351491,
+            "distance": 0.514,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#543",
+            "source": "monte-cristo-vol1.txt",
+            "start": 393619,
+            "end": 394419,
+            "distance": 0.517,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#463",
+            "source": "monte-cristo-vol1.txt",
+            "start": 335514,
+            "end": 336314,
+            "distance": 0.523,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "d07",
+      "type": "other",
+      "question": "Where did Luigi Vampa’s bandits hold Albert de Morcerf in Rome?",
+      "answerable": true,
+      "expected_answer": "In the catacombs of Saint Sebastian.",
+      "retrieval": {
+        "evidence_ranks": [
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": false
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol2.txt#190",
+            "source": "monte-cristo-vol2.txt",
+            "start": 137532,
+            "end": 138342,
+            "distance": 0.356,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol2.txt#261",
+            "source": "monte-cristo-vol2.txt",
+            "start": 188792,
+            "end": 189592,
+            "distance": 0.375,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol5.txt#498",
+            "source": "monte-cristo-vol5.txt",
+            "start": 360828,
+            "end": 361628,
+            "distance": 0.379,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol5.txt#499",
+            "source": "monte-cristo-vol5.txt",
+            "start": 361548,
+            "end": 362351,
+            "distance": 0.412,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol2.txt#478",
+            "source": "monte-cristo-vol2.txt",
+            "start": 345990,
+            "end": 346793,
+            "distance": 0.443,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol2.txt#346",
+            "source": "monte-cristo-vol2.txt",
+            "start": 250262,
+            "end": 251062,
+            "distance": 0.447,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol2.txt#509",
+            "source": "monte-cristo-vol2.txt",
+            "start": 368502,
+            "end": 369302,
+            "distance": 0.461,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol2.txt#189",
+            "source": "monte-cristo-vol2.txt",
+            "start": 136783,
+            "end": 137612,
+            "distance": 0.47,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol2.txt#193",
+            "source": "monte-cristo-vol2.txt",
+            "start": 139726,
+            "end": 140526,
+            "distance": 0.473,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol2.txt#262",
+            "source": "monte-cristo-vol2.txt",
+            "start": 189512,
+            "end": 190315,
+            "distance": 0.476,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "d08",
+      "type": "other",
+      "question": "How much did the bandits ask Danglars to pay for a fowl?",
+      "answerable": true,
+      "expected_answer": "A hundred thousand francs.",
+      "retrieval": {
+        "evidence_ranks": [
+          1
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol5.txt#511",
+            "source": "monte-cristo-vol5.txt",
+            "start": 370238,
+            "end": 371038,
+            "distance": 0.393,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol5.txt#512",
+            "source": "monte-cristo-vol5.txt",
+            "start": 370958,
+            "end": 371761,
+            "distance": 0.4,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol5.txt#515",
+            "source": "monte-cristo-vol5.txt",
+            "start": 373143,
+            "end": 373943,
+            "distance": 0.451,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol5.txt#509",
+            "source": "monte-cristo-vol5.txt",
+            "start": 368754,
+            "end": 369598,
+            "distance": 0.465,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol5.txt#510",
+            "source": "monte-cristo-vol5.txt",
+            "start": 369518,
+            "end": 370318,
+            "distance": 0.468,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol5.txt#514",
+            "source": "monte-cristo-vol5.txt",
+            "start": 372401,
+            "end": 373223,
+            "distance": 0.495,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol2.txt#790",
+            "source": "monte-cristo-vol2.txt",
+            "start": 571608,
+            "end": 572408,
+            "distance": 0.51,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol5.txt#516",
+            "source": "monte-cristo-vol5.txt",
+            "start": 373863,
+            "end": 374663,
+            "distance": 0.511,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol2.txt#826",
+            "source": "monte-cristo-vol2.txt",
+            "start": 597635,
+            "end": 598435,
+            "distance": 0.519,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol3.txt#440",
+            "source": "monte-cristo-vol3.txt",
+            "start": 319575,
+            "end": 320375,
+            "distance": 0.522,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "d09",
+      "type": "other",
+      "question": "Who are Haydée’s parents?",
+      "answerable": true,
+      "expected_answer": "Ali Pasha (Ali Tepelini), pasha of Yanina, and Vasiliki.",
+      "retrieval": {
+        "evidence_ranks": [
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": false
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol5.txt#558",
+            "source": "monte-cristo-vol5.txt",
+            "start": 404378,
+            "end": 405178,
+            "distance": 0.468,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol3.txt#212",
+            "source": "monte-cristo-vol3.txt",
+            "start": 153360,
+            "end": 154160,
+            "distance": 0.484,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol5.txt#559",
+            "source": "monte-cristo-vol5.txt",
+            "start": 405098,
+            "end": 405898,
+            "distance": 0.503,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol4.txt#401",
+            "source": "monte-cristo-vol4.txt",
+            "start": 291794,
+            "end": 292594,
+            "distance": 0.503,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol4.txt#91",
+            "source": "monte-cristo-vol4.txt",
+            "start": 66054,
+            "end": 66854,
+            "distance": 0.522,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol4.txt#110",
+            "source": "monte-cristo-vol4.txt",
+            "start": 79875,
+            "end": 80678,
+            "distance": 0.526,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol3.txt#213",
+            "source": "monte-cristo-vol3.txt",
+            "start": 154080,
+            "end": 154880,
+            "distance": 0.532,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol4.txt#497",
+            "source": "monte-cristo-vol4.txt",
+            "start": 361239,
+            "end": 362039,
+            "distance": 0.553,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol4.txt#102",
+            "source": "monte-cristo-vol4.txt",
+            "start": 74085,
+            "end": 74885,
+            "distance": 0.573,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol3.txt#38",
+            "source": "monte-cristo-vol3.txt",
+            "start": 27462,
+            "end": 28262,
+            "distance": 0.574,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "d10",
+      "type": "other",
+      "question": "In which two words is all human wisdom summed up, according to the count?",
+      "answerable": true,
+      "expected_answer": "Wait and hope.",
+      "retrieval": {
+        "evidence_ranks": [
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": false
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol3.txt#3",
+            "source": "monte-cristo-vol3.txt",
+            "start": 2185,
+            "end": 2985,
+            "distance": 0.593,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol1.txt#428",
+            "source": "monte-cristo-vol1.txt",
+            "start": 309871,
+            "end": 310681,
+            "distance": 0.599,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol1.txt#516",
+            "source": "monte-cristo-vol1.txt",
+            "start": 374167,
+            "end": 374967,
+            "distance": 0.604,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol1.txt#431",
+            "source": "monte-cristo-vol1.txt",
+            "start": 312041,
+            "end": 312841,
+            "distance": 0.639,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol1.txt#453",
+            "source": "monte-cristo-vol1.txt",
+            "start": 328282,
+            "end": 329082,
+            "distance": 0.641,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol2.txt#697",
+            "source": "monte-cristo-vol2.txt",
+            "start": 504519,
+            "end": 505338,
+            "distance": 0.647,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol5.txt#429",
+            "source": "monte-cristo-vol5.txt",
+            "start": 310919,
+            "end": 311719,
+            "distance": 0.654,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol3.txt#10",
+            "source": "monte-cristo-vol3.txt",
+            "start": 7225,
+            "end": 8025,
+            "distance": 0.658,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#427",
+            "source": "monte-cristo-vol1.txt",
+            "start": 309151,
+            "end": 309951,
+            "distance": 0.658,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol3.txt#18",
+            "source": "monte-cristo-vol3.txt",
+            "start": 12985,
+            "end": 13785,
+            "distance": 0.665,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "d11",
+      "type": "other",
+      "question": "How much was the diamond that the abbé showed Caderousse worth?",
+      "answerable": true,
+      "expected_answer": "Fifty thousand francs.",
+      "retrieval": {
+        "evidence_ranks": [
+          1
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol1.txt#706",
+            "source": "monte-cristo-vol1.txt",
+            "start": 511137,
+            "end": 511937,
+            "distance": 0.256,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol2.txt#717",
+            "source": "monte-cristo-vol2.txt",
+            "start": 518974,
+            "end": 519774,
+            "distance": 0.284,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol2.txt#720",
+            "source": "monte-cristo-vol2.txt",
+            "start": 521144,
+            "end": 521944,
+            "distance": 0.367,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol1.txt#760",
+            "source": "monte-cristo-vol1.txt",
+            "start": 550140,
+            "end": 550943,
+            "distance": 0.368,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol2.txt#721",
+            "source": "monte-cristo-vol2.txt",
+            "start": 521864,
+            "end": 522664,
+            "distance": 0.375,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol1.txt#720",
+            "source": "monte-cristo-vol1.txt",
+            "start": 521251,
+            "end": 522051,
+            "distance": 0.388,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol1.txt#705",
+            "source": "monte-cristo-vol1.txt",
+            "start": 510417,
+            "end": 511217,
+            "distance": 0.393,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol1.txt#761",
+            "source": "monte-cristo-vol1.txt",
+            "start": 550863,
+            "end": 551681,
+            "distance": 0.397,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#704",
+            "source": "monte-cristo-vol1.txt",
+            "start": 509697,
+            "end": 510497,
+            "distance": 0.418,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#707",
+            "source": "monte-cristo-vol1.txt",
+            "start": 511857,
+            "end": 512657,
+            "distance": 0.422,
+            "relevant_to": [
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "h01",
+      "type": "vocabulary",
+      "question": "What trick did the supercargo use so that nobody would recognise his handwriting on the anonymous letter?",
+      "answerable": true,
+      "expected_answer": "He wrote with his left hand.",
+      "retrieval": {
+        "evidence_ranks": [
+          6
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol1.txt#438",
+            "source": "monte-cristo-vol1.txt",
+            "start": 317156,
+            "end": 317971,
+            "distance": 0.526,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol1.txt#132",
+            "source": "monte-cristo-vol1.txt",
+            "start": 95448,
+            "end": 96248,
+            "distance": 0.545,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol1.txt#121",
+            "source": "monte-cristo-vol1.txt",
+            "start": 87522,
+            "end": 88322,
+            "distance": 0.577,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol1.txt#14",
+            "source": "monte-cristo-vol1.txt",
+            "start": 10148,
+            "end": 10948,
+            "distance": 0.578,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol1.txt#477",
+            "source": "monte-cristo-vol1.txt",
+            "start": 345603,
+            "end": 346403,
+            "distance": 0.584,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol1.txt#85",
+            "source": "monte-cristo-vol1.txt",
+            "start": 61569,
+            "end": 62369,
+            "distance": 0.59,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol1.txt#439",
+            "source": "monte-cristo-vol1.txt",
+            "start": 317891,
+            "end": 318788,
+            "distance": 0.592,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol1.txt#503",
+            "source": "monte-cristo-vol1.txt",
+            "start": 364377,
+            "end": 365177,
+            "distance": 0.594,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol2.txt#775",
+            "source": "monte-cristo-vol2.txt",
+            "start": 560808,
+            "end": 561608,
+            "distance": 0.597,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#415",
+            "source": "monte-cristo-vol1.txt",
+            "start": 300472,
+            "end": 301272,
+            "distance": 0.597,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "h02",
+      "type": "vocabulary",
+      "question": "What was tied to the hero’s feet when the jailers threw him from the fortress into the sea?",
+      "answerable": true,
+      "expected_answer": "A thirty-six-pound shot (cannon-ball).",
+      "retrieval": {
+        "evidence_ranks": [
+          3
+        ],
+        "hit": {
+          "1": false,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol1.txt#210",
+            "source": "monte-cristo-vol1.txt",
+            "start": 151779,
+            "end": 152579,
+            "distance": 0.413,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol5.txt#451",
+            "source": "monte-cristo-vol5.txt",
+            "start": 326783,
+            "end": 327604,
+            "distance": 0.434,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol1.txt#557",
+            "source": "monte-cristo-vol1.txt",
+            "start": 403702,
+            "end": 404507,
+            "distance": 0.435,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol1.txt#209",
+            "source": "monte-cristo-vol1.txt",
+            "start": 151059,
+            "end": 151859,
+            "distance": 0.454,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol1.txt#547",
+            "source": "monte-cristo-vol1.txt",
+            "start": 396499,
+            "end": 397299,
+            "distance": 0.464,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol5.txt#450",
+            "source": "monte-cristo-vol5.txt",
+            "start": 326063,
+            "end": 326863,
+            "distance": 0.467,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol1.txt#572",
+            "source": "monte-cristo-vol1.txt",
+            "start": 414507,
+            "end": 415307,
+            "distance": 0.468,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol1.txt#201",
+            "source": "monte-cristo-vol1.txt",
+            "start": 145234,
+            "end": 146034,
+            "distance": 0.47,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#595",
+            "source": "monte-cristo-vol1.txt",
+            "start": 431125,
+            "end": 431925,
+            "distance": 0.472,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#219",
+            "source": "monte-cristo-vol1.txt",
+            "start": 158345,
+            "end": 159145,
+            "distance": 0.476,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "h03",
+      "type": "vocabulary",
+      "question": "Which poison did the count say a person could get used to by taking a slightly bigger dose every day?",
+      "answerable": true,
+      "expected_answer": "Brucine.",
+      "retrieval": {
+        "evidence_ranks": [
+          3
+        ],
+        "hit": {
+          "1": false,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol3.txt#136",
+            "source": "monte-cristo-vol3.txt",
+            "start": 98271,
+            "end": 99084,
+            "distance": 0.399,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol3.txt#754",
+            "source": "monte-cristo-vol3.txt",
+            "start": 548123,
+            "end": 548949,
+            "distance": 0.471,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol3.txt#135",
+            "source": "monte-cristo-vol3.txt",
+            "start": 97548,
+            "end": 98351,
+            "distance": 0.471,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol3.txt#163",
+            "source": "monte-cristo-vol3.txt",
+            "start": 117741,
+            "end": 118565,
+            "distance": 0.484,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol3.txt#160",
+            "source": "monte-cristo-vol3.txt",
+            "start": 115578,
+            "end": 116381,
+            "distance": 0.496,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol2.txt#569",
+            "source": "monte-cristo-vol2.txt",
+            "start": 412008,
+            "end": 412819,
+            "distance": 0.508,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol3.txt#134",
+            "source": "monte-cristo-vol3.txt",
+            "start": 96828,
+            "end": 97628,
+            "distance": 0.508,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol5.txt#136",
+            "source": "monte-cristo-vol5.txt",
+            "start": 98547,
+            "end": 99347,
+            "distance": 0.54,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol3.txt#161",
+            "source": "monte-cristo-vol3.txt",
+            "start": 116301,
+            "end": 117101,
+            "distance": 0.551,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol3.txt#145",
+            "source": "monte-cristo-vol3.txt",
+            "start": 104764,
+            "end": 105564,
+            "distance": 0.559,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "h04",
+      "type": "vocabulary",
+      "question": "Where was the young man who passed himself off as the son of an Italian major really born?",
+      "answerable": true,
+      "expected_answer": "At Auteuil, in No. 28, Rue de la Fontaine.",
+      "retrieval": {
+        "evidence_ranks": [
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": false
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol4.txt#75",
+            "source": "monte-cristo-vol4.txt",
+            "start": 54337,
+            "end": 55185,
+            "distance": 0.419,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol3.txt#266",
+            "source": "monte-cristo-vol3.txt",
+            "start": 192787,
+            "end": 193587,
+            "distance": 0.427,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol3.txt#279",
+            "source": "monte-cristo-vol3.txt",
+            "start": 202233,
+            "end": 203036,
+            "distance": 0.439,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol3.txt#267",
+            "source": "monte-cristo-vol3.txt",
+            "start": 193507,
+            "end": 194379,
+            "distance": 0.455,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol3.txt#558",
+            "source": "monte-cristo-vol3.txt",
+            "start": 405131,
+            "end": 405939,
+            "distance": 0.466,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol3.txt#238",
+            "source": "monte-cristo-vol3.txt",
+            "start": 172258,
+            "end": 173058,
+            "distance": 0.467,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol5.txt#7",
+            "source": "monte-cristo-vol5.txt",
+            "start": 5142,
+            "end": 5942,
+            "distance": 0.471,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol3.txt#459",
+            "source": "monte-cristo-vol3.txt",
+            "start": 333307,
+            "end": 334147,
+            "distance": 0.476,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol3.txt#258",
+            "source": "monte-cristo-vol3.txt",
+            "start": 186868,
+            "end": 187668,
+            "distance": 0.487,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol3.txt#237",
+            "source": "monte-cristo-vol3.txt",
+            "start": 171507,
+            "end": 172338,
+            "distance": 0.492,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "h05",
+      "type": "vocabulary",
+      "question": "What false news, printed after a telegraph message, made the banker sell his Spanish bonds?",
+      "answerable": true,
+      "expected_answer": "That Don Carlos had escaped from Bourges and returned to Spain.",
+      "retrieval": {
+        "evidence_ranks": [
+          1
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol3.txt#439",
+            "source": "monte-cristo-vol3.txt",
+            "start": 318844,
+            "end": 319655,
+            "distance": 0.34,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol5.txt#196",
+            "source": "monte-cristo-vol5.txt",
+            "start": 142022,
+            "end": 142837,
+            "distance": 0.455,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol5.txt#262",
+            "source": "monte-cristo-vol5.txt",
+            "start": 190006,
+            "end": 190806,
+            "distance": 0.477,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol5.txt#199",
+            "source": "monte-cristo-vol5.txt",
+            "start": 144224,
+            "end": 145024,
+            "distance": 0.479,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol3.txt#533",
+            "source": "monte-cristo-vol3.txt",
+            "start": 387066,
+            "end": 387875,
+            "distance": 0.49,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol5.txt#202",
+            "source": "monte-cristo-vol5.txt",
+            "start": 146387,
+            "end": 147187,
+            "distance": 0.505,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol3.txt#532",
+            "source": "monte-cristo-vol3.txt",
+            "start": 386325,
+            "end": 387146,
+            "distance": 0.507,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol3.txt#550",
+            "source": "monte-cristo-vol3.txt",
+            "start": 399368,
+            "end": 400168,
+            "distance": 0.519,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol3.txt#529",
+            "source": "monte-cristo-vol3.txt",
+            "start": 384100,
+            "end": 384912,
+            "distance": 0.523,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol5.txt#198",
+            "source": "monte-cristo-vol5.txt",
+            "start": 143497,
+            "end": 144304,
+            "distance": 0.525,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "h06",
+      "type": "vocabulary",
+      "question": "What drug did the host of the hidden grotto offer Franz after dinner?",
+      "answerable": true,
+      "expected_answer": "Hashish.",
+      "retrieval": {
+        "evidence_ranks": [
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": false
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol2.txt#273",
+            "source": "monte-cristo-vol2.txt",
+            "start": 197440,
+            "end": 198240,
+            "distance": 0.436,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol2.txt#145",
+            "source": "monte-cristo-vol2.txt",
+            "start": 105028,
+            "end": 105828,
+            "distance": 0.47,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol2.txt#133",
+            "source": "monte-cristo-vol2.txt",
+            "start": 96379,
+            "end": 97179,
+            "distance": 0.471,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol2.txt#353",
+            "source": "monte-cristo-vol2.txt",
+            "start": 255324,
+            "end": 256124,
+            "distance": 0.476,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol2.txt#96",
+            "source": "monte-cristo-vol2.txt",
+            "start": 69483,
+            "end": 70283,
+            "distance": 0.487,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol2.txt#317",
+            "source": "monte-cristo-vol2.txt",
+            "start": 229250,
+            "end": 230050,
+            "distance": 0.49,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol2.txt#368",
+            "source": "monte-cristo-vol2.txt",
+            "start": 266145,
+            "end": 266966,
+            "distance": 0.492,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol2.txt#339",
+            "source": "monte-cristo-vol2.txt",
+            "start": 245204,
+            "end": 246004,
+            "distance": 0.498,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol2.txt#168",
+            "source": "monte-cristo-vol2.txt",
+            "start": 121615,
+            "end": 122415,
+            "distance": 0.507,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol2.txt#170",
+            "source": "monte-cristo-vol2.txt",
+            "start": 123055,
+            "end": 123855,
+            "distance": 0.509,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "h07",
+      "type": "vocabulary",
+      "question": "In which exact spot did the cardinal’s will say the treasure was hidden?",
+      "answerable": true,
+      "expected_answer": "In the farthest angle of the second opening (cave).",
+      "retrieval": {
+        "evidence_ranks": [
+          2
+        ],
+        "hit": {
+          "1": false,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol1.txt#622",
+            "source": "monte-cristo-vol1.txt",
+            "start": 450599,
+            "end": 451402,
+            "distance": 0.323,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol1.txt#507",
+            "source": "monte-cristo-vol1.txt",
+            "start": 367684,
+            "end": 368484,
+            "distance": 0.427,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol1.txt#505",
+            "source": "monte-cristo-vol1.txt",
+            "start": 365872,
+            "end": 367041,
+            "distance": 0.438,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol1.txt#621",
+            "source": "monte-cristo-vol1.txt",
+            "start": 449879,
+            "end": 450679,
+            "distance": 0.456,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol1.txt#490",
+            "source": "monte-cristo-vol1.txt",
+            "start": 355014,
+            "end": 355814,
+            "distance": 0.481,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol1.txt#643",
+            "source": "monte-cristo-vol1.txt",
+            "start": 465731,
+            "end": 466531,
+            "distance": 0.484,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol1.txt#506",
+            "source": "monte-cristo-vol1.txt",
+            "start": 366961,
+            "end": 367764,
+            "distance": 0.492,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol1.txt#491",
+            "source": "monte-cristo-vol1.txt",
+            "start": 355734,
+            "end": 356534,
+            "distance": 0.494,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#651",
+            "source": "monte-cristo-vol1.txt",
+            "start": 471491,
+            "end": 472291,
+            "distance": 0.505,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#616",
+            "source": "monte-cristo-vol1.txt",
+            "start": 446279,
+            "end": 447079,
+            "distance": 0.509,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "p01",
+      "type": "other",
+      "question": "Where did La Réserve buy the paper the waiter brought, and what watermark did it have?",
+      "answerable": true,
+      "expected_answer": "From the stationer Mère Brigaud in the Rue de Rome; the watermark is a swallow.",
+      "retrieval": {
+        "evidence_ranks": [
+          2,
+          2
+        ],
+        "hit": {
+          "1": false,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol2.txt#17",
+            "source": "monte-cristo-vol2.txt",
+            "start": 12428,
+            "end": 13228,
+            "distance": 0.498,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol1.txt#82",
+            "source": "monte-cristo-vol1.txt",
+            "start": 59406,
+            "end": 60209,
+            "distance": 0.532,
+            "relevant_to": [
+              0,
+              1
+            ]
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol2.txt#640",
+            "source": "monte-cristo-vol2.txt",
+            "start": 463188,
+            "end": 464005,
+            "distance": 0.592,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol2.txt#29",
+            "source": "monte-cristo-vol2.txt",
+            "start": 21077,
+            "end": 21877,
+            "distance": 0.594,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol3.txt#380",
+            "source": "monte-cristo-vol3.txt",
+            "start": 275625,
+            "end": 276461,
+            "distance": 0.599,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol3.txt#254",
+            "source": "monte-cristo-vol3.txt",
+            "start": 183985,
+            "end": 184785,
+            "distance": 0.607,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol2.txt#28",
+            "source": "monte-cristo-vol2.txt",
+            "start": 20354,
+            "end": 21157,
+            "distance": 0.609,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol5.txt#275",
+            "source": "monte-cristo-vol5.txt",
+            "start": 199369,
+            "end": 200229,
+            "distance": 0.61,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol5.txt#198",
+            "source": "monte-cristo-vol5.txt",
+            "start": 143497,
+            "end": 144304,
+            "distance": 0.613,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol4.txt#471",
+            "source": "monte-cristo-vol4.txt",
+            "start": 342491,
+            "end": 343291,
+            "distance": 0.615,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "p02",
+      "type": "other",
+      "question": "What was the very first entry in Bertuccio’s expense ledger?",
+      "answerable": true,
+      "expected_answer": "412 francs paid to the glazier Théophile Barrat for the windows of the house at Auteuil.",
+      "retrieval": {
+        "evidence_ranks": [
+          6
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol2.txt#643",
+            "source": "monte-cristo-vol2.txt",
+            "start": 465395,
+            "end": 466195,
+            "distance": 0.502,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol4.txt#375",
+            "source": "monte-cristo-vol4.txt",
+            "start": 273008,
+            "end": 273816,
+            "distance": 0.525,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol4.txt#374",
+            "source": "monte-cristo-vol4.txt",
+            "start": 272274,
+            "end": 273088,
+            "distance": 0.543,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol2.txt#645",
+            "source": "monte-cristo-vol2.txt",
+            "start": 466835,
+            "end": 467648,
+            "distance": 0.557,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol3.txt#304",
+            "source": "monte-cristo-vol3.txt",
+            "start": 220528,
+            "end": 221364,
+            "distance": 0.557,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol4.txt#292",
+            "source": "monte-cristo-vol4.txt",
+            "start": 212567,
+            "end": 213367,
+            "distance": 0.561,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol5.txt#309",
+            "source": "monte-cristo-vol5.txt",
+            "start": 224095,
+            "end": 224898,
+            "distance": 0.572,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol2.txt#655",
+            "source": "monte-cristo-vol2.txt",
+            "start": 474090,
+            "end": 474890,
+            "distance": 0.576,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol5.txt#208",
+            "source": "monte-cristo-vol5.txt",
+            "start": 150818,
+            "end": 151657,
+            "distance": 0.577,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol3.txt#270",
+            "source": "monte-cristo-vol3.txt",
+            "start": 195739,
+            "end": 196550,
+            "distance": 0.578,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "s01",
+      "type": "split_answer",
+      "question": "Who engraved the seal that Danglars pressed into the denunciation, and where had Danglars taken it from?",
+      "answerable": true,
+      "expected_answer": "Joseph Lanfrey, an engraver of Toulon, cut it in 1811; Danglars took it from the captain’s desk on board the Pharaon.",
+      "retrieval": {
+        "evidence_ranks": [
+          10,
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.5
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol3.txt#217",
+            "source": "monte-cristo-vol3.txt",
+            "start": 156963,
+            "end": 157763,
+            "distance": 0.474,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol4.txt#159",
+            "source": "monte-cristo-vol4.txt",
+            "start": 115181,
+            "end": 115981,
+            "distance": 0.483,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol5.txt#503",
+            "source": "monte-cristo-vol5.txt",
+            "start": 364434,
+            "end": 365234,
+            "distance": 0.498,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol1.txt#121",
+            "source": "monte-cristo-vol1.txt",
+            "start": 87522,
+            "end": 88322,
+            "distance": 0.509,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol1.txt#233",
+            "source": "monte-cristo-vol1.txt",
+            "start": 168497,
+            "end": 169297,
+            "distance": 0.517,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol1.txt#85",
+            "source": "monte-cristo-vol1.txt",
+            "start": 61569,
+            "end": 62369,
+            "distance": 0.537,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol4.txt#253",
+            "source": "monte-cristo-vol4.txt",
+            "start": 183720,
+            "end": 184520,
+            "distance": 0.54,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol3.txt#496",
+            "source": "monte-cristo-vol3.txt",
+            "start": 360186,
+            "end": 360986,
+            "distance": 0.544,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol3.txt#555",
+            "source": "monte-cristo-vol3.txt",
+            "start": 402971,
+            "end": 403771,
+            "distance": 0.544,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#86",
+            "source": "monte-cristo-vol1.txt",
+            "start": 62289,
+            "end": 63089,
+            "distance": 0.546,
+            "relevant_to": [
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "s02",
+      "type": "split_answer",
+      "question": "To whom did Danglars hand the denunciation after writing it, and what postmark did the letter bear?",
+      "answerable": true,
+      "expected_answer": "To Fernand; the postmark was Marseilles, 27th February, delivery 6 o’clock P.M.",
+      "retrieval": {
+        "evidence_ranks": [
+          2,
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.5,
+          "5": 0.5,
+          "10": 0.5
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol5.txt#252",
+            "source": "monte-cristo-vol5.txt",
+            "start": 182696,
+            "end": 183542,
+            "distance": 0.394,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol1.txt#85",
+            "source": "monte-cristo-vol1.txt",
+            "start": 61569,
+            "end": 62369,
+            "distance": 0.398,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol1.txt#438",
+            "source": "monte-cristo-vol1.txt",
+            "start": 317156,
+            "end": 317971,
+            "distance": 0.402,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol4.txt#169",
+            "source": "monte-cristo-vol4.txt",
+            "start": 122409,
+            "end": 123210,
+            "distance": 0.402,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol1.txt#86",
+            "source": "monte-cristo-vol1.txt",
+            "start": 62289,
+            "end": 63089,
+            "distance": 0.41,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol3.txt#217",
+            "source": "monte-cristo-vol3.txt",
+            "start": 156963,
+            "end": 157763,
+            "distance": 0.411,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol1.txt#737",
+            "source": "monte-cristo-vol1.txt",
+            "start": 533497,
+            "end": 534297,
+            "distance": 0.416,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol4.txt#159",
+            "source": "monte-cristo-vol4.txt",
+            "start": 115181,
+            "end": 115981,
+            "distance": 0.418,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol3.txt#111",
+            "source": "monte-cristo-vol3.txt",
+            "start": 80184,
+            "end": 80984,
+            "distance": 0.428,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol5.txt#491",
+            "source": "monte-cristo-vol5.txt",
+            "start": 355785,
+            "end": 356585,
+            "distance": 0.432,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "s03",
+      "type": "split_answer",
+      "question": "What name was the child buried alive at Auteuil given by the steward’s sister-in-law, and who was his real father?",
+      "answerable": true,
+      "expected_answer": "Benedetto; his father was Villefort.",
+      "retrieval": {
+        "evidence_ranks": [
+          null,
+          1
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.5,
+          "3": 0.5,
+          "5": 0.5,
+          "10": 0.5
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol5.txt#365",
+            "source": "monte-cristo-vol5.txt",
+            "start": 264790,
+            "end": 265590,
+            "distance": 0.46,
+            "relevant_to": [
+              1
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol5.txt#364",
+            "source": "monte-cristo-vol5.txt",
+            "start": 264070,
+            "end": 264870,
+            "distance": 0.465,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol2.txt#680",
+            "source": "monte-cristo-vol2.txt",
+            "start": 492239,
+            "end": 493039,
+            "distance": 0.483,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol3.txt#596",
+            "source": "monte-cristo-vol3.txt",
+            "start": 432884,
+            "end": 433684,
+            "distance": 0.508,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol3.txt#595",
+            "source": "monte-cristo-vol3.txt",
+            "start": 432164,
+            "end": 432964,
+            "distance": 0.509,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol5.txt#306",
+            "source": "monte-cristo-vol5.txt",
+            "start": 221903,
+            "end": 222732,
+            "distance": 0.511,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol2.txt#657",
+            "source": "monte-cristo-vol2.txt",
+            "start": 475530,
+            "end": 476330,
+            "distance": 0.512,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol2.txt#648",
+            "source": "monte-cristo-vol2.txt",
+            "start": 469044,
+            "end": 469844,
+            "distance": 0.516,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol3.txt#411",
+            "source": "monte-cristo-vol3.txt",
+            "start": 298088,
+            "end": 298943,
+            "distance": 0.52,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#710",
+            "source": "monte-cristo-vol1.txt",
+            "start": 514031,
+            "end": 514830,
+            "distance": 0.524,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "c01",
+      "type": "other",
+      "question": "On what date did the Pharaon arrive at Marseilles?",
+      "answerable": true,
+      "expected_answer": "The 25th of February, 1815.",
+      "retrieval": {
+        "evidence_ranks": [
+          1
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol1.txt#0",
+            "source": "monte-cristo-vol1.txt",
+            "start": 15,
+            "end": 815,
+            "distance": 0.325,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol5.txt#414",
+            "source": "monte-cristo-vol5.txt",
+            "start": 300110,
+            "end": 300910,
+            "distance": 0.534,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol2.txt#91",
+            "source": "monte-cristo-vol2.txt",
+            "start": 65874,
+            "end": 66677,
+            "distance": 0.534,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol2.txt#93",
+            "source": "monte-cristo-vol2.txt",
+            "start": 67317,
+            "end": 68117,
+            "distance": 0.548,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol4.txt#37",
+            "source": "monte-cristo-vol4.txt",
+            "start": 26879,
+            "end": 27679,
+            "distance": 0.562,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol1.txt#282",
+            "source": "monte-cristo-vol1.txt",
+            "start": 204044,
+            "end": 204868,
+            "distance": 0.564,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol2.txt#792",
+            "source": "monte-cristo-vol2.txt",
+            "start": 573051,
+            "end": 573891,
+            "distance": 0.565,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol2.txt#55",
+            "source": "monte-cristo-vol2.txt",
+            "start": 39917,
+            "end": 40717,
+            "distance": 0.565,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol2.txt#47",
+            "source": "monte-cristo-vol2.txt",
+            "start": 34124,
+            "end": 34927,
+            "distance": 0.583,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#118",
+            "source": "monte-cristo-vol1.txt",
+            "start": 85362,
+            "end": 86162,
+            "distance": 0.586,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "c02",
+      "type": "other",
+      "question": "What jewel was in the purse that saved Morrel from ruin?",
+      "answerable": true,
+      "expected_answer": "A ruby as large as a pigeon’s egg.",
+      "retrieval": {
+        "evidence_ranks": [
+          1
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol2.txt#89",
+            "source": "monte-cristo-vol2.txt",
+            "start": 64431,
+            "end": 65234,
+            "distance": 0.329,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol5.txt#550",
+            "source": "monte-cristo-vol5.txt",
+            "start": 398612,
+            "end": 399412,
+            "distance": 0.422,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol1.txt#742",
+            "source": "monte-cristo-vol1.txt",
+            "start": 537100,
+            "end": 537908,
+            "distance": 0.429,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol1.txt#761",
+            "source": "monte-cristo-vol1.txt",
+            "start": 550863,
+            "end": 551681,
+            "distance": 0.439,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol2.txt#22",
+            "source": "monte-cristo-vol2.txt",
+            "start": 16031,
+            "end": 16831,
+            "distance": 0.443,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol2.txt#63",
+            "source": "monte-cristo-vol2.txt",
+            "start": 45680,
+            "end": 46480,
+            "distance": 0.449,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol5.txt#563",
+            "source": "monte-cristo-vol5.txt",
+            "start": 407984,
+            "end": 408784,
+            "distance": 0.457,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol2.txt#90",
+            "source": "monte-cristo-vol2.txt",
+            "start": 65154,
+            "end": 65954,
+            "distance": 0.459,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol5.txt#551",
+            "source": "monte-cristo-vol5.txt",
+            "start": 399332,
+            "end": 400132,
+            "distance": 0.46,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol4.txt#202",
+            "source": "monte-cristo-vol4.txt",
+            "start": 146600,
+            "end": 147400,
+            "distance": 0.467,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "u01",
+      "type": "not_in_corpus",
+      "question": "What was the name of Edmond Dantès’s dog?",
+      "answerable": false,
+      "expected_answer": "Not in the documents."
+    },
+    {
+      "id": "u02",
+      "type": "not_in_corpus",
+      "question": "Who directed the 2002 film adaptation of The Count of Monte Cristo?",
+      "answerable": false,
+      "expected_answer": "Not in the documents."
+    },
+    {
+      "id": "u03",
+      "type": "not_in_corpus",
+      "question": "In what year did Alexandre Dumas publish the novel?",
+      "answerable": false,
+      "expected_answer": "Not in the documents."
+    },
+    {
+      "id": "u04",
+      "type": "not_in_corpus",
+      "question": "What was the name of the cook on board the Pharaon?",
+      "answerable": false,
+      "expected_answer": "Not in the documents."
+    },
+    {
+      "id": "u05",
+      "type": "not_in_corpus",
+      "question": "How many children did Albert de Morcerf have?",
+      "answerable": false,
+      "expected_answer": "Not in the documents."
+    },
+    {
+      "id": "n01",
+      "type": "two_hop",
+      "question": "Who is the daughter of the pasha that Fernand betrayed and murdered?",
+      "answerable": true,
+      "expected_answer": "Haydée (Fernand betrayed Ali Tepelini, pasha of Yanina, and Haydée is his daughter).",
+      "retrieval": {
+        "evidence_ranks": [
+          10,
+          6
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 1.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol4.txt#416",
+            "source": "monte-cristo-vol4.txt",
+            "start": 302619,
+            "end": 303419,
+            "distance": 0.333,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol1.txt#750",
+            "source": "monte-cristo-vol1.txt",
+            "start": 542900,
+            "end": 543703,
+            "distance": 0.421,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol4.txt#384",
+            "source": "monte-cristo-vol4.txt",
+            "start": 279530,
+            "end": 280330,
+            "distance": 0.441,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol4.txt#402",
+            "source": "monte-cristo-vol4.txt",
+            "start": 292514,
+            "end": 293314,
+            "distance": 0.45,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol3.txt#568",
+            "source": "monte-cristo-vol3.txt",
+            "start": 412595,
+            "end": 413477,
+            "distance": 0.46,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol4.txt#94",
+            "source": "monte-cristo-vol4.txt",
+            "start": 68230,
+            "end": 69070,
+            "distance": 0.46,
+            "relevant_to": [
+              1
+            ]
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol4.txt#178",
+            "source": "monte-cristo-vol4.txt",
+            "start": 129091,
+            "end": 129891,
+            "distance": 0.461,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol4.txt#137",
+            "source": "monte-cristo-vol4.txt",
+            "start": 99328,
+            "end": 100131,
+            "distance": 0.468,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol4.txt#352",
+            "source": "monte-cristo-vol4.txt",
+            "start": 256300,
+            "end": 257100,
+            "distance": 0.502,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol4.txt#474",
+            "source": "monte-cristo-vol4.txt",
+            "start": 344652,
+            "end": 345452,
+            "distance": 0.505,
+            "relevant_to": [
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "n02",
+      "type": "two_hop",
+      "question": "Who is the real father of the man arrested for the murder of Caderousse?",
+      "answerable": true,
+      "expected_answer": "Villefort, the procureur (the murderer is Andrea Cavalcanti, born Benedetto).",
+      "retrieval": {
+        "evidence_ranks": [
+          null,
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": false
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol4.txt#325",
+            "source": "monte-cristo-vol4.txt",
+            "start": 236685,
+            "end": 237485,
+            "distance": 0.421,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol4.txt#340",
+            "source": "monte-cristo-vol4.txt",
+            "start": 247537,
+            "end": 248338,
+            "distance": 0.435,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol1.txt#701",
+            "source": "monte-cristo-vol1.txt",
+            "start": 507534,
+            "end": 508334,
+            "distance": 0.458,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol4.txt#318",
+            "source": "monte-cristo-vol4.txt",
+            "start": 231553,
+            "end": 232385,
+            "distance": 0.467,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol4.txt#326",
+            "source": "monte-cristo-vol4.txt",
+            "start": 237405,
+            "end": 238208,
+            "distance": 0.467,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol1.txt#710",
+            "source": "monte-cristo-vol1.txt",
+            "start": 514031,
+            "end": 514830,
+            "distance": 0.474,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol2.txt#755",
+            "source": "monte-cristo-vol2.txt",
+            "start": 546402,
+            "end": 547202,
+            "distance": 0.479,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol4.txt#341",
+            "source": "monte-cristo-vol4.txt",
+            "start": 248258,
+            "end": 249058,
+            "distance": 0.482,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol2.txt#727",
+            "source": "monte-cristo-vol2.txt",
+            "start": 526187,
+            "end": 526987,
+            "distance": 0.483,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol4.txt#328",
+            "source": "monte-cristo-vol4.txt",
+            "start": 238848,
+            "end": 239694,
+            "distance": 0.492,
+            "relevant_to": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "n03",
+      "type": "exact_identifier",
+      "question": "Who was the prisoner No. 27 in the Château d’If?",
+      "answerable": true,
+      "expected_answer": "The Abbé Faria.",
+      "retrieval": {
+        "evidence_ranks": [
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": false
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "monte-cristo-vol1.txt#195",
+            "source": "monte-cristo-vol1.txt",
+            "start": 140909,
+            "end": 141714,
+            "distance": 0.439,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol1.txt#534",
+            "source": "monte-cristo-vol1.txt",
+            "start": 387130,
+            "end": 387933,
+            "distance": 0.441,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol1.txt#220",
+            "source": "monte-cristo-vol1.txt",
+            "start": 159065,
+            "end": 159868,
+            "distance": 0.456,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol1.txt#582",
+            "source": "monte-cristo-vol1.txt",
+            "start": 421736,
+            "end": 422539,
+            "distance": 0.461,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol2.txt#10",
+            "source": "monte-cristo-vol2.txt",
+            "start": 7309,
+            "end": 8133,
+            "distance": 0.462,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol2.txt#9",
+            "source": "monte-cristo-vol2.txt",
+            "start": 6589,
+            "end": 7389,
+            "distance": 0.463,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol1.txt#196",
+            "source": "monte-cristo-vol1.txt",
+            "start": 141634,
+            "end": 142434,
+            "distance": 0.463,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol1.txt#342",
+            "source": "monte-cristo-vol1.txt",
+            "start": 247561,
+            "end": 248364,
+            "distance": 0.468,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#206",
+            "source": "monte-cristo-vol1.txt",
+            "start": 148852,
+            "end": 149699,
+            "distance": 0.477,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#219",
+            "source": "monte-cristo-vol1.txt",
+            "start": 158345,
+            "end": 159145,
+            "distance": 0.477,
+            "relevant_to": []
+          }
+        ]
+      }
+    }
+  ]
+}
