@@ -10,6 +10,9 @@ let lastResult = null;
 let openedChunk = null;
 let corpus = null;
 
+const selectedRetrievers = () => [...document.querySelectorAll("#retrievers input:checked")].map((box) => box.value);
+const foundBy = (ranks) => Object.entries(ranks).map(([name, rank]) => `${name} #${rank}`).join(", ");
+
 const corpusPath = (path) => `/api/corpora/${encodeURIComponent(corpus)}${path}`;
 
 async function api(path, options = {}) {
@@ -93,6 +96,7 @@ async function loadSettings() {
   const settings = await (await api("/api/settings")).json();
   const form = document.getElementById("settings");
   for (const key of ["chunk_size", "overlap_percent", "top_k"]) form.elements[key].value = settings[key];
+  for (const box of document.querySelectorAll("#retrievers input")) box.checked = settings.retrievers.includes(box.value);
 }
 
 document.getElementById("settings").onsubmit = async (event) => {
@@ -128,7 +132,7 @@ document.getElementById("ask").onsubmit = async (event) => {
     const response = await api(corpusPath("/ask"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, documents }),
+      body: JSON.stringify({ question, documents, retrievers: selectedRetrievers() }),
     });
     renderResult(await response.json());
   } catch (error) {
@@ -153,6 +157,7 @@ function renderResult(result) {
     const link = el("span", `[${citation.label}]`, "link");
     link.onclick = () => openChunk(citation.label, citation.quote);
     item.append(link, ` “${citation.quote}”`);
+    if (citation.found_by) item.append(el("span", ` (found by ${foundBy(citation.found_by)})`, "message"));
     if (!citation.verified) item.append(el("span", " (quote not found in source)", "unverified"));
     return item;
   }));
@@ -161,7 +166,7 @@ function renderResult(result) {
     const item = el("li");
     const link = el("span", `[${chunk.label}]`, "link");
     link.onclick = () => openChunk(chunk.label);
-    item.append(link, ` ${chunk.source}, chars ${chunk.start}–${chunk.end}, distance ${chunk.distance}`);
+    item.append(link, ` ${chunk.source}, chars ${chunk.start}–${chunk.end}, found by ${foundBy(chunk.found_by)}`);
     return item;
   }));
 }
@@ -179,7 +184,8 @@ function openChunk(label, quote) {
     return;
   }
   openedChunk = chunk;
-  document.getElementById("reference-title").textContent = `[${label}] ${chunk.source}, chars ${chunk.start}–${chunk.end}`;
+  document.getElementById("reference-title").textContent =
+    `[${label}] ${chunk.source}, chars ${chunk.start}–${chunk.end}, found by ${foundBy(chunk.found_by)}`;
   const span = quote ? findQuote(chunk.text, quote) : null;
   if (span) renderHighlighted(text, chunk.text, span[0], span[1]);
   else text.textContent = chunk.text;
@@ -232,11 +238,12 @@ document.getElementById("evaluate").onsubmit = async (event) => {
     const report = await (await api(corpusPath("/evaluate"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ answers }),
+      body: JSON.stringify({ answers, retrievers: selectedRetrievers() }),
     })).json();
     renderEvaluation(report);
     const s = report.settings;
-    message.textContent = `${report.corpus}, chunk size ${s.chunk_size}, overlap ${s.overlap_percent}%. Saved ${report.path}`;
+    message.textContent = `${report.corpus}, chunk size ${s.chunk_size}, overlap ${s.overlap_percent}%, ` +
+      `retrievers ${s.retrievers.join(" + ")}. Saved ${report.path}`;
   } catch (error) {
     message.textContent = error.message;
   }

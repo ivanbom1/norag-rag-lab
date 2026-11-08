@@ -121,7 +121,11 @@ python -m eval.evaluate                                   # retrieval only, both
 python -m eval.evaluate --chunk-size 400 --overlap 10     # another configuration (indexes it first if needed)
 python -m eval.evaluate --corpus kestrel --answers --delay 6   # also generate answers (LLM calls)
 python -m eval.evaluate --no-context --delay 4            # no-context test: ask the LLM without retrieval
+python -m eval.evaluate --retrievers dense                # one retriever only (dense alone = the V2 baseline)
+python -m eval.evaluate --retrievers dense bm25           # several retrievers, fused with RRF (default)
 ```
+
+Retrievers are switched on and off with `--retrievers`, or with the **Retrievers** checkboxes in the sidebar (used by Ask and Evaluate). Results go to `eval/results/<corpus>_800_10_20_<retrievers>.json`, for example `kestrel_800_10_20_dense+bm25.json`. Dense alone keeps the V2 name (`..._minilm.json`).
 
 From the front-end, open the **Evaluate** tab, optionally tick **Also generate answers**, and click **Run evaluation**. It uses the corpus and settings currently selected.
 

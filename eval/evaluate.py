@@ -2,16 +2,19 @@ import argparse
 import os
 import sys
 
+from app.answering import DEFAULT_RETRIEVERS, RETRIEVERS
 from app.evaluation import KS, QUESTION_SETS, check_quotes, load_questions, run_evaluation, run_no_context
-from app.indexing import ChunkSettings, index_document, is_indexed
+from app.indexing import ChunkSettings, ensure_indexed
 from app.main import corpus_dir, document_names
 
 
-def ensure_indexed(corpus, settings):
+def ensure_corpus_indexed(corpus, settings):
     for name in document_names(corpus):
-        if not is_indexed(name, corpus, settings):
-            print(f"Indexing {corpus}/{name} for {settings.collection_name(corpus)}...")
-            index_document(os.path.join(corpus_dir(corpus), name), corpus, settings)
+        done = ensure_indexed(os.path.join(corpus_dir(corpus), name), corpus, settings)
+        if done == "indexed":
+            print(f"Indexed {corpus}/{name} for {settings.collection_name(corpus)} (dense + BM25)")
+        elif done == "bm25":
+            print(f"Copied {corpus}/{name} from Chroma into the BM25 index")
 
 
 def print_summary(summary):
@@ -28,6 +31,8 @@ def main():
     parser.add_argument("--corpus", choices=[*QUESTION_SETS, "all"], default="all")
     parser.add_argument("--chunk-size", type=int, default=800)
     parser.add_argument("--overlap", type=int, default=10)
+    parser.add_argument("--retrievers", nargs="+", choices=list(RETRIEVERS), default=DEFAULT_RETRIEVERS,
+                        help="retrievers to switch on, fused with RRF (default: %(default)s)")
     parser.add_argument("--answers", action="store_true", help="also generate answers with the LLM")
     parser.add_argument("--answer-top-k", type=int, default=5)
     parser.add_argument("--no-context", action="store_true", help="only run the no-context test (LLM without retrieval)")
@@ -47,11 +52,12 @@ def main():
                   f"retrieval. Saved {path}\n")
             continue
 
-        ensure_indexed(corpus, settings)
-        print(f"\n{corpus}, {settings.collection_name(corpus)}")
+        ensure_corpus_indexed(corpus, settings)
+        print(f"\n{corpus}, chunks {args.chunk_size}/{args.overlap}%, retrievers: {' + '.join(args.retrievers)}")
         path, report = run_evaluation(
             corpus, document_names(corpus), settings, args.answers, args.answer_top_k, args.delay,
-            on_progress=lambda row: args.answers and print(f"  {row['id']:4} {row['answer']['status']}"))
+            on_progress=lambda row: args.answers and print(f"  {row['id']:4} {row['answer']['status']}"),
+            retrievers=args.retrievers)
         print_summary(report["summary"])
         print(f"Saved {path}")
 

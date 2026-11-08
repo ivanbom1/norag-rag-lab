@@ -8,9 +8,9 @@ from fastapi.responses import PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app.answering import ask, retrieve
+from app.answering import DEFAULT_RETRIEVERS, Retriever, ask, retrieve
 from app.evaluation import check_quotes, load_questions, run_evaluation
-from app.indexing import ChunkSettings, delete_document, index_document, is_indexed
+from app.indexing import ChunkSettings, delete_document, ensure_indexed, index_document
 from app.words import question_words, vocabulary, word_chunks
 
 CORPORA_DIR = "data/corpora"
@@ -39,8 +39,7 @@ def index_missing_documents():
     indexed = []
     for corpus in SEED_DIRS:
         for name in document_names(corpus):
-            if not is_indexed(name, corpus, settings):
-                index_document(os.path.join(corpus_dir(corpus), name), corpus, settings)
+            if ensure_indexed(os.path.join(corpus_dir(corpus), name), corpus, settings):
                 indexed.append(f"{corpus}/{name}")
     return indexed
 
@@ -61,7 +60,8 @@ class SettingsUpdate(BaseModel):
 
 
 def settings_response():
-    return {"chunk_size": settings.chunk_size, "overlap_percent": settings.overlap_percent, "top_k": top_k}
+    return {"chunk_size": settings.chunk_size, "overlap_percent": settings.overlap_percent, "top_k": top_k,
+            "retrievers": DEFAULT_RETRIEVERS}
 
 
 @app.get("/api/settings")
@@ -87,6 +87,7 @@ def list_corpora():
 class Question(BaseModel):
     question: str = Field(min_length=1, max_length=1000)
     documents: list[str] | None = None
+    retrievers: list[Retriever] = Field(default=DEFAULT_RETRIEVERS, min_length=1)
 
 
 def selected_sources(corpus, documents):
@@ -102,7 +103,7 @@ def selected_sources(corpus, documents):
 
 @app.post("/api/corpora/{corpus}/ask")
 def ask_question(corpus: str, body: Question):
-    return ask(body.question, corpus, selected_sources(corpus, body.documents), settings, top_k)
+    return ask(body.question, corpus, selected_sources(corpus, body.documents), settings, top_k, body.retrievers)
 
 
 class SearchQuery(Question):
@@ -112,11 +113,12 @@ class SearchQuery(Question):
 @app.post("/api/corpora/{corpus}/search")
 def search(corpus: str, body: SearchQuery):
     sources = selected_sources(corpus, body.documents)
-    return {"retrieved": retrieve(body.question, corpus, sources, settings, body.top_k or top_k)}
+    return {"retrieved": retrieve(body.question, corpus, sources, settings, body.top_k or top_k, body.retrievers)}
 
 
 class EvaluationRequest(BaseModel):
     answers: bool = False
+    retrievers: list[Retriever] = Field(default=DEFAULT_RETRIEVERS, min_length=1)
 
 
 @app.post("/api/corpora/{corpus}/evaluate")
@@ -126,7 +128,7 @@ def evaluate(corpus: str, body: EvaluationRequest):
     if problems:
         raise HTTPException(400, "Question set does not match the corpus: " + "; ".join(problems))
     path, report = run_evaluation(corpus, document_names(corpus), settings, body.answers, top_k,
-                                  delay=4 if body.answers else 0)
+                                  delay=4 if body.answers else 0, retrievers=body.retrievers)
     return {"path": path, **report}
 
 

@@ -7,7 +7,9 @@ from datetime import datetime
 from openai import APIError
 from pydantic import BaseModel, ValidationError
 
-from app.answering import MODEL, ask, llm, normalize, retrieve
+from app import bm25
+from app.answering import CANDIDATES, DEFAULT_RETRIEVERS, MODEL, RETRIEVERS, ask, llm, normalize, retrieve
+from app.fusion import RRF_K
 
 QUESTION_SETS = {
     "kestrel": "kestrel-kb/eval/questions.starter.jsonl",
@@ -19,6 +21,11 @@ CORPUS_DESCRIPTIONS = {
 }
 RESULTS_DIR = "eval/results"
 KS = (1, 3, 5, 10)
+SCORE_KEYS = ("found_by", "rrf", "distance", "score")
+
+
+def scores(chunk):
+    return {key: chunk[key] for key in SCORE_KEYS if key in chunk}
 
 
 def load_questions(corpus):
@@ -50,8 +57,8 @@ def first_relevant_rank(item, chunks):
     return next((rank for rank, chunk in enumerate(chunks, start=1) if is_relevant(chunk, item)), None)
 
 
-def evaluate_retrieval(question, corpus, sources, settings):
-    chunks = retrieve(question["question"], corpus, sources, settings, max(KS))
+def evaluate_retrieval(question, corpus, sources, settings, retrievers):
+    chunks = retrieve(question["question"], corpus, sources, settings, max(KS), retrievers)
     ranks = [first_relevant_rank(item, chunks) for item in question["evidence"]]
     found = lambda k: [rank is not None and rank <= k for rank in ranks]
     return {
@@ -60,21 +67,21 @@ def evaluate_retrieval(question, corpus, sources, settings):
         "recall": {k: round(sum(found(k)) / len(ranks), 3) for k in KS},
         "retrieved": [
             {"rank": rank, "id": chunk["id"], "source": chunk["source"], "start": chunk["start"],
-             "end": chunk["end"], "distance": chunk["distance"],
+             "end": chunk["end"], **scores(chunk),
              "relevant_to": [i for i, item in enumerate(question["evidence"]) if is_relevant(chunk, item)]}
             for rank, chunk in enumerate(chunks, start=1)
         ],
     }
 
 
-def evaluate_answer(question, corpus, sources, settings, top_k):
-    result = ask(question["question"], corpus, sources, settings, top_k)
+def evaluate_answer(question, corpus, sources, settings, top_k, retrievers):
+    result = ask(question["question"], corpus, sources, settings, top_k, retrievers)
     return {
         "top_k": top_k,
         "status": result["status"],
         "answer": result["answer"],
         "citations": result["citations"],
-        "retrieved": [{"label": c["label"], "id": c["id"], "source": c["source"], "distance": c["distance"]}
+        "retrieved": [{"label": c["label"], "id": c["id"], "source": c["source"], **scores(c)}
                       for c in result["retrieved"]],
         "evidence_in_context": any(is_relevant(c, item) for c in result["retrieved"] for item in question["evidence"])
         if question["answerable"] else None,
@@ -98,27 +105,38 @@ def summarize(rows):
     return {"overall": stats(rows), "by_type": {kind: stats(group) for kind, group in by_type.items() if stats(group)}}
 
 
-def run_evaluation(corpus, sources, settings, answers=False, answer_top_k=5, delay=0, on_progress=None):
+def results_name(corpus, settings, retrievers):
+    # Dense alone keeps the V2 file names. Otherwise: corpus_800_10_20_bm25, corpus_800_10_20_dense+bm25...
+    if retrievers == ["dense"]:
+        return settings.collection_name(corpus)
+    return f"{bm25.table_name(corpus, settings)}_{'+'.join(retrievers)}"
+
+
+def run_evaluation(corpus, sources, settings, answers=False, answer_top_k=5, delay=0, on_progress=None,
+                   retrievers=DEFAULT_RETRIEVERS):
+    retrievers = [name for name in RETRIEVERS if name in retrievers]
     rows = []
     for question in load_questions(corpus):
         row = {"id": question["id"], "type": question["type"], "question": question["question"],
                "answerable": question["answerable"], "expected_answer": question["expected_answer"]}
         if question["answerable"]:
-            row["retrieval"] = evaluate_retrieval(question, corpus, sources, settings)
+            row["retrieval"] = evaluate_retrieval(question, corpus, sources, settings, retrievers)
         if answers:
-            row["answer"] = evaluate_answer(question, corpus, sources, settings, answer_top_k)
+            row["answer"] = evaluate_answer(question, corpus, sources, settings, answer_top_k, retrievers)
             time.sleep(delay)
         rows.append(row)
         if on_progress:
             on_progress(row)
 
     created = datetime.now()
-    name = f"{settings.collection_name(corpus)}" + (f"-answers-{created:%Y%m%d-%H%M%S}" if answers else "")
+    name = results_name(corpus, settings, retrievers) + (f"-answers-{created:%Y%m%d-%H%M%S}" if answers else "")
     report = {
         "corpus": corpus,
         "created": created.isoformat(timespec="seconds"),
         "settings": {"chunk_size": settings.chunk_size, "overlap_percent": settings.overlap_percent,
-                     "min_paragraph_length": settings.min_paragraph_length, "embedding": "all-MiniLM-L6-v2",
+                     "min_paragraph_length": settings.min_paragraph_length, "retrievers": retrievers,
+                     "rrf_k": RRF_K, "candidates_per_retriever": CANDIDATES,
+                     "embedding": "all-MiniLM-L6-v2" if "dense" in retrievers else None,
                      "answer_top_k": answer_top_k if answers else None},
         "model": MODEL if answers else None,
         "sources": sources,

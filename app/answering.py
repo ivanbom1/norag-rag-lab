@@ -1,9 +1,12 @@
 import os
+from typing import Literal
 
 from dotenv import load_dotenv
 from openai import APIError, OpenAI
 from pydantic import BaseModel, ValidationError
 
+from app import bm25
+from app.fusion import rrf
 from app.indexing import get_collection
 
 load_dotenv()
@@ -53,16 +56,32 @@ RESPONSE_SCHEMA = {
 }
 
 
-def retrieve(question, corpus, sources, settings, top_k):
+Retriever = Literal["dense", "bm25"]
+
+
+def retrieve_dense(question, corpus, sources, settings, top_k):
     results = get_collection(corpus, settings).query(
         query_texts=[question], n_results=top_k, where={"source": {"$in": sources}}
     )
     return [
-        {"label": f"C{i + 1}", "id": chunk_id, "text": text, "distance": round(distance, 3), **metadata}
-        for i, (chunk_id, text, distance, metadata) in enumerate(zip(
+        {"id": chunk_id, "text": text, "distance": round(distance, 3), **metadata}
+        for chunk_id, text, distance, metadata in zip(
             results["ids"][0], results["documents"][0], results["distances"][0], results["metadatas"][0]
-        ))
+        )
     ]
+
+
+RETRIEVERS = {"dense": retrieve_dense, "bm25": bm25.search}
+DEFAULT_RETRIEVERS = ["dense", "bm25"]
+# Each retriever hands this many chunks to the fusion, so a chunk ranked 12th by one retriever
+# can still make the top k if another one also found it.
+CANDIDATES = 20
+
+
+def retrieve(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS):
+    lists = {name: RETRIEVERS[name](question, corpus, sources, settings, max(top_k, CANDIDATES))
+             for name in RETRIEVERS if name in retrievers}
+    return [{"label": f"C{i + 1}", **chunk} for i, chunk in enumerate(rrf(lists)[:top_k])]
 
 
 def normalize(text):
@@ -78,13 +97,14 @@ def verify_citations(citations, chunks):
             "label": citation.chunk_id,
             "quote": citation.quote,
             "chunk_id": chunk["id"] if chunk else None,
+            "found_by": chunk["found_by"] if chunk else None,
             "verified": chunk is not None and normalize(citation.quote) in normalize(chunk["text"]),
         })
     return verified
 
 
-def ask(question, corpus, sources, settings, top_k):
-    chunks = retrieve(question, corpus, sources, settings, top_k)
+def ask(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS):
+    chunks = retrieve(question, corpus, sources, settings, top_k, retrievers)
     result = {"status": None, "answer": None, "citations": [], "retrieved": chunks, "model": MODEL}
 
     documents = "\n\n".join(f"[{chunk['label']}] {chunk['text']}" for chunk in chunks)

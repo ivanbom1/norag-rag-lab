@@ -1,10 +1,15 @@
 {
   "corpus": "monte-cristo",
-  "created": "2026-11-03T11:35:48",
+  "created": "2026-11-08T23:22:48",
   "settings": {
     "chunk_size": 800,
     "overlap_percent": 10,
     "min_paragraph_length": 20,
+    "retrievers": [
+      "dense"
+    ],
+    "rrf_k": 60,
+    "candidates_per_retriever": 20,
     "embedding": "all-MiniLM-L6-v2",
     "answer_top_k": null
   },
@@ -19,26 +24,26 @@
   "summary": {
     "overall": {
       "questions": 28,
-      "hit@1": 0.286,
-      "hit@3": 0.5,
-      "hit@5": 0.5,
-      "hit@10": 0.643,
-      "recall@1": 0.268,
-      "recall@3": 0.464,
-      "recall@5": 0.464,
-      "recall@10": 0.589
+      "hit@1": 0.321,
+      "hit@3": 0.536,
+      "hit@5": 0.536,
+      "hit@10": 0.679,
+      "recall@1": 0.304,
+      "recall@3": 0.5,
+      "recall@5": 0.5,
+      "recall@10": 0.625
     },
     "by_type": {
       "other": {
         "questions": 15,
-        "hit@1": 0.4,
-        "hit@3": 0.533,
-        "hit@5": 0.533,
-        "hit@10": 0.6,
-        "recall@1": 0.4,
-        "recall@3": 0.533,
-        "recall@5": 0.533,
-        "recall@10": 0.6
+        "hit@1": 0.467,
+        "hit@3": 0.6,
+        "hit@5": 0.6,
+        "hit@10": 0.667,
+        "recall@1": 0.467,
+        "recall@3": 0.6,
+        "recall@5": 0.6,
+        "recall@10": 0.667
       },
       "vocabulary": {
         "questions": 7,
@@ -116,6 +121,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 15,
             "end": 815,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.291,
             "relevant_to": [
               0
@@ -127,6 +136,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 65874,
             "end": 66677,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.514,
             "relevant_to": []
           },
@@ -136,6 +149,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 300110,
             "end": 300910,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.517,
             "relevant_to": []
           },
@@ -145,6 +162,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 67317,
             "end": 68117,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.519,
             "relevant_to": []
           },
@@ -154,6 +175,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 573051,
             "end": 573891,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.57,
             "relevant_to": []
           },
@@ -163,6 +188,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 34124,
             "end": 34927,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.571,
             "relevant_to": []
           },
@@ -172,6 +201,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 39917,
             "end": 40717,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.584,
             "relevant_to": []
           },
@@ -181,6 +214,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 6510,
             "end": 7313,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.594,
             "relevant_to": []
           },
@@ -190,6 +227,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 17448,
             "end": 18248,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.596,
             "relevant_to": []
           },
@@ -199,6 +240,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 485903,
             "end": 486706,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.6,
             "relevant_to": []
           }
@@ -234,6 +279,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 2907,
             "end": 3710,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.328,
             "relevant_to": []
           },
@@ -243,6 +292,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 2175,
             "end": 2987,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.414,
             "relevant_to": []
           },
@@ -252,6 +305,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 133664,
             "end": 134464,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.496,
             "relevant_to": [
               0
@@ -263,6 +320,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 314217,
             "end": 315030,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.511,
             "relevant_to": []
           },
@@ -272,6 +333,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 40637,
             "end": 41437,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.523,
             "relevant_to": []
           },
@@ -281,6 +346,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 65874,
             "end": 66677,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.536,
             "relevant_to": []
           },
@@ -290,34 +359,50 @@
             "source": "monte-cristo-vol1.txt",
             "start": 5070,
             "end": 5870,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.54,
             "relevant_to": []
           },
           {
             "rank": 8,
-            "id": "monte-cristo-vol1.txt#92",
-            "source": "monte-cristo-vol1.txt",
-            "start": 66627,
-            "end": 67427,
-            "distance": 0.555,
+            "id": "monte-cristo-vol5.txt#484",
+            "source": "monte-cristo-vol5.txt",
+            "start": 350739,
+            "end": 351542,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.551,
             "relevant_to": []
           },
           {
             "rank": 9,
-            "id": "monte-cristo-vol5.txt#470",
-            "source": "monte-cristo-vol5.txt",
-            "start": 340611,
-            "end": 341414,
+            "id": "monte-cristo-vol1.txt#92",
+            "source": "monte-cristo-vol1.txt",
+            "start": 66627,
+            "end": 67427,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.555,
             "relevant_to": []
           },
           {
             "rank": 10,
-            "id": "monte-cristo-vol3.txt#684",
-            "source": "monte-cristo-vol3.txt",
-            "start": 497409,
-            "end": 498209,
-            "distance": 0.556,
+            "id": "monte-cristo-vol5.txt#470",
+            "source": "monte-cristo-vol5.txt",
+            "start": 340611,
+            "end": 341414,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
+            "distance": 0.555,
             "relevant_to": []
           }
         ]
@@ -352,6 +437,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 527017,
             "end": 527817,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.307,
             "relevant_to": []
           },
@@ -361,6 +450,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 148852,
             "end": 149699,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.331,
             "relevant_to": []
           },
@@ -370,6 +463,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 392896,
             "end": 393699,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.346,
             "relevant_to": []
           },
@@ -379,6 +476,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 6589,
             "end": 7389,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.351,
             "relevant_to": []
           },
@@ -388,6 +489,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 427522,
             "end": 428322,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.361,
             "relevant_to": []
           },
@@ -397,6 +502,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 343211,
             "end": 344012,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.367,
             "relevant_to": []
           },
@@ -406,6 +515,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 506814,
             "end": 507614,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.368,
             "relevant_to": []
           },
@@ -415,6 +528,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 477977,
             "end": 478780,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.368,
             "relevant_to": []
           },
@@ -424,6 +541,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 453482,
             "end": 454282,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.374,
             "relevant_to": []
           },
@@ -433,6 +554,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 141634,
             "end": 142434,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.377,
             "relevant_to": []
           }
@@ -468,6 +593,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 424985,
             "end": 425785,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.273,
             "relevant_to": []
           },
@@ -477,6 +606,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 432920,
             "end": 433723,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.317,
             "relevant_to": []
           },
@@ -486,6 +619,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 399650,
             "end": 400462,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.338,
             "relevant_to": []
           },
@@ -495,6 +632,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 298863,
             "end": 299663,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.365,
             "relevant_to": []
           },
@@ -504,6 +645,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 138349,
             "end": 139149,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.368,
             "relevant_to": []
           },
@@ -513,6 +658,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 298088,
             "end": 298943,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.377,
             "relevant_to": []
           },
@@ -522,6 +671,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 428600,
             "end": 429400,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.38,
             "relevant_to": []
           },
@@ -531,6 +684,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 457425,
             "end": 458225,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.381,
             "relevant_to": []
           },
@@ -540,6 +697,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 345707,
             "end": 346507,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.383,
             "relevant_to": []
           },
@@ -549,6 +710,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 254633,
             "end": 255445,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.391,
             "relevant_to": []
           }
@@ -584,6 +749,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 298088,
             "end": 298943,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.414,
             "relevant_to": [
               0
@@ -595,6 +764,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 464645,
             "end": 465475,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.417,
             "relevant_to": []
           },
@@ -604,6 +777,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 475530,
             "end": 476330,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.476,
             "relevant_to": [
               0
@@ -615,6 +792,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 216168,
             "end": 217027,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.528,
             "relevant_to": []
           },
@@ -624,6 +805,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 465395,
             "end": 466195,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.549,
             "relevant_to": []
           },
@@ -633,6 +818,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 469044,
             "end": 469844,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.549,
             "relevant_to": []
           },
@@ -642,6 +831,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 212567,
             "end": 213367,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.561,
             "relevant_to": []
           },
@@ -651,6 +844,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 424985,
             "end": 425785,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.569,
             "relevant_to": []
           },
@@ -660,6 +857,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 298863,
             "end": 299663,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.571,
             "relevant_to": []
           },
@@ -669,6 +870,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 206636,
             "end": 207449,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.581,
             "relevant_to": []
           }
@@ -704,6 +909,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 322448,
             "end": 323248,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.442,
             "relevant_to": []
           },
@@ -713,6 +922,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 246103,
             "end": 246921,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.472,
             "relevant_to": []
           },
@@ -722,6 +935,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 239617,
             "end": 240417,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.479,
             "relevant_to": []
           },
@@ -731,6 +948,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 301192,
             "end": 301995,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.493,
             "relevant_to": []
           },
@@ -740,6 +961,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 349971,
             "end": 350771,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.501,
             "relevant_to": []
           },
@@ -749,6 +974,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 509697,
             "end": 510497,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.503,
             "relevant_to": []
           },
@@ -758,6 +987,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 325384,
             "end": 326184,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.512,
             "relevant_to": []
           },
@@ -767,6 +1000,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 350691,
             "end": 351491,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.514,
             "relevant_to": []
           },
@@ -776,6 +1013,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 393619,
             "end": 394419,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.517,
             "relevant_to": []
           },
@@ -785,6 +1026,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 335514,
             "end": 336314,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.523,
             "relevant_to": []
           }
@@ -820,6 +1065,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 137532,
             "end": 138342,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.356,
             "relevant_to": []
           },
@@ -829,6 +1078,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 188792,
             "end": 189592,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.375,
             "relevant_to": []
           },
@@ -838,6 +1091,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 360828,
             "end": 361628,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.379,
             "relevant_to": []
           },
@@ -847,6 +1104,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 361548,
             "end": 362351,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.412,
             "relevant_to": []
           },
@@ -856,6 +1117,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 345990,
             "end": 346793,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.443,
             "relevant_to": []
           },
@@ -865,6 +1130,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 250262,
             "end": 251062,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.447,
             "relevant_to": []
           },
@@ -874,6 +1143,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 368502,
             "end": 369302,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.461,
             "relevant_to": []
           },
@@ -883,6 +1156,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 136783,
             "end": 137612,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.47,
             "relevant_to": []
           },
@@ -892,6 +1169,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 139726,
             "end": 140526,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.473,
             "relevant_to": []
           },
@@ -901,6 +1182,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 189512,
             "end": 190315,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.476,
             "relevant_to": []
           }
@@ -936,6 +1221,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 370238,
             "end": 371038,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.393,
             "relevant_to": [
               0
@@ -947,6 +1236,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 370958,
             "end": 371761,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.4,
             "relevant_to": [
               0
@@ -958,6 +1251,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 373143,
             "end": 373943,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.451,
             "relevant_to": []
           },
@@ -967,6 +1264,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 368754,
             "end": 369598,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.465,
             "relevant_to": []
           },
@@ -976,6 +1277,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 369518,
             "end": 370318,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.468,
             "relevant_to": []
           },
@@ -985,6 +1290,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 372401,
             "end": 373223,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.495,
             "relevant_to": [
               0
@@ -996,6 +1305,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 571608,
             "end": 572408,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.51,
             "relevant_to": []
           },
@@ -1005,6 +1318,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 373863,
             "end": 374663,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.511,
             "relevant_to": []
           },
@@ -1014,6 +1331,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 597635,
             "end": 598435,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.519,
             "relevant_to": []
           },
@@ -1023,6 +1344,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 319575,
             "end": 320375,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.522,
             "relevant_to": []
           }
@@ -1058,6 +1383,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 404378,
             "end": 405178,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.468,
             "relevant_to": []
           },
@@ -1067,6 +1396,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 153360,
             "end": 154160,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.484,
             "relevant_to": []
           },
@@ -1076,6 +1409,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 405098,
             "end": 405898,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.503,
             "relevant_to": []
           },
@@ -1085,6 +1422,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 291794,
             "end": 292594,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.503,
             "relevant_to": []
           },
@@ -1094,6 +1435,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 66054,
             "end": 66854,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.522,
             "relevant_to": []
           },
@@ -1103,6 +1448,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 79875,
             "end": 80678,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.526,
             "relevant_to": []
           },
@@ -1112,6 +1461,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 154080,
             "end": 154880,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.532,
             "relevant_to": []
           },
@@ -1121,6 +1474,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 361239,
             "end": 362039,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.553,
             "relevant_to": []
           },
@@ -1130,6 +1487,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 74085,
             "end": 74885,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.573,
             "relevant_to": []
           },
@@ -1139,6 +1500,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 27462,
             "end": 28262,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.574,
             "relevant_to": []
           }
@@ -1153,109 +1518,151 @@
       "expected_answer": "Wait and hope.",
       "retrieval": {
         "evidence_ranks": [
-          null
+          1
         ],
         "hit": {
-          "1": false,
-          "3": false,
-          "5": false,
-          "10": false
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
         },
         "recall": {
-          "1": 0.0,
-          "3": 0.0,
-          "5": 0.0,
-          "10": 0.0
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
         },
         "retrieved": [
           {
             "rank": 1,
+            "id": "monte-cristo-vol5.txt#568",
+            "source": "monte-cristo-vol5.txt",
+            "start": 411607,
+            "end": 411834,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.575,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 2,
             "id": "monte-cristo-vol3.txt#3",
             "source": "monte-cristo-vol3.txt",
             "start": 2185,
             "end": 2985,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.593,
             "relevant_to": []
           },
           {
-            "rank": 2,
+            "rank": 3,
             "id": "monte-cristo-vol1.txt#428",
             "source": "monte-cristo-vol1.txt",
             "start": 309871,
             "end": 310681,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.599,
             "relevant_to": []
           },
           {
-            "rank": 3,
+            "rank": 4,
             "id": "monte-cristo-vol1.txt#516",
             "source": "monte-cristo-vol1.txt",
             "start": 374167,
             "end": 374967,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.604,
             "relevant_to": []
           },
           {
-            "rank": 4,
+            "rank": 5,
             "id": "monte-cristo-vol1.txt#431",
             "source": "monte-cristo-vol1.txt",
             "start": 312041,
             "end": 312841,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.639,
             "relevant_to": []
           },
           {
-            "rank": 5,
+            "rank": 6,
             "id": "monte-cristo-vol1.txt#453",
             "source": "monte-cristo-vol1.txt",
             "start": 328282,
             "end": 329082,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.641,
             "relevant_to": []
           },
           {
-            "rank": 6,
+            "rank": 7,
             "id": "monte-cristo-vol2.txt#697",
             "source": "monte-cristo-vol2.txt",
             "start": 504519,
             "end": 505338,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.647,
             "relevant_to": []
           },
           {
-            "rank": 7,
+            "rank": 8,
             "id": "monte-cristo-vol5.txt#429",
             "source": "monte-cristo-vol5.txt",
             "start": 310919,
             "end": 311719,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.654,
             "relevant_to": []
           },
           {
-            "rank": 8,
+            "rank": 9,
             "id": "monte-cristo-vol3.txt#10",
             "source": "monte-cristo-vol3.txt",
             "start": 7225,
             "end": 8025,
-            "distance": 0.658,
-            "relevant_to": []
-          },
-          {
-            "rank": 9,
-            "id": "monte-cristo-vol1.txt#427",
-            "source": "monte-cristo-vol1.txt",
-            "start": 309151,
-            "end": 309951,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.658,
             "relevant_to": []
           },
           {
             "rank": 10,
-            "id": "monte-cristo-vol3.txt#18",
-            "source": "monte-cristo-vol3.txt",
-            "start": 12985,
-            "end": 13785,
-            "distance": 0.665,
+            "id": "monte-cristo-vol1.txt#427",
+            "source": "monte-cristo-vol1.txt",
+            "start": 309151,
+            "end": 309951,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
+            "distance": 0.658,
             "relevant_to": []
           }
         ]
@@ -1290,6 +1697,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 511137,
             "end": 511937,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.256,
             "relevant_to": [
               0
@@ -1301,6 +1712,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 518974,
             "end": 519774,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.284,
             "relevant_to": []
           },
@@ -1310,6 +1725,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 521144,
             "end": 521944,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.367,
             "relevant_to": []
           },
@@ -1319,6 +1738,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 550140,
             "end": 550943,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.368,
             "relevant_to": []
           },
@@ -1328,6 +1751,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 521864,
             "end": 522664,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.375,
             "relevant_to": []
           },
@@ -1337,6 +1764,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 521251,
             "end": 522051,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.388,
             "relevant_to": []
           },
@@ -1346,6 +1777,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 510417,
             "end": 511217,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.393,
             "relevant_to": []
           },
@@ -1355,6 +1790,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 550863,
             "end": 551681,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.397,
             "relevant_to": []
           },
@@ -1364,6 +1803,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 509697,
             "end": 510497,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.418,
             "relevant_to": []
           },
@@ -1373,6 +1816,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 511857,
             "end": 512657,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.422,
             "relevant_to": [
               0
@@ -1410,6 +1857,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 317156,
             "end": 317971,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.526,
             "relevant_to": []
           },
@@ -1419,6 +1870,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 95448,
             "end": 96248,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.545,
             "relevant_to": []
           },
@@ -1428,6 +1883,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 87522,
             "end": 88322,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.577,
             "relevant_to": []
           },
@@ -1437,6 +1896,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 10148,
             "end": 10948,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.578,
             "relevant_to": []
           },
@@ -1446,6 +1909,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 345603,
             "end": 346403,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.584,
             "relevant_to": []
           },
@@ -1455,6 +1922,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 61569,
             "end": 62369,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.59,
             "relevant_to": [
               0
@@ -1466,6 +1937,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 317891,
             "end": 318788,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.592,
             "relevant_to": []
           },
@@ -1475,6 +1950,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 364377,
             "end": 365177,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.594,
             "relevant_to": []
           },
@@ -1484,6 +1963,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 560808,
             "end": 561608,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.597,
             "relevant_to": []
           },
@@ -1493,6 +1976,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 300472,
             "end": 301272,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.597,
             "relevant_to": []
           }
@@ -1528,6 +2015,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 151779,
             "end": 152579,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.413,
             "relevant_to": []
           },
@@ -1537,6 +2028,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 326783,
             "end": 327604,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.434,
             "relevant_to": []
           },
@@ -1546,6 +2041,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 403702,
             "end": 404507,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.435,
             "relevant_to": [
               0
@@ -1557,6 +2056,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 151059,
             "end": 151859,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.454,
             "relevant_to": []
           },
@@ -1566,6 +2069,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 396499,
             "end": 397299,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.464,
             "relevant_to": []
           },
@@ -1575,6 +2082,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 326063,
             "end": 326863,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.467,
             "relevant_to": []
           },
@@ -1584,6 +2095,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 414507,
             "end": 415307,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.468,
             "relevant_to": []
           },
@@ -1593,6 +2108,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 145234,
             "end": 146034,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.47,
             "relevant_to": []
           },
@@ -1602,6 +2121,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 431125,
             "end": 431925,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.472,
             "relevant_to": []
           },
@@ -1611,6 +2134,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 158345,
             "end": 159145,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.476,
             "relevant_to": []
           }
@@ -1646,6 +2173,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 98271,
             "end": 99084,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.399,
             "relevant_to": []
           },
@@ -1655,6 +2186,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 548123,
             "end": 548949,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.471,
             "relevant_to": []
           },
@@ -1664,6 +2199,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 97548,
             "end": 98351,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.471,
             "relevant_to": [
               0
@@ -1675,6 +2214,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 117741,
             "end": 118565,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.484,
             "relevant_to": []
           },
@@ -1684,6 +2227,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 115578,
             "end": 116381,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.496,
             "relevant_to": []
           },
@@ -1693,6 +2240,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 412008,
             "end": 412819,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.508,
             "relevant_to": []
           },
@@ -1702,6 +2253,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 96828,
             "end": 97628,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.508,
             "relevant_to": [
               0
@@ -1713,6 +2268,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 98547,
             "end": 99347,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.54,
             "relevant_to": []
           },
@@ -1722,6 +2281,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 116301,
             "end": 117101,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.551,
             "relevant_to": []
           },
@@ -1731,6 +2294,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 104764,
             "end": 105564,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.559,
             "relevant_to": []
           }
@@ -1766,6 +2333,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 54337,
             "end": 55185,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.419,
             "relevant_to": []
           },
@@ -1775,6 +2346,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 192787,
             "end": 193587,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.427,
             "relevant_to": []
           },
@@ -1784,6 +2359,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 202233,
             "end": 203036,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.439,
             "relevant_to": []
           },
@@ -1793,6 +2372,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 193507,
             "end": 194379,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.455,
             "relevant_to": []
           },
@@ -1802,6 +2385,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 405131,
             "end": 405939,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.466,
             "relevant_to": []
           },
@@ -1811,6 +2398,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 172258,
             "end": 173058,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.467,
             "relevant_to": []
           },
@@ -1820,6 +2411,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 5142,
             "end": 5942,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.471,
             "relevant_to": []
           },
@@ -1829,6 +2424,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 333307,
             "end": 334147,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.476,
             "relevant_to": []
           },
@@ -1838,6 +2437,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 186868,
             "end": 187668,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.487,
             "relevant_to": []
           },
@@ -1847,6 +2450,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 171507,
             "end": 172338,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.492,
             "relevant_to": []
           }
@@ -1882,6 +2489,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 318844,
             "end": 319655,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.34,
             "relevant_to": [
               0
@@ -1893,6 +2504,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 142022,
             "end": 142837,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.455,
             "relevant_to": []
           },
@@ -1902,6 +2517,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 190006,
             "end": 190806,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.477,
             "relevant_to": []
           },
@@ -1911,6 +2530,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 144224,
             "end": 145024,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.479,
             "relevant_to": []
           },
@@ -1920,6 +2543,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 387066,
             "end": 387875,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.49,
             "relevant_to": []
           },
@@ -1929,6 +2556,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 146387,
             "end": 147187,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.505,
             "relevant_to": []
           },
@@ -1938,6 +2569,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 386325,
             "end": 387146,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.507,
             "relevant_to": []
           },
@@ -1947,6 +2582,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 399368,
             "end": 400168,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.519,
             "relevant_to": []
           },
@@ -1956,6 +2595,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 384100,
             "end": 384912,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.523,
             "relevant_to": []
           },
@@ -1965,6 +2608,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 143497,
             "end": 144304,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.525,
             "relevant_to": []
           }
@@ -2000,6 +2647,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 197440,
             "end": 198240,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.436,
             "relevant_to": []
           },
@@ -2009,6 +2660,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 105028,
             "end": 105828,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.47,
             "relevant_to": []
           },
@@ -2018,6 +2673,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 96379,
             "end": 97179,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.471,
             "relevant_to": []
           },
@@ -2027,6 +2686,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 255324,
             "end": 256124,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.476,
             "relevant_to": []
           },
@@ -2036,6 +2699,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 69483,
             "end": 70283,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.487,
             "relevant_to": []
           },
@@ -2045,6 +2712,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 229250,
             "end": 230050,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.49,
             "relevant_to": []
           },
@@ -2054,6 +2725,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 266145,
             "end": 266966,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.492,
             "relevant_to": []
           },
@@ -2063,6 +2738,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 245204,
             "end": 246004,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.498,
             "relevant_to": []
           },
@@ -2072,6 +2751,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 121615,
             "end": 122415,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.507,
             "relevant_to": []
           },
@@ -2081,6 +2764,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 123055,
             "end": 123855,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.509,
             "relevant_to": []
           }
@@ -2116,6 +2803,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 450599,
             "end": 451402,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.323,
             "relevant_to": []
           },
@@ -2125,6 +2816,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 367684,
             "end": 368484,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.427,
             "relevant_to": [
               0
@@ -2136,6 +2831,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 365872,
             "end": 367041,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.438,
             "relevant_to": []
           },
@@ -2145,6 +2844,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 449879,
             "end": 450679,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.456,
             "relevant_to": []
           },
@@ -2154,6 +2857,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 355014,
             "end": 355814,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.481,
             "relevant_to": []
           },
@@ -2163,6 +2870,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 465731,
             "end": 466531,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.484,
             "relevant_to": []
           },
@@ -2172,6 +2883,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 366961,
             "end": 367764,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.492,
             "relevant_to": []
           },
@@ -2181,6 +2896,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 355734,
             "end": 356534,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.494,
             "relevant_to": []
           },
@@ -2190,6 +2909,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 471491,
             "end": 472291,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.505,
             "relevant_to": []
           },
@@ -2199,6 +2922,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 446279,
             "end": 447079,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.509,
             "relevant_to": []
           }
@@ -2235,6 +2962,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 12428,
             "end": 13228,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.498,
             "relevant_to": []
           },
@@ -2244,6 +2975,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 59406,
             "end": 60209,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.532,
             "relevant_to": [
               0,
@@ -2256,6 +2991,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 463188,
             "end": 464005,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.592,
             "relevant_to": []
           },
@@ -2265,6 +3004,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 21077,
             "end": 21877,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.594,
             "relevant_to": []
           },
@@ -2274,6 +3017,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 275625,
             "end": 276461,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.599,
             "relevant_to": []
           },
@@ -2283,6 +3030,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 183985,
             "end": 184785,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.607,
             "relevant_to": []
           },
@@ -2292,6 +3043,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 20354,
             "end": 21157,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.609,
             "relevant_to": []
           },
@@ -2301,6 +3056,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 199369,
             "end": 200229,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.61,
             "relevant_to": []
           },
@@ -2310,6 +3069,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 143497,
             "end": 144304,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.613,
             "relevant_to": []
           },
@@ -2319,6 +3082,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 342491,
             "end": 343291,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.615,
             "relevant_to": []
           }
@@ -2354,6 +3121,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 465395,
             "end": 466195,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.502,
             "relevant_to": []
           },
@@ -2363,6 +3134,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 273008,
             "end": 273816,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.525,
             "relevant_to": []
           },
@@ -2372,6 +3147,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 272274,
             "end": 273088,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.543,
             "relevant_to": []
           },
@@ -2381,6 +3160,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 466835,
             "end": 467648,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.557,
             "relevant_to": []
           },
@@ -2390,6 +3173,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 220528,
             "end": 221364,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.557,
             "relevant_to": []
           },
@@ -2399,6 +3186,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 212567,
             "end": 213367,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.561,
             "relevant_to": [
               0
@@ -2410,6 +3201,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 224095,
             "end": 224898,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.572,
             "relevant_to": []
           },
@@ -2419,6 +3214,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 474090,
             "end": 474890,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.576,
             "relevant_to": []
           },
@@ -2428,6 +3227,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 150818,
             "end": 151657,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.577,
             "relevant_to": []
           },
@@ -2437,6 +3240,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 195739,
             "end": 196550,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.578,
             "relevant_to": []
           }
@@ -2473,6 +3280,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 156963,
             "end": 157763,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.474,
             "relevant_to": []
           },
@@ -2482,6 +3293,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 115181,
             "end": 115981,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.483,
             "relevant_to": []
           },
@@ -2491,6 +3306,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 364434,
             "end": 365234,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.498,
             "relevant_to": []
           },
@@ -2500,6 +3319,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 87522,
             "end": 88322,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.509,
             "relevant_to": []
           },
@@ -2509,6 +3332,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 168497,
             "end": 169297,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.517,
             "relevant_to": []
           },
@@ -2518,6 +3345,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 61569,
             "end": 62369,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.537,
             "relevant_to": []
           },
@@ -2527,6 +3358,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 183720,
             "end": 184520,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.54,
             "relevant_to": []
           },
@@ -2536,6 +3371,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 360186,
             "end": 360986,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.544,
             "relevant_to": []
           },
@@ -2545,6 +3384,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 402971,
             "end": 403771,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.544,
             "relevant_to": []
           },
@@ -2554,6 +3397,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 62289,
             "end": 63089,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.546,
             "relevant_to": [
               0
@@ -2592,6 +3439,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 182696,
             "end": 183542,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.394,
             "relevant_to": []
           },
@@ -2601,6 +3452,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 61569,
             "end": 62369,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.398,
             "relevant_to": [
               0
@@ -2612,6 +3467,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 317156,
             "end": 317971,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.402,
             "relevant_to": []
           },
@@ -2621,6 +3480,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 122409,
             "end": 123210,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.402,
             "relevant_to": []
           },
@@ -2630,6 +3493,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 62289,
             "end": 63089,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.41,
             "relevant_to": []
           },
@@ -2639,6 +3506,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 156963,
             "end": 157763,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.411,
             "relevant_to": []
           },
@@ -2648,6 +3519,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 533497,
             "end": 534297,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.416,
             "relevant_to": []
           },
@@ -2657,6 +3532,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 115181,
             "end": 115981,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.418,
             "relevant_to": []
           },
@@ -2666,6 +3545,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 80184,
             "end": 80984,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.428,
             "relevant_to": []
           },
@@ -2675,6 +3558,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 355785,
             "end": 356585,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.432,
             "relevant_to": []
           }
@@ -2711,6 +3598,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 264790,
             "end": 265590,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.46,
             "relevant_to": [
               1
@@ -2722,6 +3613,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 264070,
             "end": 264870,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.465,
             "relevant_to": []
           },
@@ -2731,6 +3626,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 492239,
             "end": 493039,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.483,
             "relevant_to": []
           },
@@ -2740,6 +3639,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 432884,
             "end": 433684,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.508,
             "relevant_to": []
           },
@@ -2749,6 +3652,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 432164,
             "end": 432964,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.509,
             "relevant_to": []
           },
@@ -2758,6 +3665,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 221903,
             "end": 222732,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.511,
             "relevant_to": []
           },
@@ -2767,6 +3678,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 475530,
             "end": 476330,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.512,
             "relevant_to": []
           },
@@ -2776,6 +3691,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 469044,
             "end": 469844,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.516,
             "relevant_to": []
           },
@@ -2785,6 +3704,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 298088,
             "end": 298943,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.52,
             "relevant_to": []
           },
@@ -2794,6 +3717,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 514031,
             "end": 514830,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.524,
             "relevant_to": []
           }
@@ -2829,6 +3756,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 15,
             "end": 815,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.325,
             "relevant_to": [
               0
@@ -2840,6 +3771,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 300110,
             "end": 300910,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.534,
             "relevant_to": []
           },
@@ -2849,6 +3784,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 65874,
             "end": 66677,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.534,
             "relevant_to": []
           },
@@ -2858,7 +3797,11 @@
             "source": "monte-cristo-vol2.txt",
             "start": 67317,
             "end": 68117,
-            "distance": 0.548,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.547,
             "relevant_to": []
           },
           {
@@ -2867,6 +3810,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 26879,
             "end": 27679,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.562,
             "relevant_to": []
           },
@@ -2876,6 +3823,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 204044,
             "end": 204868,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.564,
             "relevant_to": []
           },
@@ -2885,6 +3836,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 573051,
             "end": 573891,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.565,
             "relevant_to": []
           },
@@ -2894,6 +3849,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 39917,
             "end": 40717,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.565,
             "relevant_to": []
           },
@@ -2903,6 +3862,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 34124,
             "end": 34927,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.583,
             "relevant_to": []
           },
@@ -2912,6 +3875,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 85362,
             "end": 86162,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.586,
             "relevant_to": []
           }
@@ -2947,6 +3914,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 64431,
             "end": 65234,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.329,
             "relevant_to": [
               0
@@ -2958,6 +3929,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 398612,
             "end": 399412,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.422,
             "relevant_to": []
           },
@@ -2967,6 +3942,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 537100,
             "end": 537908,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.429,
             "relevant_to": []
           },
@@ -2976,6 +3955,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 550863,
             "end": 551681,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.439,
             "relevant_to": []
           },
@@ -2985,6 +3968,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 16031,
             "end": 16831,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.443,
             "relevant_to": []
           },
@@ -2994,6 +3981,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 45680,
             "end": 46480,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.449,
             "relevant_to": []
           },
@@ -3003,6 +3994,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 407984,
             "end": 408784,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.457,
             "relevant_to": []
           },
@@ -3012,6 +4007,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 65154,
             "end": 65954,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.459,
             "relevant_to": []
           },
@@ -3021,6 +4020,10 @@
             "source": "monte-cristo-vol5.txt",
             "start": 399332,
             "end": 400132,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.46,
             "relevant_to": []
           },
@@ -3030,6 +4033,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 146600,
             "end": 147400,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.467,
             "relevant_to": []
           }
@@ -3101,6 +4108,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 302619,
             "end": 303419,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.333,
             "relevant_to": []
           },
@@ -3110,6 +4121,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 542900,
             "end": 543703,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.421,
             "relevant_to": []
           },
@@ -3119,6 +4134,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 279530,
             "end": 280330,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.441,
             "relevant_to": []
           },
@@ -3128,6 +4147,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 292514,
             "end": 293314,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.45,
             "relevant_to": []
           },
@@ -3137,6 +4160,10 @@
             "source": "monte-cristo-vol3.txt",
             "start": 412595,
             "end": 413477,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.46,
             "relevant_to": []
           },
@@ -3146,6 +4173,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 68230,
             "end": 69070,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.46,
             "relevant_to": [
               1
@@ -3157,6 +4188,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 129091,
             "end": 129891,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.461,
             "relevant_to": []
           },
@@ -3166,6 +4201,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 99328,
             "end": 100131,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.468,
             "relevant_to": []
           },
@@ -3175,6 +4214,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 256300,
             "end": 257100,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.502,
             "relevant_to": []
           },
@@ -3184,6 +4227,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 344652,
             "end": 345452,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.505,
             "relevant_to": [
               0
@@ -3222,6 +4269,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 236685,
             "end": 237485,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.421,
             "relevant_to": []
           },
@@ -3231,6 +4282,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 247537,
             "end": 248338,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.435,
             "relevant_to": []
           },
@@ -3240,6 +4295,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 507534,
             "end": 508334,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.458,
             "relevant_to": []
           },
@@ -3249,6 +4308,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 231553,
             "end": 232385,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.467,
             "relevant_to": []
           },
@@ -3258,6 +4321,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 237405,
             "end": 238208,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.467,
             "relevant_to": []
           },
@@ -3267,6 +4334,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 514031,
             "end": 514830,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.474,
             "relevant_to": []
           },
@@ -3276,6 +4347,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 546402,
             "end": 547202,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.479,
             "relevant_to": []
           },
@@ -3285,6 +4360,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 248258,
             "end": 249058,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.482,
             "relevant_to": []
           },
@@ -3294,6 +4373,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 526187,
             "end": 526987,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.483,
             "relevant_to": []
           },
@@ -3303,6 +4386,10 @@
             "source": "monte-cristo-vol4.txt",
             "start": 238848,
             "end": 239694,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.492,
             "relevant_to": []
           }
@@ -3338,6 +4425,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 140909,
             "end": 141714,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
             "distance": 0.439,
             "relevant_to": []
           },
@@ -3347,6 +4438,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 387130,
             "end": 387933,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
             "distance": 0.441,
             "relevant_to": []
           },
@@ -3356,6 +4451,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 159065,
             "end": 159868,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
             "distance": 0.456,
             "relevant_to": []
           },
@@ -3365,6 +4464,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 421736,
             "end": 422539,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
             "distance": 0.461,
             "relevant_to": []
           },
@@ -3374,6 +4477,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 7309,
             "end": 8133,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
             "distance": 0.462,
             "relevant_to": []
           },
@@ -3383,6 +4490,10 @@
             "source": "monte-cristo-vol2.txt",
             "start": 6589,
             "end": 7389,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
             "distance": 0.463,
             "relevant_to": []
           },
@@ -3392,6 +4503,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 141634,
             "end": 142434,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
             "distance": 0.463,
             "relevant_to": []
           },
@@ -3401,6 +4516,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 247561,
             "end": 248364,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
             "distance": 0.468,
             "relevant_to": []
           },
@@ -3410,6 +4529,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 148852,
             "end": 149699,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
             "distance": 0.477,
             "relevant_to": []
           },
@@ -3419,6 +4542,10 @@
             "source": "monte-cristo-vol1.txt",
             "start": 158345,
             "end": 159145,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
             "distance": 0.477,
             "relevant_to": []
           }

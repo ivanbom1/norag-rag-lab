@@ -29,3 +29,6 @@ future/
 
 # Documents managed by the app
 data/
+
+# BM25 index (SQLite FTS5)
+bm25_db/

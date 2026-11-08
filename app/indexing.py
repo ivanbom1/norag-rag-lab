@@ -5,6 +5,8 @@ from dataclasses import dataclass
 import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 
+from app import bm25
+
 CHROMA_PATH = "./chroma_db"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 BATCH_SIZE = 5000
@@ -85,7 +87,32 @@ def index_document(path, corpus, settings):
                 for i, chunk in enumerate(batch)
             ],
         )
+    # Same chunks, same ids, in the BM25 index.
+    bm25.index_chunks(source, corpus, settings, [
+        {"id": f"{source}#{i}", "chunk_index": i, **chunk} for i, chunk in enumerate(chunks)
+    ])
     return len(chunks)
+
+
+def copy_to_bm25(source, corpus, settings):
+    """Fill the BM25 index from chunks already in Chroma (no re-chunking, no re-embedding)."""
+    data = get_collection(corpus, settings).get(where={"source": source}, include=["documents", "metadatas"])
+    chunks = [{"id": chunk_id, "text": text, "chunk_index": metadata["chunk_index"],
+               "start": metadata["start"], "end": metadata["end"]}
+              for chunk_id, text, metadata in zip(data["ids"], data["documents"], data["metadatas"])]
+    return bm25.index_chunks(source, corpus, settings, chunks)
+
+
+def ensure_indexed(path, corpus, settings):
+    """Make sure a document is in both indexes. Returns what was done: "indexed", "bm25" or None."""
+    source = os.path.basename(path)
+    if not is_indexed(source, corpus, settings):
+        index_document(path, corpus, settings)
+        return "indexed"
+    if not bm25.is_indexed(source, corpus, settings):
+        copy_to_bm25(source, corpus, settings)
+        return "bm25"
+    return None
 
 
 def is_indexed(source, corpus, settings):
@@ -96,3 +123,4 @@ def delete_document(source, corpus):
     for collection in client.list_collections():
         if collection.name.startswith(f"{corpus}_"):
             collection.delete(where={"source": source})
+    bm25.delete_document(source, corpus)
