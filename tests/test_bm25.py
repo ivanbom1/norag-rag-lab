@@ -27,9 +27,28 @@ def index_file(tmp_path, monkeypatch):
     bm25.index_chunks("runbook.md", "kestrel", SETTINGS, chunks(RUNBOOK, "runbook.md"))
 
 
-def test_fts5_tokenizes_exactly_like_the_words_tab():
+def test_index_tokenizes_exactly_like_the_words_tab():
     expected = Counter(token for text in RUNBOOK for token in tokenize(text))
     assert bm25.vocabulary("kestrel", SETTINGS) == dict(expected)
+
+
+def test_scores_match_the_course_formula():
+    counts = [Counter(tokenize(text)) for text in RUNBOOK]
+    lengths = [sum(c.values()) for c in counts]
+    average = sum(lengths) / len(lengths)
+
+    def expected(i, terms):
+        total = 0.0
+        for word in terms:
+            tf = counts[i][word]
+            if tf:
+                df = sum(1 for c in counts if word in c)
+                total += bm25.idf(len(RUNBOOK), df) * tf * 2.5 / (tf + 1.5 * (0.25 + 0.75 * lengths[i] / average))
+        return round(total, 3)
+
+    results = bm25.search("error KST-2040 data source", "kestrel", ["runbook.md"], SETTINGS, 5)
+    terms = bm25.query_terms("error KST-2040 data source")
+    assert {r["id"]: r["score"] for r in results} == {f"runbook.md#{i}": expected(i, terms) for i in (0, 1)}
 
 
 def test_exact_identifier_ranks_first():
