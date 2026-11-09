@@ -1,0 +1,2020 @@
+{
+  "corpus": "kestrel",
+  "created": "2026-11-09T04:53:01",
+  "nodes": [
+    {
+      "id": "Feature:annual billing",
+      "name": "annual billing",
+      "type": "Feature",
+      "aliases": [
+        "annual billing"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#1"
+      ]
+    },
+    {
+      "id": "Feature:audit log",
+      "name": "Audit log",
+      "type": "Feature",
+      "aliases": [
+        "Audit log",
+        "audit log"
+      ],
+      "chunks": [
+        "product-guide.md#1",
+        "product-guide.md#2"
+      ]
+    },
+    {
+      "id": "Feature:bank transfer",
+      "name": "bank transfer",
+      "type": "Feature",
+      "aliases": [
+        "bank transfer"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#1",
+        "billing-policy-2026.md#1"
+      ]
+    },
+    {
+      "id": "Feature:billing",
+      "name": "billing",
+      "type": "Feature",
+      "aliases": [
+        "billing"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#5"
+      ]
+    },
+    {
+      "id": "Feature:billing cycles",
+      "name": "billing cycles",
+      "type": "Feature",
+      "aliases": [
+        "billing cycles"
+      ],
+      "chunks": [
+        "billing-policy-2026.md#1"
+      ]
+    },
+    {
+      "id": "Feature:cancellation",
+      "name": "cancellation",
+      "type": "Feature",
+      "aliases": [
+        "Cancellation",
+        "cancellation"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#4",
+        "billing-policy-2025.md#5",
+        "billing-policy-2026.md#5",
+        "billing-policy-2026.md#6"
+      ]
+    },
+    {
+      "id": "Feature:change the plan",
+      "name": "change the plan",
+      "type": "Feature",
+      "aliases": [
+        "change the plan"
+      ],
+      "chunks": [
+        "product-guide.md#2"
+      ]
+    },
+    {
+      "id": "Feature:dashboards",
+      "name": "dashboards",
+      "type": "Feature",
+      "aliases": [
+        "dashboards"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#4",
+        "product-guide.md#1",
+        "product-guide.md#3"
+      ]
+    },
+    {
+      "id": "Feature:data connectors",
+      "name": "data connectors",
+      "type": "Feature",
+      "aliases": [
+        "data connectors"
+      ],
+      "chunks": [
+        "product-guide.md#1"
+      ]
+    },
+    {
+      "id": "Feature:datasets",
+      "name": "datasets",
+      "type": "Feature",
+      "aliases": [
+        "datasets"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#4",
+        "product-guide.md#3"
+      ]
+    },
+    {
+      "id": "Feature:delete the workspace",
+      "name": "delete the workspace",
+      "type": "Feature",
+      "aliases": [
+        "delete the workspace"
+      ],
+      "chunks": [
+        "product-guide.md#2"
+      ]
+    },
+    {
+      "id": "Feature:failed payments",
+      "name": "failed payments",
+      "type": "Feature",
+      "aliases": [
+        "Failed payments",
+        "failed payments"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#4",
+        "billing-policy-2026.md#4",
+        "billing-policy-2026.md#5"
+      ]
+    },
+    {
+      "id": "Feature:inviting people",
+      "name": "inviting people",
+      "type": "Feature",
+      "aliases": [
+        "inviting people"
+      ],
+      "chunks": [
+        "product-guide.md#3"
+      ]
+    },
+    {
+      "id": "Feature:invoices",
+      "name": "Invoices",
+      "type": "Feature",
+      "aliases": [
+        "Invoices",
+        "invoices"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#1",
+        "billing-policy-2025.md#2",
+        "billing-policy-2026.md#2"
+      ]
+    },
+    {
+      "id": "Feature:manages connectors",
+      "name": "manages connectors",
+      "type": "Feature",
+      "aliases": [
+        "manages connectors"
+      ],
+      "chunks": [
+        "product-guide.md#2"
+      ]
+    },
+    {
+      "id": "Feature:manages members",
+      "name": "manages members",
+      "type": "Feature",
+      "aliases": [
+        "manages members"
+      ],
+      "chunks": [
+        "product-guide.md#2"
+      ]
+    },
+    {
+      "id": "Feature:manages security settings",
+      "name": "manages security settings",
+      "type": "Feature",
+      "aliases": [
+        "manages security settings"
+      ],
+      "chunks": [
+        "product-guide.md#2"
+      ]
+    },
+    {
+      "id": "Feature:monthly billing",
+      "name": "monthly billing",
+      "type": "Feature",
+      "aliases": [
+        "monthly billing"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#1"
+      ]
+    },
+    {
+      "id": "Feature:payment method",
+      "name": "Payment method",
+      "type": "Feature",
+      "aliases": [
+        "Payment method"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#1",
+        "billing-policy-2026.md#2"
+      ]
+    },
+    {
+      "id": "Feature:payment methods",
+      "name": "Payment methods",
+      "type": "Feature",
+      "aliases": [
+        "Payment methods",
+        "payment methods"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#1",
+        "billing-policy-2026.md#1"
+      ]
+    },
+    {
+      "id": "Feature:payments",
+      "name": "payments",
+      "type": "Feature",
+      "aliases": [
+        "payments"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#3"
+      ]
+    },
+    {
+      "id": "Feature:public share links",
+      "name": "Public share links",
+      "type": "Feature",
+      "aliases": [
+        "Public share links"
+      ],
+      "chunks": [
+        "product-guide.md#2"
+      ]
+    },
+    {
+      "id": "Feature:rate limiting",
+      "name": "rate limiting",
+      "type": "Feature",
+      "aliases": [
+        "rate limiting"
+      ],
+      "chunks": [
+        "service-catalog.md#0"
+      ]
+    },
+    {
+      "id": "Feature:refunds",
+      "name": "refunds",
+      "type": "Feature",
+      "aliases": [
+        "refunds"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2025.md#3",
+        "billing-policy-2026.md#0",
+        "billing-policy-2026.md#3",
+        "billing-policy-2026.md#4",
+        "billing-policy-2026.md#6"
+      ]
+    },
+    {
+      "id": "Feature:reports",
+      "name": "reports",
+      "type": "Feature",
+      "aliases": [
+        "reports"
+      ],
+      "chunks": [
+        "product-guide.md#3"
+      ]
+    },
+    {
+      "id": "Feature:request routing",
+      "name": "request routing",
+      "type": "Feature",
+      "aliases": [
+        "request routing"
+      ],
+      "chunks": [
+        "service-catalog.md#0"
+      ]
+    },
+    {
+      "id": "Feature:reverse-charge mechanism",
+      "name": "reverse-charge mechanism",
+      "type": "Feature",
+      "aliases": [
+        "reverse-charge mechanism"
+      ],
+      "chunks": [
+        "billing-policy-2026.md#6"
+      ]
+    },
+    {
+      "id": "Feature:scim provisioning",
+      "name": "SCIM provisioning",
+      "type": "Feature",
+      "aliases": [
+        "SCIM provisioning"
+      ],
+      "chunks": [
+        "service-catalog.md#0"
+      ]
+    },
+    {
+      "id": "Feature:scim user provisioning",
+      "name": "SCIM user provisioning",
+      "type": "Feature",
+      "aliases": [
+        "SCIM user provisioning"
+      ],
+      "chunks": [
+        "product-guide.md#1"
+      ]
+    },
+    {
+      "id": "Feature:seats",
+      "name": "seats",
+      "type": "Feature",
+      "aliases": [
+        "seats"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2025.md#2",
+        "billing-policy-2025.md#3",
+        "billing-policy-2026.md#0",
+        "billing-policy-2026.md#1",
+        "billing-policy-2026.md#2",
+        "billing-policy-2026.md#3",
+        "product-guide.md#1",
+        "product-guide.md#4"
+      ]
+    },
+    {
+      "id": "Feature:single sign-on",
+      "name": "single sign-on",
+      "type": "Feature",
+      "aliases": [
+        "single sign-on"
+      ],
+      "chunks": [
+        "product-guide.md#1",
+        "product-guide.md#5",
+        "service-catalog.md#0"
+      ]
+    },
+    {
+      "id": "Feature:taxes",
+      "name": "taxes",
+      "type": "Feature",
+      "aliases": [
+        "taxes"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#5",
+        "billing-policy-2026.md#6"
+      ]
+    },
+    {
+      "id": "Feature:tls",
+      "name": "TLS",
+      "type": "Feature",
+      "aliases": [
+        "TLS"
+      ],
+      "chunks": [
+        "service-catalog.md#0"
+      ]
+    },
+    {
+      "id": "Feature:transfer ownership",
+      "name": "transfer ownership",
+      "type": "Feature",
+      "aliases": [
+        "transfer ownership"
+      ],
+      "chunks": [
+        "product-guide.md#2",
+        "product-guide.md#3"
+      ]
+    },
+    {
+      "id": "Feature:two-factor authentication",
+      "name": "two-factor authentication",
+      "type": "Feature",
+      "aliases": [
+        "two-factor authentication"
+      ],
+      "chunks": [
+        "product-guide.md#5",
+        "service-catalog.md#0"
+      ]
+    },
+    {
+      "id": "Feature:user provisioning",
+      "name": "user provisioning",
+      "type": "Feature",
+      "aliases": [
+        "user provisioning"
+      ],
+      "chunks": [
+        "product-guide.md#2"
+      ]
+    },
+    {
+      "id": "Plan:business",
+      "name": "Business",
+      "type": "Plan",
+      "aliases": [
+        "Business"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2025.md#1",
+        "billing-policy-2026.md#0",
+        "billing-policy-2026.md#1",
+        "product-guide.md#1",
+        "product-guide.md#2",
+        "product-guide.md#5"
+      ]
+    },
+    {
+      "id": "Plan:enterprise",
+      "name": "Enterprise",
+      "type": "Plan",
+      "aliases": [
+        "Enterprise"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2025.md#1",
+        "billing-policy-2026.md#0",
+        "billing-policy-2026.md#1",
+        "product-guide.md#1",
+        "product-guide.md#2",
+        "product-guide.md#5"
+      ]
+    },
+    {
+      "id": "Plan:free",
+      "name": "Free",
+      "type": "Plan",
+      "aliases": [
+        "Free"
+      ],
+      "chunks": [
+        "product-guide.md#1"
+      ]
+    },
+    {
+      "id": "Plan:starter",
+      "name": "Starter",
+      "type": "Plan",
+      "aliases": [
+        "Starter"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2026.md#0",
+        "product-guide.md#1",
+        "product-guide.md#2"
+      ]
+    },
+    {
+      "id": "Plan:team",
+      "name": "Team",
+      "type": "Plan",
+      "aliases": [
+        "Team"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2026.md#0",
+        "billing-policy-2026.md#1",
+        "product-guide.md#1",
+        "product-guide.md#2"
+      ]
+    },
+    {
+      "id": "Policy:billing and refund policy 2025",
+      "name": "Billing and Refund Policy 2025",
+      "type": "Policy",
+      "aliases": [
+        "Billing and Refund Policy 2025"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2025.md#1",
+        "billing-policy-2025.md#2",
+        "billing-policy-2025.md#3",
+        "billing-policy-2025.md#4",
+        "billing-policy-2025.md#5",
+        "billing-policy-2026.md#0"
+      ]
+    },
+    {
+      "id": "Policy:billing and refund policy 2026",
+      "name": "Billing and Refund Policy 2026",
+      "type": "Policy",
+      "aliases": [
+        "Billing and Refund Policy 2026"
+      ],
+      "chunks": [
+        "billing-policy-2026.md#0",
+        "billing-policy-2026.md#1",
+        "billing-policy-2026.md#2",
+        "billing-policy-2026.md#3",
+        "billing-policy-2026.md#4",
+        "billing-policy-2026.md#5",
+        "billing-policy-2026.md#6"
+      ]
+    },
+    {
+      "id": "Role:admin",
+      "name": "Admin",
+      "type": "Role",
+      "aliases": [
+        "Admin"
+      ],
+      "chunks": [
+        "product-guide.md#2",
+        "product-guide.md#3",
+        "product-guide.md#4",
+        "product-guide.md#5"
+      ]
+    },
+    {
+      "id": "Role:editor",
+      "name": "Editor",
+      "type": "Role",
+      "aliases": [
+        "Editor"
+      ],
+      "chunks": [
+        "product-guide.md#3"
+      ]
+    },
+    {
+      "id": "Role:owner",
+      "name": "Owner",
+      "type": "Role",
+      "aliases": [
+        "Owner"
+      ],
+      "chunks": [
+        "billing-policy-2025.md#1",
+        "billing-policy-2025.md#2",
+        "billing-policy-2025.md#3",
+        "billing-policy-2025.md#4",
+        "billing-policy-2026.md#2",
+        "billing-policy-2026.md#4",
+        "billing-policy-2026.md#5",
+        "product-guide.md#2",
+        "product-guide.md#3",
+        "product-guide.md#4"
+      ]
+    },
+    {
+      "id": "Role:viewer",
+      "name": "Viewer",
+      "type": "Role",
+      "aliases": [
+        "Viewer"
+      ],
+      "chunks": [
+        "product-guide.md#3"
+      ]
+    },
+    {
+      "id": "Service:auth",
+      "name": "auth",
+      "type": "Service",
+      "aliases": [
+        "auth"
+      ],
+      "chunks": [
+        "service-catalog.md#0"
+      ]
+    },
+    {
+      "id": "Service:gateway",
+      "name": "gateway",
+      "type": "Service",
+      "aliases": [
+        "gateway"
+      ],
+      "chunks": [
+        "service-catalog.md#0"
+      ]
+    },
+    {
+      "id": "Team:identity",
+      "name": "Identity",
+      "type": "Team",
+      "aliases": [
+        "Identity"
+      ],
+      "chunks": [
+        "service-catalog.md#0"
+      ]
+    },
+    {
+      "id": "Team:platform",
+      "name": "Platform",
+      "type": "Team",
+      "aliases": [
+        "Platform"
+      ],
+      "chunks": [
+        "service-catalog.md#0"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "Plan:business",
+      "relation": "includes",
+      "target": "Feature:audit log",
+      "chunks": [
+        "product-guide.md#1",
+        "product-guide.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Audit log | — | — | — | 90 days |",
+          "verified": true
+        },
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "Audit log | — | — | — | 90 days | 1 year |",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:business",
+      "relation": "includes",
+      "target": "Feature:bank transfer",
+      "chunks": [
+        "billing-policy-2025.md#1",
+        "billing-policy-2026.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#1",
+          "quote": "Business and Enterprise customers can also pay by bank transfer",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#1",
+          "quote": "Team, Business and Enterprise customers can also pay by bank transfer",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:business",
+      "relation": "includes",
+      "target": "Feature:dashboards",
+      "chunks": [
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Dashboards | 3 | 25 | Unlimited | Unlimited | Unlimited",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:business",
+      "relation": "includes",
+      "target": "Feature:data connectors",
+      "chunks": [
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Data connectors | 1 | 3 | 10 | Unlimited | Unlimited",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:business",
+      "relation": "includes",
+      "target": "Feature:public share links",
+      "chunks": [
+        "product-guide.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "Public share links | — | Yes | Yes | Yes | Yes |",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:business",
+      "relation": "includes",
+      "target": "Feature:seats",
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2026.md#0",
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#0",
+          "quote": "Paid plans are billed per seat, either monthly or annually.",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#0",
+          "quote": "Paid plans are billed per seat",
+          "verified": true
+        },
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "The plan sets the number of seats",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:business",
+      "relation": "includes",
+      "target": "Feature:single sign-on",
+      "chunks": [
+        "product-guide.md#1",
+        "product-guide.md#5"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Single sign-on (SAML) | — | — | — | Yes | Yes",
+          "verified": true
+        },
+        {
+          "chunk_id": "product-guide.md#5",
+          "quote": "On the Business and Enterprise plans, workspaces can use single sign-on",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:enterprise",
+      "relation": "includes",
+      "target": "Feature:audit log",
+      "chunks": [
+        "product-guide.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "Audit log | — | — | — | 90 days | 1 year |",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:enterprise",
+      "relation": "includes",
+      "target": "Feature:bank transfer",
+      "chunks": [
+        "billing-policy-2025.md#1",
+        "billing-policy-2026.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#1",
+          "quote": "Business and Enterprise customers can also pay by bank transfer",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#1",
+          "quote": "Team, Business and Enterprise customers can also pay by bank transfer",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:enterprise",
+      "relation": "includes",
+      "target": "Feature:dashboards",
+      "chunks": [
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Dashboards | 3 | 25 | Unlimited | Unlimited | Unlimited",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:enterprise",
+      "relation": "includes",
+      "target": "Feature:data connectors",
+      "chunks": [
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Data connectors | 1 | 3 | 10 | Unlimited | Unlimited",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:enterprise",
+      "relation": "includes",
+      "target": "Feature:public share links",
+      "chunks": [
+        "product-guide.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "Public share links | — | Yes | Yes | Yes | Yes |",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:enterprise",
+      "relation": "includes",
+      "target": "Feature:scim user provisioning",
+      "chunks": [
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "SCIM user provisioning | — | — | — | — | Yes",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:enterprise",
+      "relation": "includes",
+      "target": "Feature:seats",
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2026.md#0",
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#0",
+          "quote": "Paid plans are billed per seat, either monthly or annually.",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#0",
+          "quote": "Paid plans are billed per seat",
+          "verified": true
+        },
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "The plan sets the number of seats",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:enterprise",
+      "relation": "includes",
+      "target": "Feature:single sign-on",
+      "chunks": [
+        "product-guide.md#1",
+        "product-guide.md#5"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Single sign-on (SAML) | — | — | — | Yes | Yes",
+          "verified": true
+        },
+        {
+          "chunk_id": "product-guide.md#5",
+          "quote": "On the Business and Enterprise plans, workspaces can use single sign-on",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:enterprise",
+      "relation": "includes",
+      "target": "Feature:user provisioning",
+      "chunks": [
+        "product-guide.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "M user provisioning | — | — | — | — | Yes |",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:free",
+      "relation": "includes",
+      "target": "Feature:dashboards",
+      "chunks": [
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Dashboards | 3 | 25 | Unlimited | Unlimited | Unlimited",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:free",
+      "relation": "includes",
+      "target": "Feature:data connectors",
+      "chunks": [
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Data connectors | 1 | 3 | 10 | Unlimited | Unlimited",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:free",
+      "relation": "includes",
+      "target": "Feature:seats",
+      "chunks": [
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "The plan sets the number of seats",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:starter",
+      "relation": "includes",
+      "target": "Feature:dashboards",
+      "chunks": [
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Dashboards | 3 | 25 | Unlimited | Unlimited | Unlimited",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:starter",
+      "relation": "includes",
+      "target": "Feature:data connectors",
+      "chunks": [
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Data connectors | 1 | 3 | 10 | Unlimited | Unlimited",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:starter",
+      "relation": "includes",
+      "target": "Feature:public share links",
+      "chunks": [
+        "product-guide.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "Public share links | — | Yes | Yes | Yes | Yes |",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:starter",
+      "relation": "includes",
+      "target": "Feature:seats",
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2026.md#0",
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#0",
+          "quote": "Paid plans are billed per seat, either monthly or annually.",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#0",
+          "quote": "Paid plans are billed per seat",
+          "verified": true
+        },
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "The plan sets the number of seats",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:team",
+      "relation": "includes",
+      "target": "Feature:bank transfer",
+      "chunks": [
+        "billing-policy-2026.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2026.md#1",
+          "quote": "Team, Business and Enterprise customers can also pay by bank transfer",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:team",
+      "relation": "includes",
+      "target": "Feature:dashboards",
+      "chunks": [
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Dashboards | 3 | 25 | Unlimited | Unlimited | Unlimited",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:team",
+      "relation": "includes",
+      "target": "Feature:data connectors",
+      "chunks": [
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "Data connectors | 1 | 3 | 10 | Unlimited | Unlimited",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:team",
+      "relation": "includes",
+      "target": "Feature:public share links",
+      "chunks": [
+        "product-guide.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "Public share links | — | Yes | Yes | Yes | Yes |",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Plan:team",
+      "relation": "includes",
+      "target": "Feature:seats",
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2026.md#0",
+        "product-guide.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#0",
+          "quote": "Paid plans are billed per seat, either monthly or annually.",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#0",
+          "quote": "Paid plans are billed per seat",
+          "verified": true
+        },
+        {
+          "chunk_id": "product-guide.md#1",
+          "quote": "The plan sets the number of seats",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:annual billing",
+      "chunks": [
+        "billing-policy-2025.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#1",
+          "quote": "Customers who choose annual billing receive a 15% discount",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:billing",
+      "chunks": [
+        "billing-policy-2025.md#5"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#5",
+          "quote": "Billing questions: billing@kestrel.example.",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:cancellation",
+      "chunks": [
+        "billing-policy-2025.md#4",
+        "billing-policy-2025.md#5"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#4",
+          "quote": "Cancellation stops future charges",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2025.md#5",
+          "quote": "paid, then moves to the Free plan. Content above the Free plan limits becomes read-only.",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:dashboards",
+      "chunks": [
+        "billing-policy-2025.md#4"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#4",
+          "quote": "members can view dashboards but cannot edit them",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:datasets",
+      "chunks": [
+        "billing-policy-2025.md#4"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#4",
+          "quote": "datasets stop refreshing",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:failed payments",
+      "chunks": [
+        "billing-policy-2025.md#4"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#4",
+          "quote": "a payment fails, we retry the card automatically",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:invoices",
+      "chunks": [
+        "billing-policy-2025.md#1",
+        "billing-policy-2025.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#1",
+          "quote": "## 4. Invoices",
+          "verified": false
+        },
+        {
+          "chunk_id": "billing-policy-2025.md#2",
+          "quote": "An invoice is issued for every charge",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:monthly billing",
+      "chunks": [
+        "billing-policy-2025.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#1",
+          "quote": "Switching from monthly to annual billing is possible at any time",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:payment methods",
+      "chunks": [
+        "billing-policy-2025.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#1",
+          "quote": "## 3. Payment methods",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:payments",
+      "chunks": [
+        "billing-policy-2025.md#3"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#3",
+          "quote": "If a payment fails, we retry the card automatically",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:refunds",
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2025.md#3"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#0",
+          "quote": "This policy explains how Kestrel Analytics charges for its plans, how invoices are issued, and when refunds are possible.",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2025.md#3",
+          "quote": "Monthly plans are not refundable.",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:seats",
+      "chunks": [
+        "billing-policy-2025.md#0",
+        "billing-policy-2025.md#2",
+        "billing-policy-2025.md#3"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#0",
+          "quote": "Paid plans are billed per seat, either monthly or annually.",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2025.md#2",
+          "quote": "Adding and removing seats",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2025.md#3",
+          "quote": "No credit is given for removed seats during the current period.",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2025",
+      "relation": "covers",
+      "target": "Feature:taxes",
+      "chunks": [
+        "billing-policy-2025.md#5"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#5",
+          "quote": "Prices are shown without tax. VAT or sales tax is added according to the billing address.",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2026",
+      "relation": "covers",
+      "target": "Feature:billing cycles",
+      "chunks": [
+        "billing-policy-2026.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2026.md#1",
+          "quote": "billed per seat, either monthly or annually",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2026",
+      "relation": "covers",
+      "target": "Feature:cancellation",
+      "chunks": [
+        "billing-policy-2026.md#5",
+        "billing-policy-2026.md#6"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2026.md#5",
+          "quote": "## 8. Cancellation",
+          "verified": false
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#6",
+          "quote": "can cancel a paid plan from **Settings → Plan → Cancel plan**.",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2026",
+      "relation": "covers",
+      "target": "Feature:failed payments",
+      "chunks": [
+        "billing-policy-2026.md#4",
+        "billing-policy-2026.md#5"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2026.md#4",
+          "quote": "## 7. Failed payments",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#5",
+          "quote": "If all retries fail, the workspace enters a grace period of 21 days from the first failed attempt",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2026",
+      "relation": "covers",
+      "target": "Feature:invoices",
+      "chunks": [
+        "billing-policy-2026.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2026.md#2",
+          "quote": "An invoice is issued for every charge",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2026",
+      "relation": "covers",
+      "target": "Feature:payment method",
+      "chunks": [
+        "billing-policy-2026.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2026.md#2",
+          "quote": "The payment method can be updated",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2026",
+      "relation": "covers",
+      "target": "Feature:payment methods",
+      "chunks": [
+        "billing-policy-2026.md#1"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2026.md#1",
+          "quote": "## 3. Payment methods",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2026",
+      "relation": "covers",
+      "target": "Feature:refunds",
+      "chunks": [
+        "billing-policy-2026.md#0",
+        "billing-policy-2026.md#3",
+        "billing-policy-2026.md#4",
+        "billing-policy-2026.md#6"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2026.md#0",
+          "quote": "This policy explains how Kestrel Analytics charges for its plans, how invoices are issued, and when refunds are possible.",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#3",
+          "quote": "**Monthly plans** are not refundable.",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#4",
+          "quote": "annual plans are not refundable",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#6",
+          "quote": "To be refunded, request it as described in section 6.",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2026",
+      "relation": "covers",
+      "target": "Feature:reverse-charge mechanism",
+      "chunks": [
+        "billing-policy-2026.md#6"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2026.md#6",
+          "quote": "Business customers in the European Union who provide a valid VAT number are invoiced without VAT under the reverse-charge mechanism.",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2026",
+      "relation": "covers",
+      "target": "Feature:seats",
+      "chunks": [
+        "billing-policy-2026.md#0",
+        "billing-policy-2026.md#1",
+        "billing-policy-2026.md#2",
+        "billing-policy-2026.md#3"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2026.md#0",
+          "quote": "Paid plans are billed per seat",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#1",
+          "quote": "billed per seat",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#2",
+          "quote": "Seats can be added at any time.",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#3",
+          "quote": "Seats can be added at any time.",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2026",
+      "relation": "covers",
+      "target": "Feature:taxes",
+      "chunks": [
+        "billing-policy-2026.md#6"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2026.md#6",
+          "quote": "VAT or sales tax is added according to the billing address.",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Policy:billing and refund policy 2026",
+      "relation": "supersedes",
+      "target": "Policy:billing and refund policy 2025",
+      "chunks": [
+        "billing-policy-2026.md#0"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2026.md#0",
+          "quote": "This policy replaces the Billing and Refund Policy effective 1 January 2025.",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Role:admin",
+      "relation": "can_do",
+      "target": "Feature:inviting people",
+      "chunks": [
+        "product-guide.md#3"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#3",
+          "quote": "Admins invite people from Settings → Members → Invite.",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "source": "Role:admin",
+      "relation": "can_do",
+      "target": "Feature:manages connectors",
+      "chunks": [
+        "product-guide.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "Admin: manages members, connectors and security settings.",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "source": "Role:admin",
+      "relation": "can_do",
+      "target": "Feature:manages members",
+      "chunks": [
+        "product-guide.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "Admin: manages members, connectors and security settings.",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "source": "Role:admin",
+      "relation": "can_do",
+      "target": "Feature:manages security settings",
+      "chunks": [
+        "product-guide.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "Admin: manages members, connectors and security settings.",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "source": "Role:admin",
+      "relation": "can_do",
+      "target": "Feature:seats",
+      "chunks": [
+        "product-guide.md#4"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#4",
+          "quote": "an Admin frees a seat",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Role:admin",
+      "relation": "can_do",
+      "target": "Feature:single sign-on",
+      "chunks": [
+        "product-guide.md#5"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#5",
+          "quote": "To set it up, an Admin opens **Settings → Security → Single sign-on**",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Role:admin",
+      "relation": "can_do",
+      "target": "Feature:two-factor authentication",
+      "chunks": [
+        "product-guide.md#5"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#5",
+          "quote": "Admins can make two-factor authentication mandatory for every member",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Role:editor",
+      "relation": "can_do",
+      "target": "Feature:dashboards",
+      "chunks": [
+        "product-guide.md#3"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#3",
+          "quote": "Editor: creates and edits datasets and dashboards.",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "source": "Role:editor",
+      "relation": "can_do",
+      "target": "Feature:datasets",
+      "chunks": [
+        "product-guide.md#3"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#3",
+          "quote": "Editor: creates and edits datasets and dashboards.",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "source": "Role:owner",
+      "relation": "can_do",
+      "target": "Feature:cancellation",
+      "chunks": [
+        "billing-policy-2025.md#4",
+        "billing-policy-2026.md#5"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#4",
+          "quote": "The Owner can cancel a paid plan",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#5",
+          "quote": "The Owner can cancel a paid plan",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Role:owner",
+      "relation": "can_do",
+      "target": "Feature:change the plan",
+      "chunks": [
+        "product-guide.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "The Owner can do everything an Admin can, and is the only person who can change the plan",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Role:owner",
+      "relation": "can_do",
+      "target": "Feature:delete the workspace",
+      "chunks": [
+        "product-guide.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "The Owner can do everything an Admin can, and is the only person who can change the plan, delete the workspace",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Role:owner",
+      "relation": "can_do",
+      "target": "Feature:invoices",
+      "chunks": [
+        "billing-policy-2025.md#2",
+        "billing-policy-2026.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#2",
+          "quote": "The billing contact and the company details printed on invoices (name, address, VAT number) can be changed by the Owner",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#2",
+          "quote": "The billing contact and the company details printed on invoices (name, address, VAT number) can be changed by the Owner",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Role:owner",
+      "relation": "can_do",
+      "target": "Feature:payment method",
+      "chunks": [
+        "billing-policy-2025.md#1",
+        "billing-policy-2026.md#2"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#1",
+          "quote": "The card on file can be updated by the workspace Owner from **Settings → Plan → Payment method**.",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#2",
+          "quote": "The payment method can be updated by the workspace Owner",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Role:owner",
+      "relation": "can_do",
+      "target": "Feature:refunds",
+      "chunks": [
+        "billing-policy-2025.md#3",
+        "billing-policy-2026.md#4"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "billing-policy-2025.md#3",
+          "quote": "Refund requests must be sent by the workspace Owner to billing@kestrel.example.",
+          "verified": true
+        },
+        {
+          "chunk_id": "billing-policy-2026.md#4",
+          "quote": "Refund requests must be sent by the workspace Owner",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Role:owner",
+      "relation": "can_do",
+      "target": "Feature:seats",
+      "chunks": [
+        "product-guide.md#4"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#4",
+          "quote": "the Owner moves to a larger plan",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Role:owner",
+      "relation": "can_do",
+      "target": "Feature:transfer ownership",
+      "chunks": [
+        "product-guide.md#2",
+        "product-guide.md#3"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#2",
+          "quote": "The Owner can do everything an Admin can, and is the only person who can change the plan, delete the workspace or transfer ownership.",
+          "verified": true
+        },
+        {
+          "chunk_id": "product-guide.md#3",
+          "quote": "To transfer ownership, the current Owner opens Settings → Members, selects a member and chooses Transfer ownership.",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "source": "Role:viewer",
+      "relation": "can_do",
+      "target": "Feature:dashboards",
+      "chunks": [
+        "product-guide.md#3"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#3",
+          "quote": "Viewer: opens dashboards and reports, but cannot change them.",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "source": "Role:viewer",
+      "relation": "can_do",
+      "target": "Feature:reports",
+      "chunks": [
+        "product-guide.md#3"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "product-guide.md#3",
+          "quote": "Viewer: opens dashboards and reports, but cannot change them.",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "source": "Service:auth",
+      "relation": "handles",
+      "target": "Feature:scim provisioning",
+      "chunks": [
+        "service-catalog.md#0"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "service-catalog.md#0",
+          "quote": "SCIM provisioning",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Service:auth",
+      "relation": "handles",
+      "target": "Feature:single sign-on",
+      "chunks": [
+        "service-catalog.md#0"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "service-catalog.md#0",
+          "quote": "single sign-on (SAML)",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Service:auth",
+      "relation": "handles",
+      "target": "Feature:two-factor authentication",
+      "chunks": [
+        "service-catalog.md#0"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "service-catalog.md#0",
+          "quote": "two-factor authentication",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Service:auth",
+      "relation": "owned_by",
+      "target": "Team:identity",
+      "chunks": [
+        "service-catalog.md#0"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "service-catalog.md#0",
+          "quote": "Owner: Identity.",
+          "verified": false
+        }
+      ]
+    },
+    {
+      "source": "Service:gateway",
+      "relation": "handles",
+      "target": "Feature:rate limiting",
+      "chunks": [
+        "service-catalog.md#0"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "service-catalog.md#0",
+          "quote": "rate limiting",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Service:gateway",
+      "relation": "handles",
+      "target": "Feature:request routing",
+      "chunks": [
+        "service-catalog.md#0"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "service-catalog.md#0",
+          "quote": "request routing",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Service:gateway",
+      "relation": "handles",
+      "target": "Feature:tls",
+      "chunks": [
+        "service-catalog.md#0"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "service-catalog.md#0",
+          "quote": "Handles TLS",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "source": "Service:gateway",
+      "relation": "owned_by",
+      "target": "Team:platform",
+      "chunks": [
+        "service-catalog.md#0"
+      ],
+      "quotes": [
+        {
+          "chunk_id": "service-catalog.md#0",
+          "quote": "Owner: Platform.",
+          "verified": false
+        }
+      ]
+    }
+  ]
+}
