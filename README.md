@@ -144,6 +144,20 @@ From the front-end, open the **Evaluate** tab, optionally tick **Also generate a
 
 **Cost per question** is saved in every run: retrieval latency (per retriever and for the fusion), and with `--answers` the LLM calls, tokens and LLM latency. The CLI and the Evaluate tab show the averages.
 
+## Build the concept graph (Kestrel)
+
+```bash
+python -m app.graph --corpus kestrel --workers 6     # gemini-3-flash-preview, 1 LLM call per chunk (42 at 800 / 10 %), cached
+python -m app.graph --corpus kestrel --model gemini-3.5-flash-lite --delay 4   # another model
+python -m app.graph --corpus kestrel --force         # extract every chunk again, ignoring the cache
+```
+
+An LLM extracts (entity, relation, entity) triples from every chunk, with a fixed schema (`ENTITY_TYPES` and `RELATIONS` in `app/graph.py`) and a short quote from the chunk for each triple. The prompt also gets the document headings around the chunk, because chunking drops short headings such as `### auth`. Rebuilding only calls the LLM for new, changed or failed chunks. The output goes to `graph/kestrel_800_10_20/`:
+
+- **`extractions.jsonl`:** one row per chunk: the triples kept, the triples dropped by validation and why, and the cost of the call.
+- **`graph.json`:** the merged entities (with every name they were found under and their chunks) and relations (with their chunks and quotes).
+- **`build-report.json`:** entities and relations per type, merges, failed chunks, dropped triples, and the cost (LLM calls, tokens, time).
+
 ## Reach the Words tab
 
 Open http://localhost:8000, pick a corpus, and click the **Words** tab. The counts are for the chunks of that corpus at the current chunk size. Words are lowercased with no stemming, and identifiers like `KST-2044` stay one word.
