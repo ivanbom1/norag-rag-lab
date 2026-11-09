@@ -2,6 +2,7 @@ import argparse
 import os
 import sys
 
+from app import graph_retriever
 from app.answering import DEFAULT_RETRIEVERS, RETRIEVERS
 from app.evaluation import (KS, QUESTION_SETS, check_quotes, format_cost, load_questions, run_evaluation,
                             run_no_context)
@@ -41,7 +42,13 @@ def main():
     args = parser.parse_args()
 
     settings = ChunkSettings(chunk_size=args.chunk_size, overlap_percent=args.overlap)
-    for corpus in QUESTION_SETS if args.corpus == "all" else [args.corpus]:
+    corpora = list(QUESTION_SETS) if args.corpus == "all" else [args.corpus]
+    missing = [corpus for corpus in corpora if "graph" in args.retrievers and not args.no_context
+               and not graph_retriever.available(corpus, settings)]
+    if missing:
+        sys.exit(f"No graph for {', '.join(missing)} at {args.chunk_size} / {args.overlap} %: build it with "
+                 f"python -m app.graph, or pick the corpus with --corpus kestrel.")
+    for corpus in corpora:
         problems = check_quotes(load_questions(corpus), corpus_dir(corpus))
         if problems:
             sys.exit("\n".join(problems))

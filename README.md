@@ -123,6 +123,7 @@ python -m eval.evaluate --corpus kestrel --answers --delay 6   # also generate a
 python -m eval.evaluate --no-context --delay 4            # no-context test: ask the LLM without retrieval
 python -m eval.evaluate --retrievers dense                # one retriever only (dense alone = the V2 baseline)
 python -m eval.evaluate --retrievers dense bm25           # several retrievers, fused with RRF (default)
+python -m eval.evaluate --corpus kestrel --retrievers dense bm25 graph   # add the graph retriever (needs the graph built)
 python -m eval.compare                                    # compare the saved runs of every configuration
 ```
 
@@ -157,6 +158,8 @@ An LLM extracts (entity, relation, entity) triples from every chunk, with a fixe
 - **`extractions.jsonl`:** one row per chunk: the triples kept, the triples dropped by validation and why, and the cost of the call.
 - **`graph.json`:** the merged entities (with every name they were found under and their chunks) and relations (with their chunks and quotes).
 - **`build-report.json`:** entities and relations per type, merges, failed chunks, dropped triples, and the cost (LLM calls, tokens, time).
+
+**Graph retriever** (`app/graph_retriever.py`, the **Graph** checkbox or `--retrievers ... graph`). It finds the entities named in the question (every word of the name must be in the question, and a plan also needs the word "plan"), walks up to 2 relations from them in both directions, and returns the chunks those relations were extracted from, closest first. Each chunk keeps the relations that led to it. It is only available where a `graph.json` exists for the corpus and chunk settings, and it is not on by default.
 
 ## Reach the Words tab
 

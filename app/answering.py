@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from openai import APIError, OpenAI
 from pydantic import BaseModel, ValidationError
 
-from app import bm25
+from app import bm25, graph_retriever
 from app.fusion import rrf
 from app.indexing import get_collection
 
@@ -57,7 +57,7 @@ RESPONSE_SCHEMA = {
 }
 
 
-Retriever = Literal["dense", "bm25"]
+Retriever = Literal["dense", "bm25", "graph"]
 
 
 def retrieve_dense(question, corpus, sources, settings, top_k):
@@ -72,7 +72,7 @@ def retrieve_dense(question, corpus, sources, settings, top_k):
     ]
 
 
-RETRIEVERS = {"dense": retrieve_dense, "bm25": bm25.search}
+RETRIEVERS = {"dense": retrieve_dense, "bm25": bm25.search, "graph": graph_retriever.search}
 DEFAULT_RETRIEVERS = ["dense", "bm25"]
 # Each retriever hands this many chunks to the fusion, so a chunk ranked 12th by one retriever
 # can still make the top k if another one also found it.

@@ -26,11 +26,10 @@ from typing import Literal
 from openai import APIError, RateLimitError
 from pydantic import BaseModel, ValidationError, model_validator
 
-from app import bm25
 from app.answering import elapsed_ms, llm, normalize
+from app.graph_retriever import graph_dir
 from app.indexing import get_collection
 
-GRAPH_DIR = "graph"
 # flash-lite (the answer model) extracted almost nothing; see first-build-flash-lite.json in the graph folder.
 GRAPH_MODEL = "gemini-3-flash-preview"
 RATE_LIMIT_WAIT = 30
@@ -134,10 +133,6 @@ RESPONSE_SCHEMA = {
     }}},
     "required": ["triples"],
 }
-
-
-def graph_dir(corpus, settings):
-    return os.path.join(GRAPH_DIR, bm25.table_name(corpus, settings))
 
 
 def text_hash(text):

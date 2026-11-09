@@ -8,6 +8,7 @@ from fastapi.responses import PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+from app import graph_retriever
 from app.answering import DEFAULT_RETRIEVERS, Retriever, ask, retrieve
 from app.evaluation import check_quotes, load_questions, run_evaluation
 from app.indexing import ChunkSettings, delete_document, ensure_indexed, index_document
@@ -61,7 +62,8 @@ class SettingsUpdate(BaseModel):
 
 def settings_response():
     return {"chunk_size": settings.chunk_size, "overlap_percent": settings.overlap_percent, "top_k": top_k,
-            "retrievers": DEFAULT_RETRIEVERS}
+            "retrievers": DEFAULT_RETRIEVERS,
+            "graphs": {corpus: graph_retriever.available(corpus, settings) for corpus in SEED_DIRS}}
 
 
 @app.get("/api/settings")
@@ -101,8 +103,15 @@ def selected_sources(corpus, documents):
     return sources
 
 
+def check_retrievers(corpus, retrievers):
+    if "graph" in retrievers and not graph_retriever.available(corpus, settings):
+        raise HTTPException(400, f"No graph for {corpus} at chunk size {settings.chunk_size} / "
+                                 f"{settings.overlap_percent} % overlap. Build it with python -m app.graph.")
+
+
 @app.post("/api/corpora/{corpus}/ask")
 def ask_question(corpus: str, body: Question):
+    check_retrievers(corpus, body.retrievers)
     return ask(body.question, corpus, selected_sources(corpus, body.documents), settings, top_k, body.retrievers)
 
 
@@ -113,6 +122,7 @@ class SearchQuery(Question):
 @app.post("/api/corpora/{corpus}/search")
 def search(corpus: str, body: SearchQuery):
     sources = selected_sources(corpus, body.documents)
+    check_retrievers(corpus, body.retrievers)
     return {"retrieved": retrieve(body.question, corpus, sources, settings, body.top_k or top_k, body.retrievers)}
 
 
@@ -124,6 +134,7 @@ class EvaluationRequest(BaseModel):
 @app.post("/api/corpora/{corpus}/evaluate")
 def evaluate(corpus: str, body: EvaluationRequest):
     directory = corpus_dir(corpus)
+    check_retrievers(corpus, body.retrievers)
     problems = check_quotes(load_questions(corpus), directory)
     if problems:
         raise HTTPException(400, "Question set does not match the corpus: " + "; ".join(problems))

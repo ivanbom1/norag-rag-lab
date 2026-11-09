@@ -9,6 +9,7 @@ const STATUS_TEXT = {
 let lastResult = null;
 let openedChunk = null;
 let corpus = null;
+let graphs = {};
 
 const selectedRetrievers = () => [...document.querySelectorAll("#retrievers input:checked")].map((box) => box.value);
 const foundBy = (ranks) => Object.entries(ranks).map(([name, rank]) => `${name} #${rank}`).join(", ");
@@ -92,11 +93,21 @@ document.getElementById("upload").onchange = async (event) => {
   event.target.value = "";
 };
 
+function updateGraphRetriever() {
+  const label = document.getElementById("graph-retriever");
+  const box = label.querySelector("input");
+  box.disabled = !graphs[corpus];
+  if (box.disabled) box.checked = false;
+  label.title = box.disabled ? "No graph for this corpus / chunk settings (build it with python -m app.graph)" : "";
+}
+
 async function loadSettings() {
   const settings = await (await api("/api/settings")).json();
   const form = document.getElementById("settings");
   for (const key of ["chunk_size", "overlap_percent", "top_k"]) form.elements[key].value = settings[key];
   for (const box of document.querySelectorAll("#retrievers input")) box.checked = settings.retrievers.includes(box.value);
+  graphs = settings.graphs;
+  updateGraphRetriever();
 }
 
 document.getElementById("settings").onsubmit = async (event) => {
@@ -113,6 +124,8 @@ document.getElementById("settings").onsubmit = async (event) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     })).json();
+    graphs = result.graphs;
+    updateGraphRetriever();
     message.textContent = result.reindexed.length
       ? `Re-indexed ${result.reindexed.length} document(s) in ${result.seconds} s.`
       : "Saved. No re-indexing needed.";
@@ -412,6 +425,7 @@ async function loadCorpora() {
     return option;
   }));
   corpus = corpora[0];
+  updateGraphRetriever();
   select.onchange = () => {
     corpus = select.value;
     for (const id of ["result", "reference", "document", "evaluation", "question-words-result", "word-chunks"]) {
@@ -420,6 +434,7 @@ async function loadCorpora() {
     document.getElementById("vocabulary-table").replaceChildren();
     loadDocuments();
     loadQuestionSet();
+    updateGraphRetriever();
   };
   await loadDocuments();
   await loadQuestionSet();
