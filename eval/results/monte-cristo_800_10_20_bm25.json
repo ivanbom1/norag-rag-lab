@@ -1,6 +1,6 @@
 {
   "corpus": "monte-cristo",
-  "created": "2026-11-08T23:23:57",
+  "created": "2026-11-09T02:58:02",
   "settings": {
     "chunk_size": 800,
     "overlap_percent": 10,
@@ -25,23 +25,23 @@
     "overall": {
       "questions": 28,
       "hit@1": 0.393,
-      "hit@3": 0.5,
+      "hit@3": 0.536,
       "hit@5": 0.571,
       "hit@10": 0.571,
       "recall@1": 0.339,
-      "recall@3": 0.446,
-      "recall@5": 0.536,
+      "recall@3": 0.482,
+      "recall@5": 0.518,
       "recall@10": 0.554
     },
     "by_type": {
       "other": {
         "questions": 15,
         "hit@1": 0.4,
-        "hit@3": 0.533,
+        "hit@3": 0.6,
         "hit@5": 0.667,
         "hit@10": 0.667,
         "recall@1": 0.4,
-        "recall@3": 0.533,
+        "recall@3": 0.6,
         "recall@5": 0.667,
         "recall@10": 0.667
       },
@@ -64,7 +64,7 @@
         "hit@10": 1.0,
         "recall@1": 0.333,
         "recall@3": 0.5,
-        "recall@5": 0.667,
+        "recall@5": 0.5,
         "recall@10": 0.833
       },
       "two_hop": {
@@ -89,6 +89,21 @@
         "recall@5": 0.0,
         "recall@10": 0.0
       }
+    },
+    "cost": {
+      "retrieval": {
+        "questions": 28,
+        "retrieval_ms": 35.3,
+        "fusion_ms": 0.1,
+        "llm_calls": 0.0,
+        "prompt_tokens": 0.0,
+        "completion_tokens": 0.0,
+        "llm_ms": 0.0,
+        "retriever_ms": {
+          "bm25": 35.2
+        }
+      },
+      "answer": null
     }
   },
   "results": [
@@ -100,7 +115,7 @@
       "expected_answer": "Smyrna, Trieste and Naples.",
       "retrieval": {
         "evidence_ranks": [
-          5
+          4
         ],
         "hit": {
           "1": false,
@@ -114,31 +129,42 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 34.0,
+          "retriever_ms": {
+            "bm25": 33.9
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
-            "id": "monte-cristo-vol1.txt#62",
-            "source": "monte-cristo-vol1.txt",
-            "start": 44947,
-            "end": 45747,
-            "found_by": {
-              "bm25": 1
-            },
-            "rrf": 0.01639,
-            "score": 12.271,
-            "relevant_to": []
-          },
-          {
-            "rank": 2,
             "id": "monte-cristo-vol2.txt#91",
             "source": "monte-cristo-vol2.txt",
             "start": 65874,
             "end": 66677,
             "found_by": {
+              "bm25": 1
+            },
+            "rrf": 0.01639,
+            "score": 12.606,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol1.txt#62",
+            "source": "monte-cristo-vol1.txt",
+            "start": 44947,
+            "end": 45747,
+            "found_by": {
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 11.756,
+            "score": 12.577,
             "relevant_to": []
           },
           {
@@ -151,36 +177,36 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 11.14,
+            "score": 11.195,
             "relevant_to": []
           },
           {
             "rank": 4,
-            "id": "monte-cristo-vol1.txt#171",
-            "source": "monte-cristo-vol1.txt",
-            "start": 123566,
-            "end": 124378,
-            "found_by": {
-              "bm25": 4
-            },
-            "rrf": 0.01562,
-            "score": 10.913,
-            "relevant_to": []
-          },
-          {
-            "rank": 5,
             "id": "monte-cristo-vol1.txt#0",
             "source": "monte-cristo-vol1.txt",
             "start": 15,
             "end": 815,
             "found_by": {
-              "bm25": 5
+              "bm25": 4
             },
-            "rrf": 0.01538,
-            "score": 10.642,
+            "rrf": 0.01562,
+            "score": 11.15,
             "relevant_to": [
               0
             ]
+          },
+          {
+            "rank": 5,
+            "id": "monte-cristo-vol1.txt#171",
+            "source": "monte-cristo-vol1.txt",
+            "start": 123566,
+            "end": 124378,
+            "found_by": {
+              "bm25": 5
+            },
+            "rrf": 0.01538,
+            "score": 11.015,
+            "relevant_to": []
           },
           {
             "rank": 6,
@@ -192,7 +218,7 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 9.691,
+            "score": 10.143,
             "relevant_to": []
           },
           {
@@ -205,7 +231,7 @@
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 9.298,
+            "score": 9.593,
             "relevant_to": []
           },
           {
@@ -218,7 +244,7 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 9.11,
+            "score": 9.424,
             "relevant_to": []
           },
           {
@@ -231,7 +257,7 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 8.942,
+            "score": 9.229,
             "relevant_to": []
           },
           {
@@ -244,7 +270,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 8.229,
+            "score": 8.46,
             "relevant_to": []
           }
         ]
@@ -272,31 +298,42 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 39.5,
+          "retriever_ms": {
+            "bm25": 39.4
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
-            "id": "monte-cristo-vol1.txt#4",
-            "source": "monte-cristo-vol1.txt",
-            "start": 2907,
-            "end": 3710,
-            "found_by": {
-              "bm25": 1
-            },
-            "rrf": 0.01639,
-            "score": 16.282,
-            "relevant_to": []
-          },
-          {
-            "rank": 2,
             "id": "monte-cristo-vol1.txt#14",
             "source": "monte-cristo-vol1.txt",
             "start": 10148,
             "end": 10948,
             "found_by": {
+              "bm25": 1
+            },
+            "rrf": 0.01639,
+            "score": 17.217,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "monte-cristo-vol1.txt#4",
+            "source": "monte-cristo-vol1.txt",
+            "start": 2907,
+            "end": 3710,
+            "found_by": {
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 16.2,
+            "score": 16.479,
             "relevant_to": []
           },
           {
@@ -309,7 +346,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 14.85,
+            "score": 15.053,
             "relevant_to": [
               0
             ]
@@ -324,7 +361,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 14.752,
+            "score": 15.019,
             "relevant_to": []
           },
           {
@@ -337,33 +374,33 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 14.227,
+            "score": 14.439,
             "relevant_to": []
           },
           {
             "rank": 6,
-            "id": "monte-cristo-vol1.txt#72",
-            "source": "monte-cristo-vol1.txt",
-            "start": 52158,
-            "end": 52961,
-            "found_by": {
-              "bm25": 6
-            },
-            "rrf": 0.01515,
-            "score": 13.191,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
             "id": "monte-cristo-vol1.txt#3",
             "source": "monte-cristo-vol1.txt",
             "start": 2175,
             "end": 2987,
             "found_by": {
+              "bm25": 6
+            },
+            "rrf": 0.01515,
+            "score": 13.781,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol1.txt#72",
+            "source": "monte-cristo-vol1.txt",
+            "start": 52158,
+            "end": 52961,
+            "found_by": {
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 13.097,
+            "score": 13.237,
             "relevant_to": []
           },
           {
@@ -376,7 +413,7 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 12.469,
+            "score": 13.012,
             "relevant_to": []
           },
           {
@@ -389,20 +426,20 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 11.998,
+            "score": 12.312,
             "relevant_to": []
           },
           {
             "rank": 10,
-            "id": "monte-cristo-vol1.txt#7",
+            "id": "monte-cristo-vol1.txt#19",
             "source": "monte-cristo-vol1.txt",
-            "start": 5070,
-            "end": 5870,
+            "start": 13812,
+            "end": 14612,
             "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 11.152,
+            "score": 11.627,
             "relevant_to": []
           }
         ]
@@ -430,6 +467,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 33.6,
+          "retriever_ms": {
+            "bm25": 33.5
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -441,7 +489,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 16.772,
+            "score": 18.058,
             "relevant_to": []
           },
           {
@@ -454,33 +502,33 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 16.652,
+            "score": 17.58,
             "relevant_to": []
           },
           {
             "rank": 3,
-            "id": "monte-cristo-vol4.txt#479",
-            "source": "monte-cristo-vol4.txt",
-            "start": 348252,
-            "end": 349052,
-            "found_by": {
-              "bm25": 3
-            },
-            "rrf": 0.01587,
-            "score": 16.243,
-            "relevant_to": []
-          },
-          {
-            "rank": 4,
             "id": "monte-cristo-vol5.txt#392",
             "source": "monte-cristo-vol5.txt",
             "start": 284255,
             "end": 285055,
             "found_by": {
+              "bm25": 3
+            },
+            "rrf": 0.01587,
+            "score": 17.056,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol4.txt#479",
+            "source": "monte-cristo-vol4.txt",
+            "start": 348252,
+            "end": 349052,
+            "found_by": {
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 16.238,
+            "score": 16.609,
             "relevant_to": []
           },
           {
@@ -493,7 +541,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 15.039,
+            "score": 15.981,
             "relevant_to": []
           },
           {
@@ -506,7 +554,7 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 14.912,
+            "score": 15.798,
             "relevant_to": []
           },
           {
@@ -519,33 +567,33 @@
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 14.734,
+            "score": 15.548,
             "relevant_to": []
           },
           {
             "rank": 8,
-            "id": "monte-cristo-vol1.txt#542",
-            "source": "monte-cristo-vol1.txt",
-            "start": 392896,
-            "end": 393699,
-            "found_by": {
-              "bm25": 8
-            },
-            "rrf": 0.01471,
-            "score": 14.696,
-            "relevant_to": []
-          },
-          {
-            "rank": 9,
             "id": "monte-cristo-vol1.txt#397",
             "source": "monte-cristo-vol1.txt",
             "start": 287471,
             "end": 288271,
             "found_by": {
+              "bm25": 8
+            },
+            "rrf": 0.01471,
+            "score": 15.339,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#542",
+            "source": "monte-cristo-vol1.txt",
+            "start": 392896,
+            "end": 393699,
+            "found_by": {
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 14.56,
+            "score": 15.213,
             "relevant_to": []
           },
           {
@@ -558,7 +606,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 13.642,
+            "score": 13.887,
             "relevant_to": []
           }
         ]
@@ -586,6 +634,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 59.0,
+          "retriever_ms": {
+            "bm25": 58.9
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -597,7 +656,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 10.098,
+            "score": 11.607,
             "relevant_to": []
           },
           {
@@ -610,7 +669,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 9.858,
+            "score": 10.948,
             "relevant_to": []
           },
           {
@@ -623,7 +682,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 9.607,
+            "score": 10.61,
             "relevant_to": []
           },
           {
@@ -636,7 +695,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 9.532,
+            "score": 10.537,
             "relevant_to": []
           },
           {
@@ -649,72 +708,72 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 9.182,
+            "score": 9.868,
             "relevant_to": []
           },
           {
             "rank": 6,
+            "id": "monte-cristo-vol3.txt#411",
+            "source": "monte-cristo-vol3.txt",
+            "start": 298088,
+            "end": 298943,
+            "found_by": {
+              "bm25": 6
+            },
+            "rrf": 0.01515,
+            "score": 9.73,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol2.txt#591",
+            "source": "monte-cristo-vol2.txt",
+            "start": 427880,
+            "end": 428680,
+            "found_by": {
+              "bm25": 7
+            },
+            "rrf": 0.01493,
+            "score": 9.672,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
             "id": "monte-cristo-vol4.txt#170",
             "source": "monte-cristo-vol4.txt",
             "start": 123130,
             "end": 123946,
             "found_by": {
-              "bm25": 6
+              "bm25": 8
             },
-            "rrf": 0.01515,
-            "score": 8.949,
+            "rrf": 0.01471,
+            "score": 9.659,
             "relevant_to": []
           },
           {
-            "rank": 7,
+            "rank": 9,
             "id": "monte-cristo-vol4.txt#595",
             "source": "monte-cristo-vol4.txt",
             "start": 432163,
             "end": 432963,
             "found_by": {
-              "bm25": 7
-            },
-            "rrf": 0.01493,
-            "score": 8.949,
-            "relevant_to": []
-          },
-          {
-            "rank": 8,
-            "id": "monte-cristo-vol2.txt#820",
-            "source": "monte-cristo-vol2.txt",
-            "start": 593315,
-            "end": 594115,
-            "found_by": {
-              "bm25": 8
-            },
-            "rrf": 0.01471,
-            "score": 8.932,
-            "relevant_to": []
-          },
-          {
-            "rank": 9,
-            "id": "monte-cristo-vol2.txt#794",
-            "source": "monte-cristo-vol2.txt",
-            "start": 574531,
-            "end": 575331,
-            "found_by": {
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 8.742,
+            "score": 9.659,
             "relevant_to": []
           },
           {
             "rank": 10,
-            "id": "monte-cristo-vol3.txt#61",
-            "source": "monte-cristo-vol3.txt",
-            "start": 44093,
-            "end": 44896,
+            "id": "monte-cristo-vol2.txt#643",
+            "source": "monte-cristo-vol2.txt",
+            "start": 465395,
+            "end": 466195,
             "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 8.586,
+            "score": 9.63,
             "relevant_to": []
           }
         ]
@@ -742,6 +801,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 32.4,
+          "retriever_ms": {
+            "bm25": 32.4
+          },
+          "fusion_ms": 0.0,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -753,7 +823,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 14.325,
+            "score": 15.34,
             "relevant_to": [
               0
             ]
@@ -768,7 +838,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 14.256,
+            "score": 14.429,
             "relevant_to": [
               0
             ]
@@ -783,7 +853,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 12.699,
+            "score": 13.358,
             "relevant_to": []
           },
           {
@@ -796,62 +866,62 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 11.699,
+            "score": 12.239,
             "relevant_to": []
           },
           {
             "rank": 5,
-            "id": "monte-cristo-vol2.txt#681",
-            "source": "monte-cristo-vol2.txt",
-            "start": 492959,
-            "end": 493759,
-            "found_by": {
-              "bm25": 5
-            },
-            "rrf": 0.01538,
-            "score": 10.691,
-            "relevant_to": []
-          },
-          {
-            "rank": 6,
-            "id": "monte-cristo-vol4.txt#284",
-            "source": "monte-cristo-vol4.txt",
-            "start": 206636,
-            "end": 207449,
-            "found_by": {
-              "bm25": 6
-            },
-            "rrf": 0.01515,
-            "score": 10.635,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
-            "id": "monte-cristo-vol3.txt#642",
-            "source": "monte-cristo-vol3.txt",
-            "start": 466641,
-            "end": 467444,
-            "found_by": {
-              "bm25": 7
-            },
-            "rrf": 0.01493,
-            "score": 10.283,
-            "relevant_to": []
-          },
-          {
-            "rank": 8,
             "id": "monte-cristo-vol2.txt#657",
             "source": "monte-cristo-vol2.txt",
             "start": 475530,
             "end": 476330,
             "found_by": {
-              "bm25": 8
+              "bm25": 5
             },
-            "rrf": 0.01471,
-            "score": 10.143,
+            "rrf": 0.01538,
+            "score": 11.057,
             "relevant_to": [
               0
             ]
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol2.txt#681",
+            "source": "monte-cristo-vol2.txt",
+            "start": 492959,
+            "end": 493759,
+            "found_by": {
+              "bm25": 6
+            },
+            "rrf": 0.01515,
+            "score": 10.996,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol4.txt#284",
+            "source": "monte-cristo-vol4.txt",
+            "start": 206636,
+            "end": 207449,
+            "found_by": {
+              "bm25": 7
+            },
+            "rrf": 0.01493,
+            "score": 10.933,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol3.txt#642",
+            "source": "monte-cristo-vol3.txt",
+            "start": 466641,
+            "end": 467444,
+            "found_by": {
+              "bm25": 8
+            },
+            "rrf": 0.01471,
+            "score": 10.605,
+            "relevant_to": []
           },
           {
             "rank": 9,
@@ -863,7 +933,7 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 9.782,
+            "score": 9.973,
             "relevant_to": [
               0
             ]
@@ -878,7 +948,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 9.729,
+            "score": 9.925,
             "relevant_to": []
           }
         ]
@@ -906,6 +976,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 26.4,
+          "retriever_ms": {
+            "bm25": 26.3
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -917,7 +998,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 12.345,
+            "score": 12.939,
             "relevant_to": []
           },
           {
@@ -930,7 +1011,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 11.884,
+            "score": 12.312,
             "relevant_to": []
           },
           {
@@ -943,7 +1024,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 11.301,
+            "score": 11.592,
             "relevant_to": []
           },
           {
@@ -956,7 +1037,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 11.071,
+            "score": 11.332,
             "relevant_to": []
           },
           {
@@ -969,7 +1050,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 10.73,
+            "score": 11.004,
             "relevant_to": []
           },
           {
@@ -982,7 +1063,7 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 10.446,
+            "score": 10.581,
             "relevant_to": []
           },
           {
@@ -995,7 +1076,7 @@
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 10.385,
+            "score": 10.513,
             "relevant_to": []
           },
           {
@@ -1008,33 +1089,33 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 10.324,
+            "score": 10.446,
             "relevant_to": []
           },
           {
             "rank": 9,
+            "id": "monte-cristo-vol1.txt#334",
+            "source": "monte-cristo-vol1.txt",
+            "start": 241777,
+            "end": 242580,
+            "found_by": {
+              "bm25": 9
+            },
+            "rrf": 0.01449,
+            "score": 10.236,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
             "id": "monte-cristo-vol3.txt#161",
             "source": "monte-cristo-vol3.txt",
             "start": 116301,
             "end": 117101,
             "found_by": {
-              "bm25": 9
-            },
-            "rrf": 0.01449,
-            "score": 10.106,
-            "relevant_to": []
-          },
-          {
-            "rank": 10,
-            "id": "monte-cristo-vol1.txt#515",
-            "source": "monte-cristo-vol1.txt",
-            "start": 373447,
-            "end": 374247,
-            "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 10.09,
+            "score": 10.188,
             "relevant_to": []
           }
         ]
@@ -1062,6 +1143,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 52.9,
+          "retriever_ms": {
+            "bm25": 52.8
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1073,7 +1165,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 23.49,
+            "score": 24.375,
             "relevant_to": []
           },
           {
@@ -1086,7 +1178,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 16.414,
+            "score": 17.067,
             "relevant_to": []
           },
           {
@@ -1099,7 +1191,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 15.801,
+            "score": 16.625,
             "relevant_to": []
           },
           {
@@ -1112,7 +1204,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 15.799,
+            "score": 16.299,
             "relevant_to": []
           },
           {
@@ -1125,7 +1217,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 14.805,
+            "score": 15.547,
             "relevant_to": []
           },
           {
@@ -1138,7 +1230,7 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 14.212,
+            "score": 14.708,
             "relevant_to": []
           },
           {
@@ -1151,7 +1243,7 @@
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 12.627,
+            "score": 12.897,
             "relevant_to": []
           },
           {
@@ -1164,7 +1256,7 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 12.274,
+            "score": 12.889,
             "relevant_to": []
           },
           {
@@ -1177,7 +1269,7 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 11.595,
+            "score": 11.97,
             "relevant_to": []
           },
           {
@@ -1190,7 +1282,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 11.444,
+            "score": 11.448,
             "relevant_to": []
           }
         ]
@@ -1204,19 +1296,30 @@
       "expected_answer": "A hundred thousand francs.",
       "retrieval": {
         "evidence_ranks": [
-          4
+          3
         ],
         "hit": {
           "1": false,
-          "3": false,
+          "3": true,
           "5": true,
           "10": true
         },
         "recall": {
           "1": 0.0,
-          "3": 0.0,
+          "3": 1.0,
           "5": 1.0,
           "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 37.2,
+          "retriever_ms": {
+            "bm25": 37.1
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -1229,7 +1332,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 16.705,
+            "score": 17.847,
             "relevant_to": []
           },
           {
@@ -1242,36 +1345,36 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 15.043,
+            "score": 15.866,
             "relevant_to": []
           },
           {
             "rank": 3,
-            "id": "monte-cristo-vol5.txt#516",
-            "source": "monte-cristo-vol5.txt",
-            "start": 373863,
-            "end": 374663,
-            "found_by": {
-              "bm25": 3
-            },
-            "rrf": 0.01587,
-            "score": 14.511,
-            "relevant_to": []
-          },
-          {
-            "rank": 4,
             "id": "monte-cristo-vol5.txt#511",
             "source": "monte-cristo-vol5.txt",
             "start": 370238,
             "end": 371038,
             "found_by": {
-              "bm25": 4
+              "bm25": 3
             },
-            "rrf": 0.01562,
-            "score": 14.369,
+            "rrf": 0.01587,
+            "score": 15.815,
             "relevant_to": [
               0
             ]
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol5.txt#516",
+            "source": "monte-cristo-vol5.txt",
+            "start": 373863,
+            "end": 374663,
+            "found_by": {
+              "bm25": 4
+            },
+            "rrf": 0.01562,
+            "score": 15.33,
+            "relevant_to": []
           },
           {
             "rank": 5,
@@ -1283,7 +1386,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 12.174,
+            "score": 13.383,
             "relevant_to": []
           },
           {
@@ -1296,7 +1399,7 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 11.633,
+            "score": 12.455,
             "relevant_to": []
           },
           {
@@ -1309,7 +1412,7 @@
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 10.033,
+            "score": 10.756,
             "relevant_to": [
               0
             ]
@@ -1324,7 +1427,7 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 9.935,
+            "score": 10.441,
             "relevant_to": [
               0
             ]
@@ -1339,7 +1442,7 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 9.144,
+            "score": 9.462,
             "relevant_to": []
           },
           {
@@ -1352,7 +1455,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 8.895,
+            "score": 9.232,
             "relevant_to": []
           }
         ]
@@ -1380,6 +1483,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 12.5,
+          "retriever_ms": {
+            "bm25": 12.4
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1391,7 +1505,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 8.165,
+            "score": 8.486,
             "relevant_to": []
           },
           {
@@ -1404,7 +1518,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 6.096,
+            "score": 6.115,
             "relevant_to": []
           },
           {
@@ -1417,7 +1531,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 6.042,
+            "score": 6.055,
             "relevant_to": []
           },
           {
@@ -1430,7 +1544,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 6.024,
+            "score": 6.036,
             "relevant_to": []
           },
           {
@@ -1443,7 +1557,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 6.024,
+            "score": 6.036,
             "relevant_to": []
           },
           {
@@ -1456,7 +1570,7 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 6.007,
+            "score": 6.016,
             "relevant_to": []
           },
           {
@@ -1482,7 +1596,7 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 5.887,
+            "score": 5.884,
             "relevant_to": []
           },
           {
@@ -1495,7 +1609,7 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 5.803,
+            "score": 5.829,
             "relevant_to": []
           },
           {
@@ -1508,7 +1622,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 5.755,
+            "score": 5.74,
             "relevant_to": []
           }
         ]
@@ -1536,6 +1650,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 46.7,
+          "retriever_ms": {
+            "bm25": 46.6
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1547,7 +1672,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 31.32,
+            "score": 33.582,
             "relevant_to": [
               0
             ]
@@ -1562,7 +1687,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 22.05,
+            "score": 22.653,
             "relevant_to": []
           },
           {
@@ -1575,7 +1700,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 10.889,
+            "score": 11.203,
             "relevant_to": []
           },
           {
@@ -1588,85 +1713,85 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 8.398,
+            "score": 8.764,
             "relevant_to": []
           },
           {
             "rank": 5,
-            "id": "monte-cristo-vol3.txt#13",
-            "source": "monte-cristo-vol3.txt",
-            "start": 9385,
-            "end": 10185,
-            "found_by": {
-              "bm25": 5
-            },
-            "rrf": 0.01538,
-            "score": 8.111,
-            "relevant_to": []
-          },
-          {
-            "rank": 6,
-            "id": "monte-cristo-vol3.txt#146",
-            "source": "monte-cristo-vol3.txt",
-            "start": 105484,
-            "end": 106284,
-            "found_by": {
-              "bm25": 6
-            },
-            "rrf": 0.01515,
-            "score": 8.111,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
-            "id": "monte-cristo-vol3.txt#24",
-            "source": "monte-cristo-vol3.txt",
-            "start": 17305,
-            "end": 18105,
-            "found_by": {
-              "bm25": 7
-            },
-            "rrf": 0.01493,
-            "score": 8.064,
-            "relevant_to": []
-          },
-          {
-            "rank": 8,
             "id": "monte-cristo-vol5.txt#538",
             "source": "monte-cristo-vol5.txt",
             "start": 389924,
             "end": 390724,
             "found_by": {
+              "bm25": 5
+            },
+            "rrf": 0.01538,
+            "score": 8.287,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol3.txt#13",
+            "source": "monte-cristo-vol3.txt",
+            "start": 9385,
+            "end": 10185,
+            "found_by": {
+              "bm25": 6
+            },
+            "rrf": 0.01515,
+            "score": 8.154,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol3.txt#146",
+            "source": "monte-cristo-vol3.txt",
+            "start": 105484,
+            "end": 106284,
+            "found_by": {
+              "bm25": 7
+            },
+            "rrf": 0.01493,
+            "score": 8.154,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol3.txt#50",
+            "source": "monte-cristo-vol3.txt",
+            "start": 36167,
+            "end": 36970,
+            "found_by": {
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 7.728,
+            "score": 8.104,
             "relevant_to": []
           },
           {
             "rank": 9,
-            "id": "monte-cristo-vol3.txt#398",
+            "id": "monte-cristo-vol3.txt#24",
             "source": "monte-cristo-vol3.txt",
-            "start": 288728,
-            "end": 289528,
+            "start": 17305,
+            "end": 18105,
             "found_by": {
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 7.365,
+            "score": 8.102,
             "relevant_to": []
           },
           {
             "rank": 10,
-            "id": "monte-cristo-vol5.txt#106",
-            "source": "monte-cristo-vol5.txt",
-            "start": 76872,
-            "end": 77672,
+            "id": "monte-cristo-vol2.txt#387",
+            "source": "monte-cristo-vol2.txt",
+            "start": 279879,
+            "end": 280679,
             "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 7.332,
+            "score": 7.716,
             "relevant_to": []
           }
         ]
@@ -1694,6 +1819,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 46.1,
+          "retriever_ms": {
+            "bm25": 46.0
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1705,7 +1841,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 20.707,
+            "score": 22.139,
             "relevant_to": [
               0
             ]
@@ -1720,7 +1856,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 19.482,
+            "score": 20.61,
             "relevant_to": []
           },
           {
@@ -1733,7 +1869,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 18.156,
+            "score": 19.051,
             "relevant_to": []
           },
           {
@@ -1746,7 +1882,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 18.003,
+            "score": 18.997,
             "relevant_to": []
           },
           {
@@ -1759,7 +1895,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 17.254,
+            "score": 17.999,
             "relevant_to": []
           },
           {
@@ -1772,7 +1908,7 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 17.112,
+            "score": 17.87,
             "relevant_to": []
           },
           {
@@ -1785,7 +1921,7 @@
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 16.581,
+            "score": 17.284,
             "relevant_to": [
               0
             ]
@@ -1800,7 +1936,7 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 15.733,
+            "score": 17.053,
             "relevant_to": []
           },
           {
@@ -1813,7 +1949,7 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 15.715,
+            "score": 16.441,
             "relevant_to": []
           },
           {
@@ -1826,7 +1962,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 14.072,
+            "score": 14.743,
             "relevant_to": []
           }
         ]
@@ -1854,6 +1990,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 27.4,
+          "retriever_ms": {
+            "bm25": 27.4
+          },
+          "fusion_ms": 0.0,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1865,7 +2012,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 10.752,
+            "score": 10.997,
             "relevant_to": []
           },
           {
@@ -1878,7 +2025,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 10.458,
+            "score": 10.665,
             "relevant_to": []
           },
           {
@@ -1891,7 +2038,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 10.066,
+            "score": 10.09,
             "relevant_to": []
           },
           {
@@ -1904,7 +2051,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 9.509,
+            "score": 9.558,
             "relevant_to": []
           },
           {
@@ -1917,7 +2064,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 9.347,
+            "score": 9.379,
             "relevant_to": []
           },
           {
@@ -1930,7 +2077,7 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 8.722,
+            "score": 9.07,
             "relevant_to": []
           },
           {
@@ -1943,7 +2090,7 @@
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 7.338,
+            "score": 7.345,
             "relevant_to": []
           },
           {
@@ -1956,7 +2103,7 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 6.746,
+            "score": 6.834,
             "relevant_to": []
           },
           {
@@ -1969,7 +2116,7 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 6.687,
+            "score": 6.768,
             "relevant_to": []
           },
           {
@@ -1982,7 +2129,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 6.573,
+            "score": 6.641,
             "relevant_to": []
           }
         ]
@@ -2010,6 +2157,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 28.1,
+          "retriever_ms": {
+            "bm25": 28.0
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -2021,7 +2179,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 14.248,
+            "score": 14.63,
             "relevant_to": [
               0
             ]
@@ -2036,7 +2194,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 13.974,
+            "score": 14.194,
             "relevant_to": []
           },
           {
@@ -2049,7 +2207,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 13.668,
+            "score": 14.165,
             "relevant_to": [
               0
             ]
@@ -2064,7 +2222,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 11.099,
+            "score": 11.198,
             "relevant_to": []
           },
           {
@@ -2077,7 +2235,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 10.828,
+            "score": 11.064,
             "relevant_to": []
           },
           {
@@ -2090,7 +2248,7 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 10.813,
+            "score": 10.882,
             "relevant_to": []
           },
           {
@@ -2103,33 +2261,33 @@
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 10.797,
+            "score": 10.784,
             "relevant_to": []
           },
           {
             "rank": 8,
-            "id": "monte-cristo-vol1.txt#215",
-            "source": "monte-cristo-vol1.txt",
-            "start": 155400,
-            "end": 156211,
-            "found_by": {
-              "bm25": 8
-            },
-            "rrf": 0.01471,
-            "score": 9.536,
-            "relevant_to": []
-          },
-          {
-            "rank": 9,
             "id": "monte-cristo-vol3.txt#455",
             "source": "monte-cristo-vol3.txt",
             "start": 330412,
             "end": 331212,
             "found_by": {
+              "bm25": 8
+            },
+            "rrf": 0.01471,
+            "score": 9.91,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#215",
+            "source": "monte-cristo-vol1.txt",
+            "start": 155400,
+            "end": 156211,
+            "found_by": {
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 9.496,
+            "score": 9.572,
             "relevant_to": []
           },
           {
@@ -2142,7 +2300,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 9.334,
+            "score": 9.351,
             "relevant_to": []
           }
         ]
@@ -2170,6 +2328,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 70.1,
+          "retriever_ms": {
+            "bm25": 70.0
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -2181,7 +2350,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 15.924,
+            "score": 16.572,
             "relevant_to": []
           },
           {
@@ -2194,7 +2363,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 15.913,
+            "score": 16.422,
             "relevant_to": []
           },
           {
@@ -2207,7 +2376,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 14.135,
+            "score": 14.326,
             "relevant_to": []
           },
           {
@@ -2220,33 +2389,33 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 13.393,
+            "score": 13.967,
             "relevant_to": []
           },
           {
             "rank": 5,
-            "id": "monte-cristo-vol2.txt#752",
-            "source": "monte-cristo-vol2.txt",
-            "start": 544242,
-            "end": 545042,
-            "found_by": {
-              "bm25": 5
-            },
-            "rrf": 0.01538,
-            "score": 12.883,
-            "relevant_to": []
-          },
-          {
-            "rank": 6,
             "id": "monte-cristo-vol5.txt#124",
             "source": "monte-cristo-vol5.txt",
             "start": 89846,
             "end": 90654,
             "found_by": {
+              "bm25": 5
+            },
+            "rrf": 0.01538,
+            "score": 13.561,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol2.txt#752",
+            "source": "monte-cristo-vol2.txt",
+            "start": 544242,
+            "end": 545042,
+            "found_by": {
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 12.632,
+            "score": 13.541,
             "relevant_to": []
           },
           {
@@ -2259,7 +2428,7 @@
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 12.517,
+            "score": 12.611,
             "relevant_to": []
           },
           {
@@ -2272,7 +2441,7 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 12.144,
+            "score": 12.45,
             "relevant_to": []
           },
           {
@@ -2285,7 +2454,7 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 11.85,
+            "score": 12.114,
             "relevant_to": []
           },
           {
@@ -2298,7 +2467,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 11.765,
+            "score": 12.016,
             "relevant_to": []
           }
         ]
@@ -2326,6 +2495,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 75.1,
+          "retriever_ms": {
+            "bm25": 75.0
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -2337,7 +2517,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 17.433,
+            "score": 19.166,
             "relevant_to": []
           },
           {
@@ -2350,33 +2530,33 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 15.491,
+            "score": 16.53,
             "relevant_to": []
           },
           {
             "rank": 3,
-            "id": "monte-cristo-vol3.txt#296",
-            "source": "monte-cristo-vol3.txt",
-            "start": 214512,
-            "end": 215312,
-            "found_by": {
-              "bm25": 3
-            },
-            "rrf": 0.01587,
-            "score": 15.306,
-            "relevant_to": []
-          },
-          {
-            "rank": 4,
             "id": "monte-cristo-vol3.txt#249",
             "source": "monte-cristo-vol3.txt",
             "start": 180342,
             "end": 181156,
             "found_by": {
+              "bm25": 3
+            },
+            "rrf": 0.01587,
+            "score": 16.206,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "monte-cristo-vol3.txt#296",
+            "source": "monte-cristo-vol3.txt",
+            "start": 214512,
+            "end": 215312,
+            "found_by": {
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 15.289,
+            "score": 15.876,
             "relevant_to": []
           },
           {
@@ -2389,7 +2569,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 14.013,
+            "score": 15.166,
             "relevant_to": []
           },
           {
@@ -2402,59 +2582,59 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 13.557,
+            "score": 14.432,
             "relevant_to": []
           },
           {
             "rank": 7,
-            "id": "monte-cristo-vol3.txt#513",
-            "source": "monte-cristo-vol3.txt",
-            "start": 372547,
-            "end": 373347,
-            "found_by": {
-              "bm25": 7
-            },
-            "rrf": 0.01493,
-            "score": 13.424,
-            "relevant_to": []
-          },
-          {
-            "rank": 8,
-            "id": "monte-cristo-vol3.txt#292",
-            "source": "monte-cristo-vol3.txt",
-            "start": 211611,
-            "end": 212414,
-            "found_by": {
-              "bm25": 8
-            },
-            "rrf": 0.01471,
-            "score": 12.884,
-            "relevant_to": []
-          },
-          {
-            "rank": 9,
-            "id": "monte-cristo-vol3.txt#251",
-            "source": "monte-cristo-vol3.txt",
-            "start": 181825,
-            "end": 182625,
-            "found_by": {
-              "bm25": 9
-            },
-            "rrf": 0.01449,
-            "score": 12.685,
-            "relevant_to": []
-          },
-          {
-            "rank": 10,
             "id": "monte-cristo-vol3.txt#238",
             "source": "monte-cristo-vol3.txt",
             "start": 172258,
             "end": 173058,
             "found_by": {
+              "bm25": 7
+            },
+            "rrf": 0.01493,
+            "score": 13.915,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol3.txt#513",
+            "source": "monte-cristo-vol3.txt",
+            "start": 372547,
+            "end": 373347,
+            "found_by": {
+              "bm25": 8
+            },
+            "rrf": 0.01471,
+            "score": 13.853,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol3.txt#292",
+            "source": "monte-cristo-vol3.txt",
+            "start": 211611,
+            "end": 212414,
+            "found_by": {
+              "bm25": 9
+            },
+            "rrf": 0.01449,
+            "score": 13.705,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol3.txt#251",
+            "source": "monte-cristo-vol3.txt",
+            "start": 181825,
+            "end": 182625,
+            "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 12.682,
+            "score": 13.157,
             "relevant_to": []
           }
         ]
@@ -2482,6 +2662,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 38.8,
+          "retriever_ms": {
+            "bm25": 38.7
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -2493,7 +2684,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 20.399,
+            "score": 20.689,
             "relevant_to": [
               0
             ]
@@ -2508,7 +2699,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 18.965,
+            "score": 18.985,
             "relevant_to": [
               0
             ]
@@ -2523,7 +2714,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 13.251,
+            "score": 13.8,
             "relevant_to": []
           },
           {
@@ -2536,7 +2727,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 12.583,
+            "score": 12.63,
             "relevant_to": []
           },
           {
@@ -2549,7 +2740,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 11.855,
+            "score": 12.147,
             "relevant_to": []
           },
           {
@@ -2562,7 +2753,7 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 11.456,
+            "score": 11.891,
             "relevant_to": []
           },
           {
@@ -2575,7 +2766,7 @@
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 11.109,
+            "score": 11.118,
             "relevant_to": []
           },
           {
@@ -2588,7 +2779,7 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 10.826,
+            "score": 11.011,
             "relevant_to": []
           },
           {
@@ -2601,20 +2792,20 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 10.206,
+            "score": 10.235,
             "relevant_to": []
           },
           {
             "rank": 10,
-            "id": "monte-cristo-vol3.txt#550",
-            "source": "monte-cristo-vol3.txt",
-            "start": 399368,
-            "end": 400168,
+            "id": "monte-cristo-vol5.txt#200",
+            "source": "monte-cristo-vol5.txt",
+            "start": 144944,
+            "end": 145747,
             "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 9.551,
+            "score": 9.666,
             "relevant_to": []
           }
         ]
@@ -2642,6 +2833,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 27.2,
+          "retriever_ms": {
+            "bm25": 27.1
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -2653,7 +2855,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 12.596,
+            "score": 12.941,
             "relevant_to": []
           },
           {
@@ -2666,7 +2868,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 11.905,
+            "score": 12.264,
             "relevant_to": []
           },
           {
@@ -2679,7 +2881,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 11.045,
+            "score": 11.324,
             "relevant_to": []
           },
           {
@@ -2692,7 +2894,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 11.016,
+            "score": 11.135,
             "relevant_to": []
           },
           {
@@ -2705,7 +2907,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 10.225,
+            "score": 10.345,
             "relevant_to": []
           },
           {
@@ -2718,59 +2920,59 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 9.759,
+            "score": 10.006,
             "relevant_to": []
           },
           {
             "rank": 7,
-            "id": "monte-cristo-vol1.txt#622",
-            "source": "monte-cristo-vol1.txt",
-            "start": 450599,
-            "end": 451402,
-            "found_by": {
-              "bm25": 7
-            },
-            "rrf": 0.01493,
-            "score": 9.197,
-            "relevant_to": []
-          },
-          {
-            "rank": 8,
             "id": "monte-cristo-vol2.txt#291",
             "source": "monte-cristo-vol2.txt",
             "start": 210457,
             "end": 211260,
             "found_by": {
-              "bm25": 8
+              "bm25": 7
             },
-            "rrf": 0.01471,
-            "score": 9.173,
+            "rrf": 0.01493,
+            "score": 9.743,
             "relevant_to": []
           },
           {
-            "rank": 9,
-            "id": "monte-cristo-vol2.txt#569",
-            "source": "monte-cristo-vol2.txt",
-            "start": 412008,
-            "end": 412819,
-            "found_by": {
-              "bm25": 9
-            },
-            "rrf": 0.01449,
-            "score": 9.145,
-            "relevant_to": []
-          },
-          {
-            "rank": 10,
+            "rank": 8,
             "id": "monte-cristo-vol2.txt#334",
             "source": "monte-cristo-vol2.txt",
             "start": 241583,
             "end": 242404,
             "found_by": {
+              "bm25": 8
+            },
+            "rrf": 0.01471,
+            "score": 9.653,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol2.txt#197",
+            "source": "monte-cristo-vol2.txt",
+            "start": 142606,
+            "end": 143406,
+            "found_by": {
+              "bm25": 9
+            },
+            "rrf": 0.01449,
+            "score": 9.543,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol2.txt#444",
+            "source": "monte-cristo-vol2.txt",
+            "start": 321119,
+            "end": 321919,
+            "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 9.099,
+            "score": 9.543,
             "relevant_to": []
           }
         ]
@@ -2798,6 +3000,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 28.9,
+          "retriever_ms": {
+            "bm25": 28.8
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -2809,33 +3022,33 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 12.424,
+            "score": 12.474,
             "relevant_to": []
           },
           {
             "rank": 2,
-            "id": "monte-cristo-vol1.txt#651",
-            "source": "monte-cristo-vol1.txt",
-            "start": 471491,
-            "end": 472291,
-            "found_by": {
-              "bm25": 2
-            },
-            "rrf": 0.01613,
-            "score": 10.771,
-            "relevant_to": []
-          },
-          {
-            "rank": 3,
             "id": "monte-cristo-vol1.txt#336",
             "source": "monte-cristo-vol1.txt",
             "start": 243220,
             "end": 244020,
             "found_by": {
+              "bm25": 2
+            },
+            "rrf": 0.01613,
+            "score": 11.058,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol1.txt#651",
+            "source": "monte-cristo-vol1.txt",
+            "start": 471491,
+            "end": 472291,
+            "found_by": {
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 10.612,
+            "score": 10.778,
             "relevant_to": []
           },
           {
@@ -2848,7 +3061,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 10.061,
+            "score": 10.104,
             "relevant_to": []
           },
           {
@@ -2861,33 +3074,33 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 9.147,
+            "score": 9.385,
             "relevant_to": []
           },
           {
             "rank": 6,
-            "id": "monte-cristo-vol5.txt#154",
-            "source": "monte-cristo-vol5.txt",
-            "start": 111548,
-            "end": 112348,
-            "found_by": {
-              "bm25": 6
-            },
-            "rrf": 0.01515,
-            "score": 8.366,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
             "id": "monte-cristo-vol1.txt#509",
             "source": "monte-cristo-vol1.txt",
             "start": 369124,
             "end": 369924,
             "found_by": {
+              "bm25": 6
+            },
+            "rrf": 0.01515,
+            "score": 8.855,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol5.txt#154",
+            "source": "monte-cristo-vol5.txt",
+            "start": 111548,
+            "end": 112348,
+            "found_by": {
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 8.249,
+            "score": 8.414,
             "relevant_to": []
           },
           {
@@ -2900,7 +3113,7 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 8.246,
+            "score": 8.281,
             "relevant_to": []
           },
           {
@@ -2913,7 +3126,7 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 8.222,
+            "score": 8.255,
             "relevant_to": []
           },
           {
@@ -2926,7 +3139,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 8.048,
+            "score": 8.111,
             "relevant_to": []
           }
         ]
@@ -2955,6 +3168,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 21.5,
+          "retriever_ms": {
+            "bm25": 21.4
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -2966,7 +3190,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 33.88,
+            "score": 34.911,
             "relevant_to": [
               0,
               1
@@ -2974,28 +3198,28 @@
           },
           {
             "rank": 2,
-            "id": "monte-cristo-vol2.txt#17",
-            "source": "monte-cristo-vol2.txt",
-            "start": 12428,
-            "end": 13228,
-            "found_by": {
-              "bm25": 2
-            },
-            "rrf": 0.01613,
-            "score": 12.222,
-            "relevant_to": []
-          },
-          {
-            "rank": 3,
             "id": "monte-cristo-vol1.txt#81",
             "source": "monte-cristo-vol1.txt",
             "start": 58686,
             "end": 59486,
             "found_by": {
+              "bm25": 2
+            },
+            "rrf": 0.01613,
+            "score": 12.51,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "monte-cristo-vol2.txt#17",
+            "source": "monte-cristo-vol2.txt",
+            "start": 12428,
+            "end": 13228,
+            "found_by": {
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 11.959,
+            "score": 12.275,
             "relevant_to": []
           },
           {
@@ -3008,7 +3232,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 10.049,
+            "score": 10.278,
             "relevant_to": []
           },
           {
@@ -3021,72 +3245,72 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 9.975,
+            "score": 10.194,
             "relevant_to": []
           },
           {
             "rank": 6,
-            "id": "monte-cristo-vol3.txt#437",
-            "source": "monte-cristo-vol3.txt",
-            "start": 317335,
-            "end": 318204,
-            "found_by": {
-              "bm25": 6
-            },
-            "rrf": 0.01515,
-            "score": 9.198,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
-            "id": "monte-cristo-vol1.txt#755",
-            "source": "monte-cristo-vol1.txt",
-            "start": 546503,
-            "end": 547303,
-            "found_by": {
-              "bm25": 7
-            },
-            "rrf": 0.01493,
-            "score": 9.065,
-            "relevant_to": []
-          },
-          {
-            "rank": 8,
-            "id": "monte-cristo-vol1.txt#92",
-            "source": "monte-cristo-vol1.txt",
-            "start": 66627,
-            "end": 67427,
-            "found_by": {
-              "bm25": 8
-            },
-            "rrf": 0.01471,
-            "score": 9.038,
-            "relevant_to": []
-          },
-          {
-            "rank": 9,
-            "id": "monte-cristo-vol1.txt#91",
-            "source": "monte-cristo-vol1.txt",
-            "start": 65907,
-            "end": 66707,
-            "found_by": {
-              "bm25": 9
-            },
-            "rrf": 0.01449,
-            "score": 8.985,
-            "relevant_to": []
-          },
-          {
-            "rank": 10,
             "id": "monte-cristo-vol1.txt#477",
             "source": "monte-cristo-vol1.txt",
             "start": 345603,
             "end": 346403,
             "found_by": {
+              "bm25": 6
+            },
+            "rrf": 0.01515,
+            "score": 9.496,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol5.txt#58",
+            "source": "monte-cristo-vol5.txt",
+            "start": 42153,
+            "end": 42953,
+            "found_by": {
+              "bm25": 7
+            },
+            "rrf": 0.01493,
+            "score": 9.361,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol3.txt#437",
+            "source": "monte-cristo-vol3.txt",
+            "start": 317335,
+            "end": 318204,
+            "found_by": {
+              "bm25": 8
+            },
+            "rrf": 0.01471,
+            "score": 9.239,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#755",
+            "source": "monte-cristo-vol1.txt",
+            "start": 546503,
+            "end": 547303,
+            "found_by": {
+              "bm25": 9
+            },
+            "rrf": 0.01449,
+            "score": 9.13,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#92",
+            "source": "monte-cristo-vol1.txt",
+            "start": 66627,
+            "end": 67427,
+            "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 8.969,
+            "score": 9.1,
             "relevant_to": []
           }
         ]
@@ -3114,6 +3338,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 41.3,
+          "retriever_ms": {
+            "bm25": 41.2
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -3125,7 +3360,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 27.749,
+            "score": 28.033,
             "relevant_to": [
               0
             ]
@@ -3140,7 +3375,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 8.989,
+            "score": 9.352,
             "relevant_to": []
           },
           {
@@ -3153,7 +3388,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 8.918,
+            "score": 9.267,
             "relevant_to": []
           },
           {
@@ -3166,59 +3401,59 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 8.882,
+            "score": 9.225,
             "relevant_to": []
           },
           {
             "rank": 5,
-            "id": "monte-cristo-vol5.txt#306",
-            "source": "monte-cristo-vol5.txt",
-            "start": 221903,
-            "end": 222732,
-            "found_by": {
-              "bm25": 5
-            },
-            "rrf": 0.01538,
-            "score": 8.065,
-            "relevant_to": []
-          },
-          {
-            "rank": 6,
             "id": "monte-cristo-vol3.txt#238",
             "source": "monte-cristo-vol3.txt",
             "start": 172258,
             "end": 173058,
             "found_by": {
+              "bm25": 5
+            },
+            "rrf": 0.01538,
+            "score": 8.372,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol5.txt#306",
+            "source": "monte-cristo-vol5.txt",
+            "start": 221903,
+            "end": 222732,
+            "found_by": {
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 8.02,
+            "score": 8.275,
             "relevant_to": []
           },
           {
             "rank": 7,
-            "id": "monte-cristo-vol5.txt#307",
-            "source": "monte-cristo-vol5.txt",
-            "start": 222652,
-            "end": 223455,
-            "found_by": {
-              "bm25": 7
-            },
-            "rrf": 0.01493,
-            "score": 7.75,
-            "relevant_to": []
-          },
-          {
-            "rank": 8,
             "id": "monte-cristo-vol3.txt#166",
             "source": "monte-cristo-vol3.txt",
             "start": 119928,
             "end": 120728,
             "found_by": {
+              "bm25": 7
+            },
+            "rrf": 0.01493,
+            "score": 7.937,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol5.txt#307",
+            "source": "monte-cristo-vol5.txt",
+            "start": 222652,
+            "end": 223455,
+            "found_by": {
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 7.715,
+            "score": 7.92,
             "relevant_to": []
           },
           {
@@ -3231,7 +3466,7 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 7.576,
+            "score": 7.763,
             "relevant_to": []
           },
           {
@@ -3244,7 +3479,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 7.554,
+            "score": 7.739,
             "relevant_to": []
           }
         ]
@@ -3259,7 +3494,7 @@
       "retrieval": {
         "evidence_ranks": [
           1,
-          8
+          7
         ],
         "hit": {
           "1": true,
@@ -3273,6 +3508,17 @@
           "5": 0.5,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 29.5,
+          "retriever_ms": {
+            "bm25": 29.4
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -3284,7 +3530,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 15.199,
+            "score": 15.704,
             "relevant_to": [
               0
             ]
@@ -3299,7 +3545,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 11.346,
+            "score": 11.783,
             "relevant_to": []
           },
           {
@@ -3312,7 +3558,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 10.785,
+            "score": 11.026,
             "relevant_to": []
           },
           {
@@ -3325,7 +3571,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 9.066,
+            "score": 9.424,
             "relevant_to": []
           },
           {
@@ -3338,7 +3584,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 8.969,
+            "score": 9.314,
             "relevant_to": []
           },
           {
@@ -3351,36 +3597,36 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 8.469,
+            "score": 8.825,
             "relevant_to": []
           },
           {
             "rank": 7,
-            "id": "monte-cristo-vol1.txt#85",
-            "source": "monte-cristo-vol1.txt",
-            "start": 61569,
-            "end": 62369,
-            "found_by": {
-              "bm25": 7
-            },
-            "rrf": 0.01493,
-            "score": 8.402,
-            "relevant_to": []
-          },
-          {
-            "rank": 8,
             "id": "monte-cristo-vol2.txt#25",
             "source": "monte-cristo-vol2.txt",
             "start": 18194,
             "end": 18994,
             "found_by": {
-              "bm25": 8
+              "bm25": 7
             },
-            "rrf": 0.01471,
-            "score": 8.384,
+            "rrf": 0.01493,
+            "score": 8.724,
             "relevant_to": [
               1
             ]
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol1.txt#85",
+            "source": "monte-cristo-vol1.txt",
+            "start": 61569,
+            "end": 62369,
+            "found_by": {
+              "bm25": 8
+            },
+            "rrf": 0.01471,
+            "score": 8.589,
+            "relevant_to": []
           },
           {
             "rank": 9,
@@ -3392,20 +3638,20 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 6.863,
+            "score": 7.428,
             "relevant_to": []
           },
           {
             "rank": 10,
-            "id": "monte-cristo-vol1.txt#207",
-            "source": "monte-cristo-vol1.txt",
-            "start": 149619,
-            "end": 150419,
+            "id": "monte-cristo-vol4.txt#636",
+            "source": "monte-cristo-vol4.txt",
+            "start": 461855,
+            "end": 462678,
             "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 6.808,
+            "score": 7.101,
             "relevant_to": []
           }
         ]
@@ -3420,7 +3666,7 @@
       "retrieval": {
         "evidence_ranks": [
           1,
-          5
+          6
         ],
         "hit": {
           "1": true,
@@ -3431,8 +3677,19 @@
         "recall": {
           "1": 0.5,
           "3": 0.5,
-          "5": 1.0,
+          "5": 0.5,
           "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 36.8,
+          "retriever_ms": {
+            "bm25": 36.7
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -3445,7 +3702,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 22.117,
+            "score": 23.251,
             "relevant_to": [
               0
             ]
@@ -3460,7 +3717,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 19.823,
+            "score": 20.585,
             "relevant_to": []
           },
           {
@@ -3473,7 +3730,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 15.613,
+            "score": 16.47,
             "relevant_to": []
           },
           {
@@ -3486,61 +3743,61 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 13.377,
+            "score": 14.336,
             "relevant_to": []
           },
           {
             "rank": 5,
-            "id": "monte-cristo-vol2.txt#17",
-            "source": "monte-cristo-vol2.txt",
-            "start": 12428,
-            "end": 13228,
-            "found_by": {
-              "bm25": 5
-            },
-            "rrf": 0.01538,
-            "score": 11.179,
-            "relevant_to": [
-              1
-            ]
-          },
-          {
-            "rank": 6,
             "id": "monte-cristo-vol2.txt#427",
             "source": "monte-cristo-vol2.txt",
             "start": 308855,
             "end": 309671,
             "found_by": {
+              "bm25": 5
+            },
+            "rrf": 0.01538,
+            "score": 11.659,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "monte-cristo-vol2.txt#17",
+            "source": "monte-cristo-vol2.txt",
+            "start": 12428,
+            "end": 13228,
+            "found_by": {
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 11.036,
-            "relevant_to": []
+            "score": 11.481,
+            "relevant_to": [
+              1
+            ]
           },
           {
             "rank": 7,
-            "id": "monte-cristo-vol5.txt#211",
-            "source": "monte-cristo-vol5.txt",
-            "start": 153024,
-            "end": 153836,
-            "found_by": {
-              "bm25": 7
-            },
-            "rrf": 0.01493,
-            "score": 10.223,
-            "relevant_to": []
-          },
-          {
-            "rank": 8,
             "id": "monte-cristo-vol1.txt#436",
             "source": "monte-cristo-vol1.txt",
             "start": 315681,
             "end": 316496,
             "found_by": {
+              "bm25": 7
+            },
+            "rrf": 0.01493,
+            "score": 11.355,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol5.txt#211",
+            "source": "monte-cristo-vol5.txt",
+            "start": 153024,
+            "end": 153836,
+            "found_by": {
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 10.179,
+            "score": 10.673,
             "relevant_to": []
           },
           {
@@ -3553,7 +3810,7 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 9.379,
+            "score": 9.566,
             "relevant_to": []
           },
           {
@@ -3566,7 +3823,7 @@
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 9.141,
+            "score": 9.419,
             "relevant_to": []
           }
         ]
@@ -3595,6 +3852,17 @@
           "5": 0.5,
           "10": 0.5
         },
+        "cost": {
+          "retrieval_ms": 44.4,
+          "retriever_ms": {
+            "bm25": 44.4
+          },
+          "fusion_ms": 0.0,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -3606,7 +3874,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 19.074,
+            "score": 20.304,
             "relevant_to": []
           },
           {
@@ -3619,7 +3887,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 15.739,
+            "score": 16.01,
             "relevant_to": [
               1
             ]
@@ -3634,7 +3902,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 12.416,
+            "score": 12.485,
             "relevant_to": []
           },
           {
@@ -3647,7 +3915,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 11.878,
+            "score": 12.175,
             "relevant_to": []
           },
           {
@@ -3660,72 +3928,72 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 11.832,
+            "score": 12.135,
             "relevant_to": []
           },
           {
             "rank": 6,
-            "id": "monte-cristo-vol2.txt#651",
-            "source": "monte-cristo-vol2.txt",
-            "start": 471210,
-            "end": 472010,
-            "found_by": {
-              "bm25": 6
-            },
-            "rrf": 0.01515,
-            "score": 11.399,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
-            "id": "monte-cristo-vol2.txt#680",
-            "source": "monte-cristo-vol2.txt",
-            "start": 492239,
-            "end": 493039,
-            "found_by": {
-              "bm25": 7
-            },
-            "rrf": 0.01493,
-            "score": 11.342,
-            "relevant_to": []
-          },
-          {
-            "rank": 8,
-            "id": "monte-cristo-vol2.txt#650",
-            "source": "monte-cristo-vol2.txt",
-            "start": 470484,
-            "end": 471290,
-            "found_by": {
-              "bm25": 8
-            },
-            "rrf": 0.01471,
-            "score": 11.3,
-            "relevant_to": []
-          },
-          {
-            "rank": 9,
             "id": "monte-cristo-vol5.txt#367",
             "source": "monte-cristo-vol5.txt",
             "start": 266230,
             "end": 267030,
             "found_by": {
+              "bm25": 6
+            },
+            "rrf": 0.01515,
+            "score": 11.691,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol2.txt#651",
+            "source": "monte-cristo-vol2.txt",
+            "start": 471210,
+            "end": 472010,
+            "found_by": {
+              "bm25": 7
+            },
+            "rrf": 0.01493,
+            "score": 11.43,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol2.txt#680",
+            "source": "monte-cristo-vol2.txt",
+            "start": 492239,
+            "end": 493039,
+            "found_by": {
+              "bm25": 8
+            },
+            "rrf": 0.01471,
+            "score": 11.334,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol2.txt#650",
+            "source": "monte-cristo-vol2.txt",
+            "start": 470484,
+            "end": 471290,
+            "found_by": {
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 11.149,
+            "score": 11.32,
             "relevant_to": []
           },
           {
             "rank": 10,
-            "id": "monte-cristo-vol1.txt#184",
-            "source": "monte-cristo-vol1.txt",
-            "start": 132944,
-            "end": 133744,
+            "id": "monte-cristo-vol3.txt#595",
+            "source": "monte-cristo-vol3.txt",
+            "start": 432164,
+            "end": 432964,
             "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 10.379,
+            "score": 10.833,
             "relevant_to": []
           }
         ]
@@ -3753,6 +4021,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 12.2,
+          "retriever_ms": {
+            "bm25": 12.1
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -3764,7 +4043,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 13.362,
+            "score": 13.391,
             "relevant_to": []
           },
           {
@@ -3777,7 +4056,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 10.642,
+            "score": 11.15,
             "relevant_to": [
               0
             ]
@@ -3792,7 +4071,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 9.549,
+            "score": 9.605,
             "relevant_to": []
           },
           {
@@ -3805,7 +4084,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 9.298,
+            "score": 9.593,
             "relevant_to": []
           },
           {
@@ -3818,33 +4097,33 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 9.127,
+            "score": 9.396,
             "relevant_to": []
           },
           {
             "rank": 6,
-            "id": "monte-cristo-vol1.txt#341",
-            "source": "monte-cristo-vol1.txt",
-            "start": 246841,
-            "end": 247641,
-            "found_by": {
-              "bm25": 6
-            },
-            "rrf": 0.01515,
-            "score": 8.165,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
             "id": "monte-cristo-vol2.txt#91",
             "source": "monte-cristo-vol2.txt",
             "start": 65874,
             "end": 66677,
             "found_by": {
+              "bm25": 6
+            },
+            "rrf": 0.01515,
+            "score": 8.763,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol1.txt#341",
+            "source": "monte-cristo-vol1.txt",
+            "start": 246841,
+            "end": 247641,
+            "found_by": {
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 7.951,
+            "score": 8.486,
             "relevant_to": []
           },
           {
@@ -3857,7 +4136,7 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 7.819,
+            "score": 7.888,
             "relevant_to": []
           },
           {
@@ -3870,20 +4149,20 @@
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 7.705,
+            "score": 7.762,
             "relevant_to": []
           },
           {
             "rank": 10,
-            "id": "monte-cristo-vol1.txt#743",
-            "source": "monte-cristo-vol1.txt",
-            "start": 537820,
-            "end": 538628,
+            "id": "monte-cristo-vol2.txt#92",
+            "source": "monte-cristo-vol2.txt",
+            "start": 66597,
+            "end": 67397,
             "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 7.551,
+            "score": 7.648,
             "relevant_to": []
           }
         ]
@@ -3911,6 +4190,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 22.0,
+          "retriever_ms": {
+            "bm25": 22.0
+          },
+          "fusion_ms": 0.0,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -3922,7 +4212,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 16.886,
+            "score": 18.146,
             "relevant_to": [
               0
             ]
@@ -3937,7 +4227,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 16.551,
+            "score": 17.079,
             "relevant_to": []
           },
           {
@@ -3950,7 +4240,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 12.086,
+            "score": 12.51,
             "relevant_to": []
           },
           {
@@ -3963,7 +4253,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 10.79,
+            "score": 10.805,
             "relevant_to": []
           },
           {
@@ -3976,7 +4266,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 10.003,
+            "score": 10.741,
             "relevant_to": []
           },
           {
@@ -3989,7 +4279,7 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 9.388,
+            "score": 9.937,
             "relevant_to": []
           },
           {
@@ -4002,7 +4292,7 @@
               "bm25": 7
             },
             "rrf": 0.01493,
-            "score": 9.081,
+            "score": 9.831,
             "relevant_to": []
           },
           {
@@ -4015,33 +4305,33 @@
               "bm25": 8
             },
             "rrf": 0.01471,
-            "score": 8.665,
+            "score": 9.058,
             "relevant_to": []
           },
           {
             "rank": 9,
-            "id": "monte-cristo-vol1.txt#720",
-            "source": "monte-cristo-vol1.txt",
-            "start": 521251,
-            "end": 522051,
-            "found_by": {
-              "bm25": 9
-            },
-            "rrf": 0.01449,
-            "score": 8.645,
-            "relevant_to": []
-          },
-          {
-            "rank": 10,
             "id": "monte-cristo-vol1.txt#761",
             "source": "monte-cristo-vol1.txt",
             "start": 550863,
             "end": 551681,
             "found_by": {
+              "bm25": 9
+            },
+            "rrf": 0.01449,
+            "score": 9.014,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#720",
+            "source": "monte-cristo-vol1.txt",
+            "start": 521251,
+            "end": 522051,
+            "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 8.628,
+            "score": 9.008,
             "relevant_to": []
           }
         ]
@@ -4105,6 +4395,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 14.6,
+          "retriever_ms": {
+            "bm25": 14.5
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -4116,7 +4417,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 15.387,
+            "score": 15.768,
             "relevant_to": [
               0
             ]
@@ -4131,7 +4432,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 14.682,
+            "score": 14.909,
             "relevant_to": [
               0
             ]
@@ -4146,7 +4447,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 12.013,
+            "score": 12.707,
             "relevant_to": [
               1
             ]
@@ -4161,7 +4462,7 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 11.592,
+            "score": 12.122,
             "relevant_to": []
           },
           {
@@ -4174,7 +4475,7 @@
               "bm25": 5
             },
             "rrf": 0.01538,
-            "score": 11.505,
+            "score": 11.591,
             "relevant_to": []
           },
           {
@@ -4187,59 +4488,59 @@
               "bm25": 6
             },
             "rrf": 0.01515,
-            "score": 9.846,
+            "score": 10.097,
             "relevant_to": []
           },
           {
             "rank": 7,
-            "id": "monte-cristo-vol4.txt#515",
-            "source": "monte-cristo-vol4.txt",
-            "start": 374342,
-            "end": 375142,
-            "found_by": {
-              "bm25": 7
-            },
-            "rrf": 0.01493,
-            "score": 9.766,
-            "relevant_to": []
-          },
-          {
-            "rank": 8,
-            "id": "monte-cristo-vol3.txt#568",
-            "source": "monte-cristo-vol3.txt",
-            "start": 412595,
-            "end": 413477,
-            "found_by": {
-              "bm25": 8
-            },
-            "rrf": 0.01471,
-            "score": 9.718,
-            "relevant_to": []
-          },
-          {
-            "rank": 9,
             "id": "monte-cristo-vol4.txt#243",
             "source": "monte-cristo-vol4.txt",
             "start": 176514,
             "end": 177317,
             "found_by": {
+              "bm25": 7
+            },
+            "rrf": 0.01493,
+            "score": 10.043,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol4.txt#515",
+            "source": "monte-cristo-vol4.txt",
+            "start": 374342,
+            "end": 375142,
+            "found_by": {
+              "bm25": 8
+            },
+            "rrf": 0.01471,
+            "score": 10.026,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol3.txt#568",
+            "source": "monte-cristo-vol3.txt",
+            "start": 412595,
+            "end": 413477,
+            "found_by": {
               "bm25": 9
             },
             "rrf": 0.01449,
-            "score": 9.712,
+            "score": 9.97,
             "relevant_to": []
           },
           {
             "rank": 10,
-            "id": "monte-cristo-vol4.txt#352",
+            "id": "monte-cristo-vol4.txt#623",
             "source": "monte-cristo-vol4.txt",
-            "start": 256300,
-            "end": 257100,
+            "start": 452457,
+            "end": 453257,
             "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 9.622,
+            "score": 9.872,
             "relevant_to": []
           }
         ]
@@ -4268,6 +4569,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 31.8,
+          "retriever_ms": {
+            "bm25": 31.7
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -4279,7 +4591,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 10.663,
+            "score": 11.73,
             "relevant_to": []
           },
           {
@@ -4292,7 +4604,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 9.947,
+            "score": 10.712,
             "relevant_to": []
           },
           {
@@ -4305,98 +4617,98 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 9.484,
+            "score": 10.07,
             "relevant_to": []
           },
           {
             "rank": 4,
-            "id": "monte-cristo-vol1.txt#737",
-            "source": "monte-cristo-vol1.txt",
-            "start": 533497,
-            "end": 534297,
-            "found_by": {
-              "bm25": 4
-            },
-            "rrf": 0.01562,
-            "score": 8.785,
-            "relevant_to": []
-          },
-          {
-            "rank": 5,
-            "id": "monte-cristo-vol1.txt#78",
-            "source": "monte-cristo-vol1.txt",
-            "start": 56523,
-            "end": 57326,
-            "found_by": {
-              "bm25": 5
-            },
-            "rrf": 0.01538,
-            "score": 8.64,
-            "relevant_to": []
-          },
-          {
-            "rank": 6,
-            "id": "monte-cristo-vol5.txt#171",
-            "source": "monte-cristo-vol5.txt",
-            "start": 123820,
-            "end": 124620,
-            "found_by": {
-              "bm25": 6
-            },
-            "rrf": 0.01515,
-            "score": 8.638,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
             "id": "monte-cristo-vol5.txt#176",
             "source": "monte-cristo-vol5.txt",
             "start": 127481,
             "end": 128281,
             "found_by": {
-              "bm25": 7
+              "bm25": 4
             },
-            "rrf": 0.01493,
-            "score": 8.62,
+            "rrf": 0.01562,
+            "score": 9.505,
             "relevant_to": []
           },
           {
-            "rank": 8,
+            "rank": 5,
             "id": "monte-cristo-vol1.txt#184",
             "source": "monte-cristo-vol1.txt",
             "start": 132944,
             "end": 133744,
             "found_by": {
-              "bm25": 8
+              "bm25": 5
             },
-            "rrf": 0.01471,
-            "score": 8.535,
+            "rrf": 0.01538,
+            "score": 9.447,
             "relevant_to": []
           },
           {
-            "rank": 9,
-            "id": "monte-cristo-vol4.txt#320",
-            "source": "monte-cristo-vol4.txt",
-            "start": 233028,
-            "end": 233829,
-            "found_by": {
-              "bm25": 9
-            },
-            "rrf": 0.01449,
-            "score": 8.492,
-            "relevant_to": []
-          },
-          {
-            "rank": 10,
+            "rank": 6,
             "id": "monte-cristo-vol1.txt#728",
             "source": "monte-cristo-vol1.txt",
             "start": 527017,
             "end": 527817,
             "found_by": {
+              "bm25": 6
+            },
+            "rrf": 0.01515,
+            "score": 9.319,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "monte-cristo-vol4.txt#470",
+            "source": "monte-cristo-vol4.txt",
+            "start": 341768,
+            "end": 342571,
+            "found_by": {
+              "bm25": 7
+            },
+            "rrf": 0.01493,
+            "score": 9.194,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "monte-cristo-vol4.txt#320",
+            "source": "monte-cristo-vol4.txt",
+            "start": 233028,
+            "end": 233829,
+            "found_by": {
+              "bm25": 8
+            },
+            "rrf": 0.01471,
+            "score": 9.094,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol5.txt#171",
+            "source": "monte-cristo-vol5.txt",
+            "start": 123820,
+            "end": 124620,
+            "found_by": {
+              "bm25": 9
+            },
+            "rrf": 0.01449,
+            "score": 9.07,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol1.txt#737",
+            "source": "monte-cristo-vol1.txt",
+            "start": 533497,
+            "end": 534297,
+            "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 8.479,
+            "score": 9.024,
             "relevant_to": []
           }
         ]
@@ -4424,6 +4736,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 19.3,
+          "retriever_ms": {
+            "bm25": 19.2
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -4435,7 +4758,7 @@
               "bm25": 1
             },
             "rrf": 0.01639,
-            "score": 17.414,
+            "score": 18.315,
             "relevant_to": []
           },
           {
@@ -4448,7 +4771,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 15.559,
+            "score": 16.066,
             "relevant_to": []
           },
           {
@@ -4461,7 +4784,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 13.989,
+            "score": 14.271,
             "relevant_to": []
           },
           {
@@ -4474,85 +4797,85 @@
               "bm25": 4
             },
             "rrf": 0.01562,
-            "score": 12.594,
+            "score": 12.663,
             "relevant_to": []
           },
           {
             "rank": 5,
-            "id": "monte-cristo-vol1.txt#534",
-            "source": "monte-cristo-vol1.txt",
-            "start": 387130,
-            "end": 387933,
-            "found_by": {
-              "bm25": 5
-            },
-            "rrf": 0.01538,
-            "score": 12.236,
-            "relevant_to": []
-          },
-          {
-            "rank": 6,
             "id": "monte-cristo-vol1.txt#207",
             "source": "monte-cristo-vol1.txt",
             "start": 149619,
             "end": 150419,
             "found_by": {
-              "bm25": 6
+              "bm25": 5
             },
-            "rrf": 0.01515,
-            "score": 12.082,
+            "rrf": 0.01538,
+            "score": 12.595,
             "relevant_to": []
           },
           {
-            "rank": 7,
+            "rank": 6,
             "id": "monte-cristo-vol2.txt#10",
             "source": "monte-cristo-vol2.txt",
             "start": 7309,
             "end": 8133,
             "found_by": {
-              "bm25": 7
+              "bm25": 6
             },
-            "rrf": 0.01493,
-            "score": 12.082,
+            "rrf": 0.01515,
+            "score": 12.595,
             "relevant_to": []
           },
           {
-            "rank": 8,
-            "id": "monte-cristo-vol4.txt#479",
-            "source": "monte-cristo-vol4.txt",
-            "start": 348252,
-            "end": 349052,
-            "found_by": {
-              "bm25": 8
-            },
-            "rrf": 0.01471,
-            "score": 12.065,
-            "relevant_to": []
-          },
-          {
-            "rank": 9,
+            "rank": 7,
             "id": "monte-cristo-vol1.txt#206",
             "source": "monte-cristo-vol1.txt",
             "start": 148852,
             "end": 149699,
             "found_by": {
-              "bm25": 9
+              "bm25": 7
             },
-            "rrf": 0.01449,
-            "score": 11.916,
+            "rrf": 0.01493,
+            "score": 12.398,
             "relevant_to": []
           },
           {
-            "rank": 10,
+            "rank": 8,
             "id": "monte-cristo-vol1.txt#560",
             "source": "monte-cristo-vol1.txt",
             "start": 405867,
             "end": 406667,
             "found_by": {
+              "bm25": 8
+            },
+            "rrf": 0.01471,
+            "score": 12.288,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#534",
+            "source": "monte-cristo-vol1.txt",
+            "start": 387130,
+            "end": 387933,
+            "found_by": {
+              "bm25": 9
+            },
+            "rrf": 0.01449,
+            "score": 12.268,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "monte-cristo-vol4.txt#479",
+            "source": "monte-cristo-vol4.txt",
+            "start": 348252,
+            "end": 349052,
+            "found_by": {
               "bm25": 10
             },
             "rrf": 0.01429,
-            "score": 11.823,
+            "score": 12.08,
             "relevant_to": []
           }
         ]

@@ -1,6 +1,6 @@
 {
   "corpus": "monte-cristo",
-  "created": "2026-11-08T23:22:48",
+  "created": "2026-11-09T02:57:21",
   "settings": {
     "chunk_size": 800,
     "overlap_percent": 10,
@@ -24,26 +24,26 @@
   "summary": {
     "overall": {
       "questions": 28,
-      "hit@1": 0.321,
-      "hit@3": 0.536,
-      "hit@5": 0.536,
-      "hit@10": 0.679,
-      "recall@1": 0.304,
-      "recall@3": 0.5,
-      "recall@5": 0.5,
-      "recall@10": 0.625
+      "hit@1": 0.286,
+      "hit@3": 0.5,
+      "hit@5": 0.5,
+      "hit@10": 0.643,
+      "recall@1": 0.268,
+      "recall@3": 0.464,
+      "recall@5": 0.464,
+      "recall@10": 0.589
     },
     "by_type": {
       "other": {
         "questions": 15,
-        "hit@1": 0.467,
-        "hit@3": 0.6,
-        "hit@5": 0.6,
-        "hit@10": 0.667,
-        "recall@1": 0.467,
-        "recall@3": 0.6,
-        "recall@5": 0.6,
-        "recall@10": 0.667
+        "hit@1": 0.4,
+        "hit@3": 0.533,
+        "hit@5": 0.533,
+        "hit@10": 0.6,
+        "recall@1": 0.4,
+        "recall@3": 0.533,
+        "recall@5": 0.533,
+        "recall@10": 0.6
       },
       "vocabulary": {
         "questions": 7,
@@ -89,6 +89,21 @@
         "recall@5": 0.0,
         "recall@10": 0.0
       }
+    },
+    "cost": {
+      "retrieval": {
+        "questions": 28,
+        "retrieval_ms": 109.5,
+        "fusion_ms": 0.1,
+        "llm_calls": 0.0,
+        "prompt_tokens": 0.0,
+        "completion_tokens": 0.0,
+        "llm_ms": 0.0,
+        "retriever_ms": {
+          "dense": 109.4
+        }
+      },
+      "answer": null
     }
   },
   "results": [
@@ -113,6 +128,17 @@
           "3": 1.0,
           "5": 1.0,
           "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 111.6,
+          "retriever_ms": {
+            "dense": 111.5
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -272,6 +298,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 131.7,
+          "retriever_ms": {
+            "dense": 131.4
+          },
+          "fusion_ms": 0.3,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -368,23 +405,23 @@
           },
           {
             "rank": 8,
-            "id": "monte-cristo-vol5.txt#484",
-            "source": "monte-cristo-vol5.txt",
-            "start": 350739,
-            "end": 351542,
-            "found_by": {
-              "dense": 8
-            },
-            "rrf": 0.01471,
-            "distance": 0.551,
-            "relevant_to": []
-          },
-          {
-            "rank": 9,
             "id": "monte-cristo-vol1.txt#92",
             "source": "monte-cristo-vol1.txt",
             "start": 66627,
             "end": 67427,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.555,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol5.txt#470",
+            "source": "monte-cristo-vol5.txt",
+            "start": 340611,
+            "end": 341414,
             "found_by": {
               "dense": 9
             },
@@ -394,15 +431,15 @@
           },
           {
             "rank": 10,
-            "id": "monte-cristo-vol5.txt#470",
-            "source": "monte-cristo-vol5.txt",
-            "start": 340611,
-            "end": 341414,
+            "id": "monte-cristo-vol3.txt#684",
+            "source": "monte-cristo-vol3.txt",
+            "start": 497409,
+            "end": 498209,
             "found_by": {
               "dense": 10
             },
             "rrf": 0.01429,
-            "distance": 0.555,
+            "distance": 0.556,
             "relevant_to": []
           }
         ]
@@ -429,6 +466,17 @@
           "3": 0.0,
           "5": 0.0,
           "10": 0.0
+        },
+        "cost": {
+          "retrieval_ms": 119.7,
+          "retriever_ms": {
+            "dense": 119.6
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -586,6 +634,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 113.9,
+          "retriever_ms": {
+            "dense": 113.8
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -741,6 +800,17 @@
           "3": 1.0,
           "5": 1.0,
           "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 101.8,
+          "retriever_ms": {
+            "dense": 101.7
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -902,6 +972,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 105.5,
+          "retriever_ms": {
+            "dense": 105.4
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1058,6 +1139,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 106.9,
+          "retriever_ms": {
+            "dense": 106.8
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1213,6 +1305,17 @@
           "3": 1.0,
           "5": 1.0,
           "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 104.6,
+          "retriever_ms": {
+            "dense": 104.5
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -1376,6 +1479,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 109.0,
+          "retriever_ms": {
+            "dense": 108.9
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1518,133 +1632,142 @@
       "expected_answer": "Wait and hope.",
       "retrieval": {
         "evidence_ranks": [
-          1
+          null
         ],
         "hit": {
-          "1": true,
-          "3": true,
-          "5": true,
-          "10": true
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": false
         },
         "recall": {
-          "1": 1.0,
-          "3": 1.0,
-          "5": 1.0,
-          "10": 1.0
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.0
+        },
+        "cost": {
+          "retrieval_ms": 129.0,
+          "retriever_ms": {
+            "dense": 128.9
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
             "rank": 1,
-            "id": "monte-cristo-vol5.txt#568",
-            "source": "monte-cristo-vol5.txt",
-            "start": 411607,
-            "end": 411834,
-            "found_by": {
-              "dense": 1
-            },
-            "rrf": 0.01639,
-            "distance": 0.575,
-            "relevant_to": [
-              0
-            ]
-          },
-          {
-            "rank": 2,
             "id": "monte-cristo-vol3.txt#3",
             "source": "monte-cristo-vol3.txt",
             "start": 2185,
             "end": 2985,
             "found_by": {
-              "dense": 2
+              "dense": 1
             },
-            "rrf": 0.01613,
+            "rrf": 0.01639,
             "distance": 0.593,
             "relevant_to": []
           },
           {
-            "rank": 3,
+            "rank": 2,
             "id": "monte-cristo-vol1.txt#428",
             "source": "monte-cristo-vol1.txt",
             "start": 309871,
             "end": 310681,
             "found_by": {
-              "dense": 3
+              "dense": 2
             },
-            "rrf": 0.01587,
+            "rrf": 0.01613,
             "distance": 0.599,
             "relevant_to": []
           },
           {
-            "rank": 4,
+            "rank": 3,
             "id": "monte-cristo-vol1.txt#516",
             "source": "monte-cristo-vol1.txt",
             "start": 374167,
             "end": 374967,
             "found_by": {
-              "dense": 4
+              "dense": 3
             },
-            "rrf": 0.01562,
+            "rrf": 0.01587,
             "distance": 0.604,
             "relevant_to": []
           },
           {
-            "rank": 5,
+            "rank": 4,
             "id": "monte-cristo-vol1.txt#431",
             "source": "monte-cristo-vol1.txt",
             "start": 312041,
             "end": 312841,
             "found_by": {
-              "dense": 5
+              "dense": 4
             },
-            "rrf": 0.01538,
+            "rrf": 0.01562,
             "distance": 0.639,
             "relevant_to": []
           },
           {
-            "rank": 6,
+            "rank": 5,
             "id": "monte-cristo-vol1.txt#453",
             "source": "monte-cristo-vol1.txt",
             "start": 328282,
             "end": 329082,
             "found_by": {
-              "dense": 6
+              "dense": 5
             },
-            "rrf": 0.01515,
+            "rrf": 0.01538,
             "distance": 0.641,
             "relevant_to": []
           },
           {
-            "rank": 7,
+            "rank": 6,
             "id": "monte-cristo-vol2.txt#697",
             "source": "monte-cristo-vol2.txt",
             "start": 504519,
             "end": 505338,
             "found_by": {
-              "dense": 7
+              "dense": 6
             },
-            "rrf": 0.01493,
+            "rrf": 0.01515,
             "distance": 0.647,
             "relevant_to": []
           },
           {
-            "rank": 8,
+            "rank": 7,
             "id": "monte-cristo-vol5.txt#429",
             "source": "monte-cristo-vol5.txt",
             "start": 310919,
             "end": 311719,
             "found_by": {
-              "dense": 8
+              "dense": 7
             },
-            "rrf": 0.01471,
+            "rrf": 0.01493,
             "distance": 0.654,
             "relevant_to": []
           },
           {
-            "rank": 9,
+            "rank": 8,
             "id": "monte-cristo-vol3.txt#10",
             "source": "monte-cristo-vol3.txt",
             "start": 7225,
             "end": 8025,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.658,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "monte-cristo-vol1.txt#427",
+            "source": "monte-cristo-vol1.txt",
+            "start": 309151,
+            "end": 309951,
             "found_by": {
               "dense": 9
             },
@@ -1654,15 +1777,15 @@
           },
           {
             "rank": 10,
-            "id": "monte-cristo-vol1.txt#427",
-            "source": "monte-cristo-vol1.txt",
-            "start": 309151,
-            "end": 309951,
+            "id": "monte-cristo-vol3.txt#18",
+            "source": "monte-cristo-vol3.txt",
+            "start": 12985,
+            "end": 13785,
             "found_by": {
               "dense": 10
             },
             "rrf": 0.01429,
-            "distance": 0.658,
+            "distance": 0.665,
             "relevant_to": []
           }
         ]
@@ -1689,6 +1812,17 @@
           "3": 1.0,
           "5": 1.0,
           "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 133.4,
+          "retriever_ms": {
+            "dense": 133.3
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -1850,6 +1984,17 @@
           "5": 0.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 127.5,
+          "retriever_ms": {
+            "dense": 127.4
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -2008,6 +2153,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 101.5,
+          "retriever_ms": {
+            "dense": 101.4
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -2165,6 +2321,17 @@
           "3": 1.0,
           "5": 1.0,
           "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 99.2,
+          "retriever_ms": {
+            "dense": 99.1
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -2326,6 +2493,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 103.6,
+          "retriever_ms": {
+            "dense": 103.5
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -2481,6 +2659,17 @@
           "3": 1.0,
           "5": 1.0,
           "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 104.4,
+          "retriever_ms": {
+            "dense": 104.3
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -2640,6 +2829,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 107.6,
+          "retriever_ms": {
+            "dense": 107.5
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -2795,6 +2995,17 @@
           "3": 1.0,
           "5": 1.0,
           "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 93.9,
+          "retriever_ms": {
+            "dense": 93.8
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -2955,6 +3166,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 103.3,
+          "retriever_ms": {
+            "dense": 103.2
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -3113,6 +3335,17 @@
           "3": 0.0,
           "5": 0.0,
           "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 96.3,
+          "retriever_ms": {
+            "dense": 96.2
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -3273,6 +3506,17 @@
           "5": 0.0,
           "10": 0.5
         },
+        "cost": {
+          "retrieval_ms": 103.2,
+          "retriever_ms": {
+            "dense": 103.1
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -3431,6 +3675,17 @@
           "3": 0.5,
           "5": 0.5,
           "10": 0.5
+        },
+        "cost": {
+          "retrieval_ms": 121.4,
+          "retriever_ms": {
+            "dense": 121.3
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -3591,6 +3846,17 @@
           "5": 0.5,
           "10": 0.5
         },
+        "cost": {
+          "retrieval_ms": 120.4,
+          "retriever_ms": {
+            "dense": 120.3
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -3749,6 +4015,17 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 103.7,
+          "retriever_ms": {
+            "dense": 103.6
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -3801,7 +4078,7 @@
               "dense": 4
             },
             "rrf": 0.01562,
-            "distance": 0.547,
+            "distance": 0.548,
             "relevant_to": []
           },
           {
@@ -3906,6 +4183,17 @@
           "3": 1.0,
           "5": 1.0,
           "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 102.4,
+          "retriever_ms": {
+            "dense": 102.3
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {
@@ -4101,6 +4389,17 @@
           "5": 0.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 104.0,
+          "retriever_ms": {
+            "dense": 103.9
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -4262,6 +4561,17 @@
           "5": 0.0,
           "10": 0.0
         },
+        "cost": {
+          "retrieval_ms": 103.4,
+          "retriever_ms": {
+            "dense": 103.3
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -4417,6 +4727,17 @@
           "3": 0.0,
           "5": 0.0,
           "10": 0.0
+        },
+        "cost": {
+          "retrieval_ms": 103.4,
+          "retriever_ms": {
+            "dense": 103.3
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
         },
         "retrieved": [
           {

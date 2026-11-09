@@ -1,6 +1,6 @@
 {
   "corpus": "kestrel",
-  "created": "2026-11-08T23:24:03",
+  "created": "2026-11-09T02:58:43",
   "settings": {
     "chunk_size": 800,
     "overlap_percent": 10,
@@ -90,6 +90,22 @@
         "recall@5": 0.5,
         "recall@10": 0.667
       }
+    },
+    "cost": {
+      "retrieval": {
+        "questions": 10,
+        "retrieval_ms": 26.5,
+        "fusion_ms": 0.1,
+        "llm_calls": 0.0,
+        "prompt_tokens": 0.0,
+        "completion_tokens": 0.0,
+        "llm_ms": 0.0,
+        "retriever_ms": {
+          "dense": 23.0,
+          "bm25": 3.4
+        }
+      },
+      "answer": null
     }
   },
   "results": [
@@ -116,6 +132,18 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 31.2,
+          "retriever_ms": {
+            "dense": 27.8,
+            "bm25": 3.3
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -129,7 +157,7 @@
             },
             "rrf": 0.03175,
             "distance": 0.585,
-            "score": 1.657,
+            "score": 2.05,
             "relevant_to": []
           },
           {
@@ -144,7 +172,7 @@
             },
             "rrf": 0.03154,
             "distance": 0.506,
-            "score": 1.289,
+            "score": 1.548,
             "relevant_to": []
           },
           {
@@ -159,7 +187,7 @@
             },
             "rrf": 0.03154,
             "distance": 0.619,
-            "score": 3.315,
+            "score": 3.35,
             "relevant_to": [
               0,
               1
@@ -177,7 +205,7 @@
             },
             "rrf": 0.03126,
             "distance": 0.591,
-            "score": 1.463,
+            "score": 1.782,
             "relevant_to": []
           },
           {
@@ -192,7 +220,7 @@
             },
             "rrf": 0.03105,
             "distance": 0.621,
-            "score": 1.723,
+            "score": 2.143,
             "relevant_to": []
           },
           {
@@ -207,7 +235,7 @@
             },
             "rrf": 0.03055,
             "distance": 0.613,
-            "score": 1.237,
+            "score": 1.48,
             "relevant_to": []
           },
           {
@@ -222,7 +250,7 @@
             },
             "rrf": 0.02903,
             "distance": 0.878,
-            "score": 1.676,
+            "score": 2.076,
             "relevant_to": []
           },
           {
@@ -237,7 +265,7 @@
             },
             "rrf": 0.02801,
             "distance": 0.851,
-            "score": 1.193,
+            "score": 1.422,
             "relevant_to": []
           },
           {
@@ -252,7 +280,7 @@
             },
             "rrf": 0.02762,
             "distance": 0.857,
-            "score": 1.163,
+            "score": 1.383,
             "relevant_to": []
           },
           {
@@ -267,7 +295,7 @@
             },
             "rrf": 0.02736,
             "distance": 0.908,
-            "score": 1.193,
+            "score": 1.422,
             "relevant_to": []
           }
         ]
@@ -296,6 +324,18 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 22.5,
+          "retriever_ms": {
+            "dense": 19.0,
+            "bm25": 3.4
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -309,7 +349,7 @@
             },
             "rrf": 0.03252,
             "distance": 0.523,
-            "score": 9.941,
+            "score": 11.534,
             "relevant_to": [
               0
             ]
@@ -326,7 +366,7 @@
             },
             "rrf": 0.03202,
             "distance": 0.386,
-            "score": 3.382,
+            "score": 4.896,
             "relevant_to": [
               1
             ]
@@ -343,7 +383,7 @@
             },
             "rrf": 0.03102,
             "distance": 0.598,
-            "score": 4.257,
+            "score": 5.649,
             "relevant_to": []
           },
           {
@@ -354,11 +394,11 @@
             "end": 2960,
             "found_by": {
               "dense": 5,
-              "bm25": 5
+              "bm25": 6
             },
-            "rrf": 0.03077,
+            "rrf": 0.03054,
             "distance": 0.59,
-            "score": 2.921,
+            "score": 3.187,
             "relevant_to": []
           },
           {
@@ -369,15 +409,30 @@
             "end": 2980,
             "found_by": {
               "dense": 3,
-              "bm25": 9
+              "bm25": 10
             },
-            "rrf": 0.03037,
+            "rrf": 0.03016,
             "distance": 0.554,
-            "score": 1.352,
+            "score": 2.835,
             "relevant_to": []
           },
           {
             "rank": 6,
+            "id": "support-runbook-errors.md#5",
+            "source": "support-runbook-errors.md",
+            "start": 3620,
+            "end": 4420,
+            "found_by": {
+              "dense": 8,
+              "bm25": 5
+            },
+            "rrf": 0.03009,
+            "distance": 0.616,
+            "score": 3.26,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
             "id": "support-runbook-errors.md#2",
             "source": "support-runbook-errors.md",
             "start": 1460,
@@ -388,22 +443,7 @@
             },
             "rrf": 0.02983,
             "distance": 0.664,
-            "score": 4.326,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
-            "id": "support-runbook-errors.md#5",
-            "source": "support-runbook-errors.md",
-            "start": 3620,
-            "end": 4420,
-            "found_by": {
-              "dense": 8,
-              "bm25": 7
-            },
-            "rrf": 0.02963,
-            "distance": 0.616,
-            "score": 1.526,
+            "score": 6.162,
             "relevant_to": []
           },
           {
@@ -414,15 +454,30 @@
             "end": 3698,
             "found_by": {
               "dense": 12,
-              "bm25": 6
+              "bm25": 7
             },
-            "rrf": 0.02904,
+            "rrf": 0.02881,
             "distance": 0.658,
-            "score": 2.881,
+            "score": 3.137,
             "relevant_to": []
           },
           {
             "rank": 9,
+            "id": "support-runbook-errors.md#0",
+            "source": "support-runbook-errors.md",
+            "start": 0,
+            "end": 800,
+            "found_by": {
+              "dense": 10,
+              "bm25": 9
+            },
+            "rrf": 0.02878,
+            "distance": 0.629,
+            "score": 2.839,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
             "id": "support-runbook-errors.md#4",
             "source": "support-runbook-errors.md",
             "start": 2900,
@@ -433,22 +488,7 @@
             },
             "rrf": 0.02862,
             "distance": 0.61,
-            "score": 1.037,
-            "relevant_to": []
-          },
-          {
-            "rank": 10,
-            "id": "support-runbook-errors.md#0",
-            "source": "support-runbook-errors.md",
-            "start": 0,
-            "end": 800,
-            "found_by": {
-              "dense": 10,
-              "bm25": 10
-            },
-            "rrf": 0.02857,
-            "distance": 0.629,
-            "score": 1.311,
+            "score": 2.285,
             "relevant_to": []
           }
         ]
@@ -479,6 +519,18 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 23.1,
+          "retriever_ms": {
+            "dense": 19.4,
+            "bm25": 3.5
+          },
+          "fusion_ms": 0.2,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -492,7 +544,7 @@
             },
             "rrf": 0.03202,
             "distance": 0.454,
-            "score": 7.884,
+            "score": 9.288,
             "relevant_to": []
           },
           {
@@ -507,7 +559,7 @@
             },
             "rrf": 0.03175,
             "distance": 0.431,
-            "score": 4.698,
+            "score": 5.494,
             "relevant_to": []
           },
           {
@@ -522,7 +574,7 @@
             },
             "rrf": 0.03175,
             "distance": 0.437,
-            "score": 5.03,
+            "score": 6.022,
             "relevant_to": [
               0
             ]
@@ -539,7 +591,7 @@
             },
             "rrf": 0.03151,
             "distance": 0.502,
-            "score": 5.654,
+            "score": 6.619,
             "relevant_to": []
           },
           {
@@ -554,7 +606,7 @@
             },
             "rrf": 0.03089,
             "distance": 0.42,
-            "score": 2.423,
+            "score": 3.16,
             "relevant_to": [
               1,
               2,
@@ -573,7 +625,7 @@
             },
             "rrf": 0.03031,
             "distance": 0.529,
-            "score": 3.19,
+            "score": 4.306,
             "relevant_to": []
           },
           {
@@ -588,7 +640,7 @@
             },
             "rrf": 0.03008,
             "distance": 0.506,
-            "score": 2.616,
+            "score": 3.441,
             "relevant_to": []
           },
           {
@@ -603,7 +655,7 @@
             },
             "rrf": 0.02944,
             "distance": 0.603,
-            "score": 2.73,
+            "score": 3.652,
             "relevant_to": []
           },
           {
@@ -618,7 +670,7 @@
             },
             "rrf": 0.02941,
             "distance": 0.577,
-            "score": 2.593,
+            "score": 3.407,
             "relevant_to": []
           },
           {
@@ -629,11 +681,11 @@
             "end": 2284,
             "found_by": {
               "dense": 9,
-              "bm25": 13
+              "bm25": 10
             },
-            "rrf": 0.02819,
+            "rrf": 0.02878,
             "distance": 0.599,
-            "score": 2.024,
+            "score": 2.57,
             "relevant_to": []
           }
         ]
@@ -662,6 +714,18 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 29.1,
+          "retriever_ms": {
+            "dense": 25.5,
+            "bm25": 3.5
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -675,7 +739,7 @@
             },
             "rrf": 0.03279,
             "distance": 0.482,
-            "score": 10.316,
+            "score": 12.616,
             "relevant_to": [
               1
             ]
@@ -692,7 +756,7 @@
             },
             "rrf": 0.03175,
             "distance": 0.628,
-            "score": 7.477,
+            "score": 8.716,
             "relevant_to": []
           },
           {
@@ -707,7 +771,7 @@
             },
             "rrf": 0.03175,
             "distance": 0.566,
-            "score": 3.751,
+            "score": 4.639,
             "relevant_to": [
               0
             ]
@@ -724,11 +788,26 @@
             },
             "rrf": 0.03077,
             "distance": 0.632,
-            "score": 3.518,
+            "score": 4.384,
             "relevant_to": []
           },
           {
             "rank": 5,
+            "id": "product-guide.md#2",
+            "source": "product-guide.md",
+            "start": 1440,
+            "end": 2240,
+            "found_by": {
+              "dense": 2,
+              "bm25": 9
+            },
+            "rrf": 0.03062,
+            "distance": 0.554,
+            "score": 3.06,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
             "id": "product-guide.md#4",
             "source": "product-guide.md",
             "start": 2880,
@@ -739,11 +818,11 @@
             },
             "rrf": 0.03012,
             "distance": 0.685,
-            "score": 3.641,
+            "score": 4.633,
             "relevant_to": []
           },
           {
-            "rank": 6,
+            "rank": 7,
             "id": "support-runbook-errors.md#2",
             "source": "support-runbook-errors.md",
             "start": 1460,
@@ -754,22 +833,7 @@
             },
             "rrf": 0.03008,
             "distance": 0.65,
-            "score": 3.349,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
-            "id": "product-guide.md#2",
-            "source": "product-guide.md",
-            "start": 1440,
-            "end": 2240,
-            "found_by": {
-              "dense": 2,
-              "bm25": 12
-            },
-            "rrf": 0.03002,
-            "distance": 0.554,
-            "score": 2.219,
+            "score": 4.166,
             "relevant_to": []
           },
           {
@@ -784,7 +848,7 @@
             },
             "rrf": 0.02857,
             "distance": 0.688,
-            "score": 2.527,
+            "score": 3.026,
             "relevant_to": []
           },
           {
@@ -799,7 +863,7 @@
             },
             "rrf": 0.02848,
             "distance": 0.75,
-            "score": 3.501,
+            "score": 4.375,
             "relevant_to": []
           },
           {
@@ -810,11 +874,11 @@
             "end": 8518,
             "found_by": {
               "dense": 17,
-              "bm25": 9
+              "bm25": 11
             },
-            "rrf": 0.02748,
+            "rrf": 0.02707,
             "distance": 0.768,
-            "score": 2.814,
+            "score": 2.96,
             "relevant_to": []
           }
         ]
@@ -843,6 +907,18 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 25.2,
+          "retriever_ms": {
+            "dense": 22.7,
+            "bm25": 2.4
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -856,7 +932,7 @@
             },
             "rrf": 0.03252,
             "distance": 0.659,
-            "score": 3.249,
+            "score": 3.276,
             "relevant_to": []
           },
           {
@@ -885,7 +961,7 @@
               "bm25": 2
             },
             "rrf": 0.01613,
-            "score": 2.952,
+            "score": 3.034,
             "relevant_to": []
           },
           {
@@ -898,7 +974,7 @@
               "bm25": 3
             },
             "rrf": 0.01587,
-            "score": 2.762,
+            "score": 2.819,
             "relevant_to": []
           },
           {
@@ -1005,6 +1081,18 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 26.0,
+          "retriever_ms": {
+            "dense": 23.1,
+            "bm25": 2.8
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1018,7 +1106,7 @@
             },
             "rrf": 0.03252,
             "distance": 0.422,
-            "score": 4.153,
+            "score": 6.582,
             "relevant_to": []
           },
           {
@@ -1033,7 +1121,7 @@
             },
             "rrf": 0.03202,
             "distance": 0.493,
-            "score": 4.868,
+            "score": 7.048,
             "relevant_to": [
               0,
               1
@@ -1051,7 +1139,7 @@
             },
             "rrf": 0.032,
             "distance": 0.487,
-            "score": 4.01,
+            "score": 6.382,
             "relevant_to": []
           },
           {
@@ -1062,11 +1150,11 @@
             "end": 5131,
             "found_by": {
               "dense": 3,
-              "bm25": 5
+              "bm25": 4
             },
-            "rrf": 0.03126,
+            "rrf": 0.0315,
             "distance": 0.487,
-            "score": 3.212,
+            "score": 4.95,
             "relevant_to": []
           },
           {
@@ -1077,56 +1165,56 @@
             "end": 813,
             "found_by": {
               "dense": 5,
-              "bm25": 4
+              "bm25": 7
             },
-            "rrf": 0.03101,
+            "rrf": 0.03031,
             "distance": 0.555,
-            "score": 3.357,
+            "score": 3.951,
             "relevant_to": []
           },
           {
             "rank": 6,
-            "id": "billing-policy-2026.md#0",
-            "source": "billing-policy-2026.md",
-            "start": 0,
-            "end": 813,
-            "found_by": {
-              "dense": 7,
-              "bm25": 8
-            },
-            "rrf": 0.02963,
-            "distance": 0.593,
-            "score": 1.719,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
             "id": "billing-policy-2025.md#1",
             "source": "billing-policy-2025.md",
             "start": 733,
             "end": 1549,
             "found_by": {
               "dense": 9,
-              "bm25": 7
+              "bm25": 5
             },
-            "rrf": 0.02942,
+            "rrf": 0.02988,
             "distance": 0.674,
-            "score": 2.936,
+            "score": 4.463,
             "relevant_to": []
           },
           {
-            "rank": 8,
+            "rank": 7,
             "id": "billing-policy-2025.md#4",
             "source": "billing-policy-2025.md",
             "start": 2924,
             "end": 3744,
             "found_by": {
               "dense": 6,
-              "bm25": 12
+              "bm25": 8
             },
-            "rrf": 0.02904,
+            "rrf": 0.02986,
             "distance": 0.584,
-            "score": 0.915,
+            "score": 3.013,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "billing-policy-2026.md#5",
+            "source": "billing-policy-2026.md",
+            "start": 3644,
+            "end": 4464,
+            "found_by": {
+              "dense": 8,
+              "bm25": 10
+            },
+            "rrf": 0.02899,
+            "distance": 0.626,
+            "score": 2.522,
             "relevant_to": []
           },
           {
@@ -1141,22 +1229,22 @@
             },
             "rrf": 0.02885,
             "distance": 0.739,
-            "score": 2.95,
+            "score": 3.976,
             "relevant_to": []
           },
           {
             "rank": 10,
-            "id": "support-runbook-errors.md#9",
-            "source": "support-runbook-errors.md",
-            "start": 6500,
-            "end": 7300,
+            "id": "billing-policy-2026.md#0",
+            "source": "billing-policy-2026.md",
+            "start": 0,
+            "end": 813,
             "found_by": {
-              "dense": 10,
-              "bm25": 9
+              "dense": 7,
+              "bm25": 13
             },
-            "rrf": 0.02878,
-            "distance": 0.682,
-            "score": 1.623,
+            "rrf": 0.02862,
+            "distance": 0.593,
+            "score": 2.137,
             "relevant_to": []
           }
         ]
@@ -1184,6 +1272,18 @@
           "5": 1.0,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 23.9,
+          "retriever_ms": {
+            "dense": 21.3,
+            "bm25": 2.5
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1197,7 +1297,7 @@
             },
             "rrf": 0.03252,
             "distance": 0.585,
-            "score": 4.538,
+            "score": 5.261,
             "relevant_to": [
               0
             ]
@@ -1214,7 +1314,7 @@
             },
             "rrf": 0.03178,
             "distance": 0.567,
-            "score": 1.941,
+            "score": 2.458,
             "relevant_to": []
           },
           {
@@ -1229,7 +1329,7 @@
             },
             "rrf": 0.03175,
             "distance": 0.695,
-            "score": 4.114,
+            "score": 4.614,
             "relevant_to": []
           },
           {
@@ -1244,7 +1344,7 @@
             },
             "rrf": 0.03175,
             "distance": 0.616,
-            "score": 4.102,
+            "score": 4.599,
             "relevant_to": []
           },
           {
@@ -1259,7 +1359,7 @@
             },
             "rrf": 0.03078,
             "distance": 0.786,
-            "score": 2.069,
+            "score": 2.648,
             "relevant_to": []
           },
           {
@@ -1274,7 +1374,7 @@
             },
             "rrf": 0.03008,
             "distance": 0.794,
-            "score": 1.668,
+            "score": 2.066,
             "relevant_to": []
           },
           {
@@ -1289,7 +1389,7 @@
             },
             "rrf": 0.0292,
             "distance": 0.823,
-            "score": 1.186,
+            "score": 1.412,
             "relevant_to": []
           },
           {
@@ -1304,7 +1404,7 @@
             },
             "rrf": 0.02826,
             "distance": 0.869,
-            "score": 1.193,
+            "score": 1.422,
             "relevant_to": []
           },
           {
@@ -1359,6 +1459,18 @@
           "5": 0.5,
           "10": 0.5
         },
+        "cost": {
+          "retrieval_ms": 25.5,
+          "retriever_ms": {
+            "dense": 21.5,
+            "bm25": 3.9
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1372,7 +1484,7 @@
             },
             "rrf": 0.03252,
             "distance": 0.408,
-            "score": 9.347,
+            "score": 11.249,
             "relevant_to": []
           },
           {
@@ -1383,32 +1495,17 @@
             "end": 6580,
             "found_by": {
               "dense": 1,
-              "bm25": 3
+              "bm25": 2
             },
-            "rrf": 0.03227,
+            "rrf": 0.03252,
             "distance": 0.372,
-            "score": 8.289,
+            "score": 10.073,
             "relevant_to": [
               0
             ]
           },
           {
             "rank": 3,
-            "id": "support-runbook-errors.md#7",
-            "source": "support-runbook-errors.md",
-            "start": 5060,
-            "end": 5860,
-            "found_by": {
-              "dense": 5,
-              "bm25": 2
-            },
-            "rrf": 0.03151,
-            "distance": 0.507,
-            "score": 8.725,
-            "relevant_to": []
-          },
-          {
-            "rank": 4,
             "id": "support-runbook-errors.md#0",
             "source": "support-runbook-errors.md",
             "start": 0,
@@ -1419,7 +1516,22 @@
             },
             "rrf": 0.0315,
             "distance": 0.466,
-            "score": 7.7,
+            "score": 9.84,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "support-runbook-errors.md#7",
+            "source": "support-runbook-errors.md",
+            "start": 5060,
+            "end": 5860,
+            "found_by": {
+              "dense": 5,
+              "bm25": 3
+            },
+            "rrf": 0.03126,
+            "distance": 0.507,
+            "score": 10.033,
             "relevant_to": []
           },
           {
@@ -1430,15 +1542,30 @@
             "end": 3840,
             "found_by": {
               "dense": 11,
-              "bm25": 8
+              "bm25": 7
             },
-            "rrf": 0.02879,
+            "rrf": 0.02901,
             "distance": 0.571,
-            "score": 3.672,
+            "score": 5.906,
             "relevant_to": []
           },
           {
             "rank": 6,
+            "id": "support-runbook-errors.md#3",
+            "source": "support-runbook-errors.md",
+            "start": 2180,
+            "end": 2980,
+            "found_by": {
+              "dense": 4,
+              "bm25": 17
+            },
+            "rrf": 0.02861,
+            "distance": 0.497,
+            "score": 2.698,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
             "id": "service-catalog.md#1",
             "source": "service-catalog.md",
             "start": 759,
@@ -1449,41 +1576,41 @@
             },
             "rrf": 0.02854,
             "distance": 0.695,
-            "score": 6.91,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
-            "id": "support-runbook-errors.md#3",
-            "source": "support-runbook-errors.md",
-            "start": 2180,
-            "end": 2980,
-            "found_by": {
-              "dense": 4,
-              "bm25": 18
-            },
-            "rrf": 0.02845,
-            "distance": 0.497,
-            "score": 1.55,
+            "score": 7.769,
             "relevant_to": []
           },
           {
             "rank": 8,
+            "id": "support-runbook-errors.md#10",
+            "source": "support-runbook-errors.md",
+            "start": 7220,
+            "end": 7894,
+            "found_by": {
+              "dense": 9,
+              "bm25": 12
+            },
+            "rrf": 0.02838,
+            "distance": 0.553,
+            "score": 3.551,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
             "id": "support-runbook-errors.md#1",
             "source": "support-runbook-errors.md",
             "start": 720,
             "end": 1540,
             "found_by": {
               "dense": 6,
-              "bm25": 17
+              "bm25": 16
             },
-            "rrf": 0.02814,
+            "rrf": 0.02831,
             "distance": 0.513,
-            "score": 1.59,
+            "score": 2.712,
             "relevant_to": []
           },
           {
-            "rank": 9,
+            "rank": 10,
             "id": "product-guide.md#8",
             "source": "product-guide.md",
             "start": 5778,
@@ -1494,22 +1621,7 @@
             },
             "rrf": 0.02797,
             "distance": 0.715,
-            "score": 6.434,
-            "relevant_to": []
-          },
-          {
-            "rank": 10,
-            "id": "support-runbook-errors.md#10",
-            "source": "support-runbook-errors.md",
-            "start": 7220,
-            "end": 7894,
-            "found_by": {
-              "dense": 9,
-              "bm25": 15
-            },
-            "rrf": 0.02783,
-            "distance": 0.553,
-            "score": 2.516,
+            "score": 7.245,
             "relevant_to": []
           }
         ]
@@ -1552,6 +1664,18 @@
           "5": 0.5,
           "10": 0.5
         },
+        "cost": {
+          "retrieval_ms": 33.1,
+          "retriever_ms": {
+            "dense": 28.2,
+            "bm25": 4.7
+          },
+          "fusion_ms": 0.2,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1565,7 +1689,7 @@
             },
             "rrf": 0.03252,
             "distance": 0.455,
-            "score": 11.459,
+            "score": 13.422,
             "relevant_to": [
               0
             ]
@@ -1582,7 +1706,7 @@
             },
             "rrf": 0.03227,
             "distance": 0.417,
-            "score": 6.006,
+            "score": 8.069,
             "relevant_to": []
           },
           {
@@ -1597,11 +1721,41 @@
             },
             "rrf": 0.032,
             "distance": 0.511,
-            "score": 7.555,
+            "score": 8.967,
             "relevant_to": []
           },
           {
             "rank": 4,
+            "id": "support-runbook-errors.md#0",
+            "source": "support-runbook-errors.md",
+            "start": 0,
+            "end": 800,
+            "found_by": {
+              "dense": 6,
+              "bm25": 7
+            },
+            "rrf": 0.03008,
+            "distance": 0.549,
+            "score": 6.187,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "support-runbook-errors.md#4",
+            "source": "support-runbook-errors.md",
+            "start": 2900,
+            "end": 3698,
+            "found_by": {
+              "dense": 9,
+              "bm25": 5
+            },
+            "rrf": 0.02988,
+            "distance": 0.619,
+            "score": 6.321,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
             "id": "service-catalog.md#4",
             "source": "service-catalog.md",
             "start": 3040,
@@ -1612,67 +1766,37 @@
             },
             "rrf": 0.02944,
             "distance": 0.626,
-            "score": 4.509,
-            "relevant_to": []
-          },
-          {
-            "rank": 5,
-            "id": "support-runbook-errors.md#0",
-            "source": "support-runbook-errors.md",
-            "start": 0,
-            "end": 800,
-            "found_by": {
-              "dense": 6,
-              "bm25": 10
-            },
-            "rrf": 0.02944,
-            "distance": 0.549,
-            "score": 3.998,
-            "relevant_to": []
-          },
-          {
-            "rank": 6,
-            "id": "support-runbook-errors.md#3",
-            "source": "support-runbook-errors.md",
-            "start": 2180,
-            "end": 2980,
-            "found_by": {
-              "dense": 5,
-              "bm25": 13
-            },
-            "rrf": 0.02908,
-            "distance": 0.544,
-            "score": 2.957,
+            "score": 6.19,
             "relevant_to": []
           },
           {
             "rank": 7,
-            "id": "support-runbook-errors.md#4",
-            "source": "support-runbook-errors.md",
-            "start": 2900,
-            "end": 3698,
-            "found_by": {
-              "dense": 9,
-              "bm25": 9
-            },
-            "rrf": 0.02899,
-            "distance": 0.619,
-            "score": 4.152,
-            "relevant_to": []
-          },
-          {
-            "rank": 8,
             "id": "support-runbook-errors.md#8",
             "source": "support-runbook-errors.md",
             "start": 5780,
             "end": 6580,
             "found_by": {
               "dense": 4,
-              "bm25": 15
+              "bm25": 13
             },
-            "rrf": 0.02896,
+            "rrf": 0.02932,
             "distance": 0.53,
-            "score": 2.813,
+            "score": 4.152,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "support-runbook-errors.md#3",
+            "source": "support-runbook-errors.md",
+            "start": 2180,
+            "end": 2980,
+            "found_by": {
+              "dense": 5,
+              "bm25": 12
+            },
+            "rrf": 0.02927,
+            "distance": 0.544,
+            "score": 4.616,
             "relevant_to": []
           },
           {
@@ -1687,22 +1811,22 @@
             },
             "rrf": 0.02828,
             "distance": 0.71,
-            "score": 5.321,
+            "score": 6.813,
             "relevant_to": []
           },
           {
             "rank": 10,
-            "id": "service-catalog.md#1",
-            "source": "service-catalog.md",
-            "start": 759,
-            "end": 1625,
+            "id": "support-runbook-errors.md#7",
+            "source": "support-runbook-errors.md",
+            "start": 5060,
+            "end": 5860,
             "found_by": {
-              "dense": 16,
-              "bm25": 8
+              "dense": 8,
+              "bm25": 14
             },
-            "rrf": 0.02786,
-            "distance": 0.665,
-            "score": 4.154,
+            "rrf": 0.02822,
+            "distance": 0.564,
+            "score": 4.058,
             "relevant_to": []
           }
         ]
@@ -1731,6 +1855,18 @@
           "5": 0.5,
           "10": 1.0
         },
+        "cost": {
+          "retrieval_ms": 25.0,
+          "retriever_ms": {
+            "dense": 21.2,
+            "bm25": 3.6
+          },
+          "fusion_ms": 0.2,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
         "retrieved": [
           {
             "rank": 1,
@@ -1740,11 +1876,11 @@
             "end": 3840,
             "found_by": {
               "dense": 4,
-              "bm25": 4
+              "bm25": 3
             },
-            "rrf": 0.03125,
+            "rrf": 0.0315,
             "distance": 0.576,
-            "score": 5.219,
+            "score": 7.279,
             "relevant_to": []
           },
           {
@@ -1759,7 +1895,7 @@
             },
             "rrf": 0.0311,
             "distance": 0.608,
-            "score": 7.757,
+            "score": 8.736,
             "relevant_to": [
               0
             ]
@@ -1772,30 +1908,15 @@
             "end": 1540,
             "found_by": {
               "dense": 6,
-              "bm25": 3
+              "bm25": 4
             },
-            "rrf": 0.03102,
+            "rrf": 0.03078,
             "distance": 0.596,
-            "score": 5.332,
+            "score": 6.801,
             "relevant_to": []
           },
           {
             "rank": 4,
-            "id": "billing-policy-2026.md#4",
-            "source": "billing-policy-2026.md",
-            "start": 2924,
-            "end": 3724,
-            "found_by": {
-              "dense": 1,
-              "bm25": 9
-            },
-            "rrf": 0.03089,
-            "distance": 0.549,
-            "score": 3.698,
-            "relevant_to": []
-          },
-          {
-            "rank": 5,
             "id": "support-runbook-errors.md#9",
             "source": "support-runbook-errors.md",
             "start": 6500,
@@ -1806,37 +1927,52 @@
             },
             "rrf": 0.03062,
             "distance": 0.61,
-            "score": 6.676,
+            "score": 8.47,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "billing-policy-2026.md#4",
+            "source": "billing-policy-2026.md",
+            "start": 2924,
+            "end": 3724,
+            "found_by": {
+              "dense": 1,
+              "bm25": 11
+            },
+            "rrf": 0.03048,
+            "distance": 0.549,
+            "score": 4.458,
             "relevant_to": []
           },
           {
             "rank": 6,
-            "id": "billing-policy-2026.md#5",
-            "source": "billing-policy-2026.md",
-            "start": 3644,
-            "end": 4464,
-            "found_by": {
-              "dense": 2,
-              "bm25": 10
-            },
-            "rrf": 0.03041,
-            "distance": 0.55,
-            "score": 3.66,
-            "relevant_to": []
-          },
-          {
-            "rank": 7,
             "id": "support-runbook-errors.md#10",
             "source": "support-runbook-errors.md",
             "start": 7220,
             "end": 7894,
             "found_by": {
               "dense": 3,
+              "bm25": 9
+            },
+            "rrf": 0.03037,
+            "distance": 0.557,
+            "score": 4.719,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "billing-policy-2026.md#5",
+            "source": "billing-policy-2026.md",
+            "start": 3644,
+            "end": 4464,
+            "found_by": {
+              "dense": 2,
               "bm25": 12
             },
-            "rrf": 0.02976,
-            "distance": 0.557,
-            "score": 3.018,
+            "rrf": 0.03002,
+            "distance": 0.55,
+            "score": 4.206,
             "relevant_to": []
           },
           {
@@ -1851,7 +1987,7 @@
             },
             "rrf": 0.02967,
             "distance": 0.617,
-            "score": 4.675,
+            "score": 6.151,
             "relevant_to": []
           },
           {
@@ -1866,7 +2002,7 @@
             },
             "rrf": 0.02904,
             "distance": 0.642,
-            "score": 4.65,
+            "score": 6.109,
             "relevant_to": []
           },
           {
@@ -1877,11 +2013,11 @@
             "end": 3120,
             "found_by": {
               "dense": 11,
-              "bm25": 7
+              "bm25": 10
             },
-            "rrf": 0.02901,
+            "rrf": 0.02837,
             "distance": 0.627,
-            "score": 4.063,
+            "score": 4.713,
             "relevant_to": [
               1
             ]

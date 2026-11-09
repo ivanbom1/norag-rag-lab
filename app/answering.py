@@ -1,4 +1,5 @@
 import os
+from time import perf_counter
 from typing import Literal
 
 from dotenv import load_dotenv
@@ -78,10 +79,32 @@ DEFAULT_RETRIEVERS = ["dense", "bm25"]
 CANDIDATES = 20
 
 
+def elapsed_ms(start):
+    return round((perf_counter() - start) * 1000, 1)
+
+
+def new_cost():
+    return {"retrieval_ms": 0.0, "retriever_ms": {}, "fusion_ms": 0.0,
+            "llm_calls": 0, "prompt_tokens": 0, "completion_tokens": 0, "llm_ms": 0.0}
+
+
+def retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS):
+    cost = new_cost()
+    lists = {}
+    for name in RETRIEVERS:
+        if name in retrievers:
+            start = perf_counter()
+            lists[name] = RETRIEVERS[name](question, corpus, sources, settings, max(top_k, CANDIDATES))
+            cost["retriever_ms"][name] = elapsed_ms(start)
+    start = perf_counter()
+    fused = rrf(lists)[:top_k]
+    cost["fusion_ms"] = elapsed_ms(start)
+    cost["retrieval_ms"] = round(sum(cost["retriever_ms"].values()) + cost["fusion_ms"], 1)
+    return [{"label": f"C{i + 1}", **chunk} for i, chunk in enumerate(fused)], cost
+
+
 def retrieve(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS):
-    lists = {name: RETRIEVERS[name](question, corpus, sources, settings, max(top_k, CANDIDATES))
-             for name in RETRIEVERS if name in retrievers}
-    return [{"label": f"C{i + 1}", **chunk} for i, chunk in enumerate(rrf(lists)[:top_k])]
+    return retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers)[0]
 
 
 def normalize(text):
@@ -104,10 +127,12 @@ def verify_citations(citations, chunks):
 
 
 def ask(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS):
-    chunks = retrieve(question, corpus, sources, settings, top_k, retrievers)
-    result = {"status": None, "answer": None, "citations": [], "retrieved": chunks, "model": MODEL}
+    chunks, cost = retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers)
+    result = {"status": None, "answer": None, "citations": [], "retrieved": chunks, "model": MODEL, "cost": cost}
 
     documents = "\n\n".join(f"[{chunk['label']}] {chunk['text']}" for chunk in chunks)
+    cost["llm_calls"] += 1
+    start = perf_counter()
     try:
         response = llm.chat.completions.create(
             model=MODEL,
@@ -115,7 +140,12 @@ def ask(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVER
             response_format={"type": "json_schema", "json_schema": {"name": "answer", "schema": RESPONSE_SCHEMA}},
         )
     except APIError as error:
+        cost["llm_ms"] += elapsed_ms(start)
         return {**result, "status": "llm_error", "answer": f"The language model could not be reached: {error.message}"}
+    cost["llm_ms"] += elapsed_ms(start)
+    if response.usage:
+        cost["prompt_tokens"] += response.usage.prompt_tokens
+        cost["completion_tokens"] += response.usage.completion_tokens
 
     try:
         parsed = LLMAnswer.model_validate_json(response.choices[0].message.content or "")

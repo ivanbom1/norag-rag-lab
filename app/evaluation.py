@@ -8,7 +8,8 @@ from openai import APIError
 from pydantic import BaseModel, ValidationError
 
 from app import bm25
-from app.answering import CANDIDATES, DEFAULT_RETRIEVERS, MODEL, RETRIEVERS, ask, llm, normalize, retrieve
+from app.answering import (CANDIDATES, DEFAULT_RETRIEVERS, MODEL, RETRIEVERS, ask, llm, normalize, retrieve,
+                           retrieve_with_cost)
 from app.fusion import RRF_K
 
 QUESTION_SETS = {
@@ -58,13 +59,14 @@ def first_relevant_rank(item, chunks):
 
 
 def evaluate_retrieval(question, corpus, sources, settings, retrievers):
-    chunks = retrieve(question["question"], corpus, sources, settings, max(KS), retrievers)
+    chunks, cost = retrieve_with_cost(question["question"], corpus, sources, settings, max(KS), retrievers)
     ranks = [first_relevant_rank(item, chunks) for item in question["evidence"]]
     found = lambda k: [rank is not None and rank <= k for rank in ranks]
     return {
         "evidence_ranks": ranks,
         "hit": {k: any(found(k)) for k in KS},
         "recall": {k: round(sum(found(k)) / len(ranks), 3) for k in KS},
+        "cost": cost,
         "retrieved": [
             {"rank": rank, "id": chunk["id"], "source": chunk["source"], "start": chunk["start"],
              "end": chunk["end"], **scores(chunk),
@@ -85,9 +87,38 @@ def evaluate_answer(question, corpus, sources, settings, top_k, retrievers):
                       for c in result["retrieved"]],
         "evidence_in_context": any(is_relevant(c, item) for c in result["retrieved"] for item in question["evidence"])
         if question["answerable"] else None,
+        "cost": result["cost"],
         "grade": None,
         "failure": None,
     }
+
+
+COST_KEYS = ("retrieval_ms", "fusion_ms", "llm_calls", "prompt_tokens", "completion_tokens", "llm_ms")
+
+
+def average_cost(costs):
+    if not costs:
+        return None
+    n = len(costs)
+    return {
+        "questions": n,
+        **{key: round(sum(cost[key] for cost in costs) / n, 1) for key in COST_KEYS},
+        "retriever_ms": {name: round(sum(cost["retriever_ms"].get(name, 0) for cost in costs) / n, 1)
+                         for name in RETRIEVERS if any(name in cost["retriever_ms"] for cost in costs)},
+    }
+
+
+def format_cost(cost):
+    parts = []
+    if retrieval := cost["retrieval"]:
+        per_retriever = ", ".join(f"{name} {ms}" for name, ms in retrieval["retriever_ms"].items())
+        parts.append(f"retrieval {retrieval['retrieval_ms']} ms ({per_retriever}, fusion {retrieval['fusion_ms']}), "
+                     f"{retrieval['llm_calls']:g} LLM calls")
+    if answer := cost["answer"]:
+        parts.append(f"answer {answer['llm_calls']:g} LLM calls, {answer['prompt_tokens']:.0f} prompt + "
+                     f"{answer['completion_tokens']:.0f} completion tokens, "
+                     f"{answer['retrieval_ms'] + answer['llm_ms']:.0f} ms (LLM {answer['llm_ms']:.0f})")
+    return "; ".join(parts)
 
 
 def summarize(rows):
@@ -102,7 +133,12 @@ def summarize(rows):
     by_type = defaultdict(list)
     for row in rows:
         by_type[row["type"]].append(row)
-    return {"overall": stats(rows), "by_type": {kind: stats(group) for kind, group in by_type.items() if stats(group)}}
+    return {
+        "overall": stats(rows),
+        "by_type": {kind: stats(group) for kind, group in by_type.items() if stats(group)},
+        "cost": {"retrieval": average_cost([row["retrieval"]["cost"] for row in rows if "retrieval" in row]),
+                 "answer": average_cost([row["answer"]["cost"] for row in rows if "answer" in row])},
+    }
 
 
 def results_name(corpus, settings, retrievers):
@@ -115,6 +151,8 @@ def results_name(corpus, settings, retrievers):
 def run_evaluation(corpus, sources, settings, answers=False, answer_top_k=5, delay=0, on_progress=None,
                    retrievers=DEFAULT_RETRIEVERS):
     retrievers = [name for name in RETRIEVERS if name in retrievers]
+    # Warm-up: the first dense query loads the embedding model, which would inflate the first latency.
+    retrieve("warm-up", corpus, sources, settings, 1, retrievers)
     rows = []
     for question in load_questions(corpus):
         row = {"id": question["id"], "type": question["type"], "question": question["question"],

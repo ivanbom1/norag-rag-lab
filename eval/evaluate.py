@@ -3,7 +3,8 @@ import os
 import sys
 
 from app.answering import DEFAULT_RETRIEVERS, RETRIEVERS
-from app.evaluation import KS, QUESTION_SETS, check_quotes, load_questions, run_evaluation, run_no_context
+from app.evaluation import (KS, QUESTION_SETS, check_quotes, format_cost, load_questions, run_evaluation,
+                            run_no_context)
 from app.indexing import ChunkSettings, ensure_indexed
 from app.main import corpus_dir, document_names
 
@@ -59,6 +60,7 @@ def main():
             on_progress=lambda row: args.answers and print(f"  {row['id']:4} {row['answer']['status']}"),
             retrievers=args.retrievers)
         print_summary(report["summary"])
+        print(f"Cost per question: {format_cost(report['summary']['cost'])}")
         print(f"Saved {path}")
 
 

@@ -250,6 +250,21 @@ document.getElementById("evaluate").onsubmit = async (event) => {
   button.disabled = false;
 };
 
+function formatCost({ retrieval, answer }) {
+  const parts = [];
+  if (retrieval) {
+    const perRetriever = Object.entries(retrieval.retriever_ms).map(([name, ms]) => `${name} ${ms}`).join(", ");
+    parts.push(`retrieval ${retrieval.retrieval_ms} ms (${perRetriever}, fusion ${retrieval.fusion_ms}), ` +
+      `${retrieval.llm_calls} LLM calls`);
+  }
+  if (answer) {
+    parts.push(`answer ${answer.llm_calls} LLM calls, ${Math.round(answer.prompt_tokens)} prompt + ` +
+      `${Math.round(answer.completion_tokens)} completion tokens, ` +
+      `${Math.round(answer.retrieval_ms + answer.llm_ms)} ms (LLM ${Math.round(answer.llm_ms)})`);
+  }
+  return parts.join("; ");
+}
+
 function renderEvaluation(report) {
   document.getElementById("evaluation").hidden = false;
   const header = ["type", "n", ...KS.map((k) => `hit@${k}`), ...KS.map((k) => `recall@${k}`)];
@@ -260,6 +275,7 @@ function renderEvaluation(report) {
       kind, stats.questions, ...KS.map((k) => stats[`hit@${k}`].toFixed(2)), ...KS.map((k) => stats[`recall@${k}`].toFixed(2)),
     ])),
   );
+  document.getElementById("evaluation-cost").textContent = `Cost per question: ${formatCost(report.summary.cost)}`;
 
   const withAnswers = report.results.some((result) => result.answer);
   document.getElementById("evaluation-questions").replaceChildren(

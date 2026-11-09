@@ -123,6 +123,7 @@ python -m eval.evaluate --corpus kestrel --answers --delay 6   # also generate a
 python -m eval.evaluate --no-context --delay 4            # no-context test: ask the LLM without retrieval
 python -m eval.evaluate --retrievers dense                # one retriever only (dense alone = the V2 baseline)
 python -m eval.evaluate --retrievers dense bm25           # several retrievers, fused with RRF (default)
+python -m eval.compare                                    # compare the saved runs of every configuration
 ```
 
 Retrievers are switched on and off with `--retrievers`, or with the **Retrievers** checkboxes in the sidebar (used by Ask and Evaluate). Results go to `eval/results/<corpus>_800_10_20_<retrievers>.json`, for example `kestrel_800_10_20_dense+bm25.json`. Dense alone keeps the V2 name (`..._minilm.json`).
@@ -139,6 +140,9 @@ From the front-end, open the **Evaluate** tab, optionally tick **Also generate a
 - **`<corpus>_<size>_<overlap>_20_minilm.json`:** the retrieval run, with the 10 retrieved chunks per question and the rank at which each evidence item was found.
 - **`...-answers-<timestamp>.json`:** each answer next to the chunks it used, with `evidence_in_context` and empty `grade` / `failure` fields for hand grading. A new file is written each time, so grades are never overwritten.
 - **`no-context-<corpus>.jsonl`:** the LLM's answer without retrieval and an LLM judge's verdict. An `override` field holds the human decision. Re-running only re-asks questions that failed, so overrides are kept.
+- **`comparison.md`:** written by `eval.compare`: hit and recall per configuration, corpus and question type; cost per question; and the evidence ranks of every question in every configuration, with ▲ / ▼ when recall@5 moves against dense.
+
+**Cost per question** is saved in every run: retrieval latency (per retriever and for the fusion), and with `--answers` the LLM calls, tokens and LLM latency. The CLI and the Evaluate tab show the averages.
 
 ## Reach the Words tab
 
