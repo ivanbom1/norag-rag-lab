@@ -15,6 +15,7 @@ import argparse
 import hashlib
 import json
 import os
+import random
 import re
 import time
 import unicodedata
@@ -390,6 +391,21 @@ def build(corpus, settings, corpus_path, model=GRAPH_MODEL, delay=10, force=Fals
     return directory, report
 
 
+def sample_triples(corpus, settings, n, seed=42):
+    """n random kept triples, with their chunk, and empty grade / note fields for grading by hand."""
+    directory = graph_dir(corpus, settings)
+    rows = load_cache(os.path.join(directory, "extractions.jsonl")).values()
+    triples = [(row["chunk_id"], triple) for row in rows if row["status"] == "ok" for triple in row["triples"]]
+    texts = {chunk["id"]: chunk["text"] for chunk in load_chunks(corpus, settings)}
+    picked = random.Random(seed).sample(sorted(triples, key=lambda t: (t[0], json.dumps(t[1]))), n)
+    path = os.path.join(directory, "triple-grades.json")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump({"seed": seed, "out_of": len(triples), "grades": "correct / partly / wrong, say what is off in note",
+                   "triples": [{**triple, "chunk_id": chunk_id, "chunk_text": texts.get(chunk_id), "grade": "", "note": ""}
+                               for chunk_id, triple in picked]}, f, ensure_ascii=False, indent=2)
+    return path
+
+
 def main():
     from app.indexing import ChunkSettings, ensure_indexed
     from app.main import corpus_dir, document_names
@@ -402,9 +418,13 @@ def main():
     parser.add_argument("--delay", type=float, default=10, help="seconds to wait between LLM calls")
     parser.add_argument("--force", action="store_true", help="extract every chunk again, ignoring the cache")
     parser.add_argument("--workers", type=int, default=1, help="chunks extracted at the same time")
+    parser.add_argument("--sample", type=int, help="only write N random triples to triple-grades.json, no LLM call")
     args = parser.parse_args()
 
     settings = ChunkSettings(chunk_size=args.chunk_size, overlap_percent=args.overlap)
+    if args.sample:
+        print(f"Saved {sample_triples(args.corpus, settings, args.sample)}")
+        return
     for name in document_names(args.corpus):
         ensure_indexed(os.path.join(corpus_dir(args.corpus), name), args.corpus, settings)
     directory, report = build(

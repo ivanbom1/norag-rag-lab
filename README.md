@@ -151,6 +151,7 @@ From the front-end, open the **Evaluate** tab, optionally tick **Also generate a
 python -m app.graph --corpus kestrel --workers 6     # gemini-3-flash-preview, 1 LLM call per chunk (42 at 800 / 10 %), cached
 python -m app.graph --corpus kestrel --model gemini-3.5-flash-lite --delay 4   # another model
 python -m app.graph --corpus kestrel --force         # extract every chunk again, ignoring the cache
+python -m app.graph --corpus kestrel --sample 10     # 10 random triples to grade by hand, in triple-grades.json
 ```
 
 An LLM extracts (entity, relation, entity) triples from every chunk, with a fixed schema (`ENTITY_TYPES` and `RELATIONS` in `app/graph.py`) and a short quote from the chunk for each triple. The prompt also gets the document headings around the chunk, because chunking drops short headings such as `### auth`. Rebuilding only calls the LLM for new, changed or failed chunks. The output goes to `graph/kestrel_800_10_20/`:
@@ -159,7 +160,7 @@ An LLM extracts (entity, relation, entity) triples from every chunk, with a fixe
 - **`graph.json`:** the merged entities (with every name they were found under and their chunks) and relations (with their chunks and quotes).
 - **`build-report.json`:** entities and relations per type, merges, failed chunks, dropped triples, and the cost (LLM calls, tokens, time).
 
-**Graph retriever** (`app/graph_retriever.py`, the **Graph** checkbox or `--retrievers ... graph`). It finds the entities named in the question (every word of the name must be in the question, and a plan also needs the word "plan"), walks up to 2 relations from them in both directions, and returns the chunks those relations were extracted from, closest first. Each chunk keeps the relations that led to it. It is only available where a `graph.json` exists for the corpus and chunk settings, and it is not on by default.
+**Graph retriever** (`app/graph_retriever.py`, the **Graph** checkbox or `--retrievers ... graph`). It finds the entities named in the question (every word of the name must be in the question, and a plan also needs the word "plan"), walks up to 2 relations from them in both directions, and returns the chunks those relations were extracted from, closest first. Each chunk keeps the path that led to it, from the entity named in the question, and the Ask tab shows it under the retrieved chunk and in the reference panel (for example `KST-5031 —raised_by→ postroom, then postroom —owned_by→ Messaging`). It is only available where a `graph.json` exists for the corpus and chunk settings, and it is not on by default.
 
 ## Reach the Words tab
 

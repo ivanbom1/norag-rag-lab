@@ -6,7 +6,7 @@ import os
 from app.evaluation import KS, QUESTION_SETS, RESULTS_DIR, format_cost, results_name
 from app.indexing import ChunkSettings
 
-CONFIGS = [["dense"], ["bm25"], ["dense", "bm25"]]
+CONFIGS = [["dense"], ["bm25"], ["dense", "bm25"], ["graph"], ["dense", "bm25", "graph"]]
 OUTPUT = os.path.join(RESULTS_DIR, "comparison.md")
 
 
@@ -61,6 +61,9 @@ def question_cell(retrieval, base):
 def compare(settings):
     found = {corpus: {"+".join(config): find_files(corpus, settings, config) for config in CONFIGS}
              for corpus in QUESTION_SETS}
+    # only kestrel has a graph, so graph configs without results are left out instead of shown as missing
+    found = {corpus: {name: files for name, files in configs.items() if files[0] or "graph" not in name}
+             for corpus, configs in found.items()}
     reports = {corpus: {name: load(files[0]) for name, files in configs.items() if files[0]}
                for corpus, configs in found.items()}
 

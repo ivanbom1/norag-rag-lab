@@ -14,6 +14,10 @@ let graphs = {};
 const selectedRetrievers = () => [...document.querySelectorAll("#retrievers input:checked")].map((box) => box.value);
 const foundBy = (ranks) => Object.entries(ranks).map(([name, rank]) => `${name} #${rank}`).join(", ");
 
+// "KST-5031 —raised_by→ postroom, then postroom —owned_by→ Messaging": how the graph reached a chunk, from the seed.
+const graphPaths = (graph) => (graph ? graph.paths : []).map((path) =>
+  el("li", "graph: " + path.map((e) => `${e.source} —${e.relation}→ ${e.target}`).join(", then ")));
+
 const corpusPath = (path) => `/api/corpora/${encodeURIComponent(corpus)}${path}`;
 
 async function api(path, options = {}) {
@@ -180,6 +184,8 @@ function renderResult(result) {
     const link = el("span", `[${chunk.label}]`, "link");
     link.onclick = () => openChunk(chunk.label);
     item.append(link, ` ${chunk.source}, chars ${chunk.start}–${chunk.end}, found by ${foundBy(chunk.found_by)}`);
+    if (chunk.graph) item.append(el("ul", undefined, "message"));
+    if (chunk.graph) item.lastChild.append(...graphPaths(chunk.graph));
     return item;
   }));
 }
@@ -193,12 +199,14 @@ function openChunk(label, quote) {
   if (!chunk) {
     document.getElementById("reference-title").textContent = `[${label}] was not among the retrieved chunks`;
     text.textContent = "";
+    document.getElementById("reference-path").replaceChildren();
     document.getElementById("show-in-document").hidden = true;
     return;
   }
   openedChunk = chunk;
   document.getElementById("reference-title").textContent =
     `[${label}] ${chunk.source}, chars ${chunk.start}–${chunk.end}, found by ${foundBy(chunk.found_by)}`;
+  document.getElementById("reference-path").replaceChildren(...graphPaths(chunk.graph));
   const span = quote ? findQuote(chunk.text, quote) : null;
   if (span) renderHighlighted(text, chunk.text, span[0], span[1]);
   else text.textContent = chunk.text;

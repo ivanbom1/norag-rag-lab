@@ -48,19 +48,22 @@ def find_seeds(question, nodes):
 
 
 def walk(edges, seeds, hops=HOPS):
-    """{edge index: hop at which it was reached}, following edges in both directions."""
-    seen = set(seeds)
+    """{edge index: the edge indexes from a seed to that edge}, following edges in both directions."""
+    paths = {seed: [] for seed in seeds}
     frontier = set(seeds)
     reached = {}
-    for hop in range(1, hops + 1):
-        nodes = set()
+    for _ in range(hops):
+        found = {}
         for i, edge in enumerate(edges):
-            ends = {edge["source"], edge["target"]}
-            if i not in reached and ends & frontier:
-                reached[i] = hop
-                nodes |= ends - seen
-        seen |= nodes
-        frontier = nodes
+            start = next((end for end in (edge["source"], edge["target"]) if end in frontier), None)
+            if i in reached or start is None:
+                continue
+            reached[i] = paths[start] + [i]
+            other = edge["target"] if start == edge["source"] else edge["source"]
+            if other not in paths:
+                found.setdefault(other, reached[i])
+        paths |= found
+        frontier = set(found)
     return reached
 
 
@@ -71,14 +74,13 @@ def search(question, corpus, sources, settings, top_k):
     edges = [edge for edge in edges if edge["chunks"]]
 
     paths = {}
-    for i, hop in walk(edges, find_seeds(question, graph["nodes"])).items():
-        edge = edges[i]
-        for chunk_id in edge["chunks"]:
-            path = paths.setdefault(chunk_id, {"hop": hop, "edges": []})
-            path["hop"] = min(path["hop"], hop)
-            path["edges"].append({"source": names[edge["source"]], "relation": edge["relation"],
-                                  "target": names[edge["target"]], "hop": hop})
-    ranked = sorted(paths, key=lambda c: (paths[c]["hop"], -len(paths[c]["edges"]), c))[:top_k]
+    for i, path in walk(edges, find_seeds(question, graph["nodes"])).items():
+        for chunk_id in edges[i]["chunks"]:
+            entry = paths.setdefault(chunk_id, {"hop": len(path), "paths": []})
+            entry["hop"] = min(entry["hop"], len(path))
+            entry["paths"].append([{"source": names[edges[j]["source"]], "relation": edges[j]["relation"],
+                                    "target": names[edges[j]["target"]]} for j in path])
+    ranked = sorted(paths, key=lambda c: (paths[c]["hop"], -len(paths[c]["paths"]), c))[:top_k]
     if not ranked:
         return []
 
