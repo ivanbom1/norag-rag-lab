@@ -18,6 +18,96 @@ const foundBy = (ranks) => Object.entries(ranks).map(([name, rank]) => `${name} 
 const graphPaths = (graph) => (graph ? graph.paths : []).map((path) =>
   el("li", "graph: " + path.map((e) => `${e.source} —${e.relation}→ ${e.target}`).join(", then ")));
 
+const SVG_NS = "http://www.w3.org/2000/svg";
+// Hubs like "dashboards" reach dozens of entities in 2 hops; the text under each chunk still lists every path.
+const DIAGRAM_PATHS_PER_CHUNK = 2;
+const TYPE_COLORS = {
+  ErrorCode: "#f8c4c4", Service: "#c4dcf8", Team: "#c8ecc4", Channel: "#f8e4b0", Person: "#e4d0f4",
+  Plan: "#c4ecec", Role: "#f4d4e8", Feature: "#eeeeee", Policy: "#e8e0cc",
+};
+
+function svg(tag, attributes, text) {
+  const node = document.createElementNS(SVG_NS, tag);
+  for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, value);
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+// One diagram for every graph path behind the retrieved chunks: seeds in the first column, then hop 1 and hop 2.
+function renderGraphDiagram(chunks) {
+  const nodes = new Map();
+  const edges = new Map();
+  const place = (key, name, type, column) => {
+    if (!nodes.has(key) || column < nodes.get(key).column) nodes.set(key, { name, type, column });
+  };
+  for (const chunk of chunks) {
+    const paths = chunk.graph ? [...chunk.graph.paths].sort((a, b) => a.length - b.length) : [];
+    for (const path of paths.slice(0, DIAGRAM_PATHS_PER_CHUNK)) {
+      path.forEach((step, i) => {
+        const source = `${step.source_type}:${step.source}`;
+        const target = `${step.target_type}:${step.target}`;
+        place(source, step.source, step.source_type, step.forward ? i : i + 1);
+        place(target, step.target, step.target_type, step.forward ? i + 1 : i);
+        edges.set(`${source}|${step.relation}|${target}`, { source, target, relation: step.relation });
+      });
+    }
+  }
+  const view = document.getElementById("graph-view");
+  view.hidden = nodes.size === 0;
+  if (view.hidden) return;
+
+  const [rowHeight, gap, charWidth, maxChars] = [46, 200, 7, 34];
+  const label = (name) => (name.length > maxChars ? name.slice(0, maxChars - 1) + "…" : name);
+  const columns = [];
+  for (const [key, node] of [...nodes].sort((a, b) => a[1].name.localeCompare(b[1].name))) {
+    (columns[node.column] ||= []).push(key);
+    node.width = label(node.name).length * charWidth + 16;
+    node.row = columns[node.column].length - 1;
+  }
+  let x = 10;
+  for (const column of columns) {
+    const width = Math.max(...column.map((key) => nodes.get(key).width));
+    for (const key of column) Object.assign(nodes.get(key), { x, y: 10 + nodes.get(key).row * rowHeight });
+    x += width + gap;
+  }
+
+  const height = 20 + Math.max(...columns.map((column) => column.length)) * rowHeight;
+  const drawing = svg("svg", { width: x - gap + 20, height, "font-family": "system-ui, sans-serif", "font-size": 12 });
+  const marker = svg("marker", { id: "arrow", viewBox: "0 0 10 10", refX: 10, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto" });
+  marker.append(svg("path", { d: "M0,0 L10,5 L0,10 z", fill: "#888" }));
+  const defs = svg("defs", {});
+  defs.append(marker);
+  drawing.append(defs);
+  for (const edge of edges.values()) {
+    const [a, b] = [nodes.get(edge.source), nodes.get(edge.target)];
+    const [y1, y2] = [a.y + 12, b.y + 12];
+    const sameColumn = a.column === b.column;
+    const x1 = a.column <= b.column ? a.x + a.width : a.x;
+    const x2 = sameColumn ? b.x + b.width : (a.column < b.column ? b.x : b.x + b.width);
+    const bend = sameColumn ? Math.max(x1, x2) + 50 : (x1 + x2) / 2;
+    drawing.append(svg("path", { d: `M${x1},${y1} C${bend},${y1} ${bend},${y2} ${x2},${y2}`, fill: "none", stroke: "#888", "stroke-width": 1.5, "marker-end": "url(#arrow)" }));
+    // the label sits near the right-hand end, where edges leaving the same entity have already fanned out
+    const t = sameColumn ? 0.5 : (x2 > x1 ? 0.8 : 0.2);
+    const at = (p0, p1, p2, p3) => (1 - t) ** 3 * p0 + 3 * (1 - t) ** 2 * t * p1 + 3 * (1 - t) * t ** 2 * p2 + t ** 3 * p3;
+    drawing.append(svg("text", { x: at(x1, bend, bend, x2), y: at(y1, y1, y2, y2) - 5, "text-anchor": "middle", "font-style": "italic", fill: "#444",
+      "paint-order": "stroke", stroke: "#fafafa", "stroke-width": 4 }, edge.relation));
+  }
+  for (const node of nodes.values()) {
+    const group = svg("g", {});
+    group.append(svg("title", {}, `${node.name} (${node.type})`),
+      svg("rect", { x: node.x, y: node.y, width: node.width, height: 24, rx: 5, fill: TYPE_COLORS[node.type], stroke: "#666" }),
+      svg("text", { x: node.x + 8, y: node.y + 16, fill: "#222" }, label(node.name)));
+    drawing.append(group);
+  }
+  document.getElementById("graph-diagram").replaceChildren(drawing);
+  const types = [...new Set([...nodes.values()].map((node) => node.type))];
+  document.getElementById("graph-legend").replaceChildren(...types.map((type) => {
+    const swatch = el("span", type, "legend");
+    swatch.style.background = TYPE_COLORS[type];
+    return swatch;
+  }));
+}
+
 const corpusPath = (path) => `/api/corpora/${encodeURIComponent(corpus)}${path}`;
 
 async function api(path, options = {}) {
@@ -179,6 +269,7 @@ function renderResult(result) {
     return item;
   }));
 
+  renderGraphDiagram(result.retrieved);
   document.getElementById("retrieved").replaceChildren(...result.retrieved.map((chunk) => {
     const item = el("li");
     const link = el("span", `[${chunk.label}]`, "link");

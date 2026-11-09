@@ -27,8 +27,9 @@ def test_a_plan_is_a_seed_only_when_the_question_says_plan():
 
 
 def test_walk_goes_two_hops_in_both_directions():
-    assert graph_retriever.walk(EDGES, ["ErrorCode:kst-5031"]) == {0: [0], 1: [0, 1]}
-    assert graph_retriever.walk(EDGES, ["Channel:#oncall-messaging"]) == {2: [2], 1: [2, 1]}
+    kst, postroom, messaging, channel = "ErrorCode:kst-5031", "Service:postroom", "Team:messaging", "Channel:#oncall-messaging"
+    assert graph_retriever.walk(EDGES, [kst]) == {0: [(0, kst)], 1: [(0, kst), (1, postroom)]}
+    assert graph_retriever.walk(EDGES, [channel]) == {2: [(2, channel)], 1: [(2, channel), (1, messaging)]}
 
 
 class FakeCollection:
@@ -43,8 +44,10 @@ def test_search_ranks_by_hop_keeps_the_path_from_the_seed_and_filters_sources(mo
     chunks = graph_retriever.search("What raises KST-5031?", "kestrel", ["runbook.md", "catalog.md"], None, 5)
     assert [c["id"] for c in chunks] == ["runbook.md#3", "catalog.md#1"]
     assert chunks[1]["graph"] == {"hop": 2, "paths": [[
-        {"source": "KST-5031", "relation": "raised_by", "target": "postroom"},
-        {"source": "postroom", "relation": "owned_by", "target": "Messaging"}]]}
+        {"source": "KST-5031", "relation": "raised_by", "target": "postroom",
+         "source_type": "ErrorCode", "target_type": "Service", "forward": True},
+        {"source": "postroom", "relation": "owned_by", "target": "Messaging",
+         "source_type": "Service", "target_type": "Team", "forward": True}]]}
 
     only_runbook = graph_retriever.search("What raises KST-5031?", "kestrel", ["runbook.md"], None, 5)
     assert [c["id"] for c in only_runbook] == ["runbook.md#3"]

@@ -55,3 +55,6 @@ tr.stopword td { color: #999; }
 .status-unverified { color: #b06f00; }
 .status-not_found { color: #555; }
 .status-invalid_response, .status-llm_error { color: #b00020; }
+
+#graph-diagram { overflow-x: auto; }
+.legend { display: inline-block; margin-right: 6px; padding: 1px 6px; border: 1px solid #666; border-radius: 4px; color: #222; }
