@@ -67,6 +67,16 @@
       <p id="status"></p>
       <p id="answer"></p>
       <p class="message technical" id="error-detail"></p>
+      <button type="button" id="details-button">Details</button>
+      <section id="trace" hidden>
+        <h3>What happened for this question</h3>
+        <p class="message" id="trace-summary"></p>
+        <table id="trace-spans"></table>
+        <details>
+          <summary>Raw trace</summary>
+          <pre id="trace-raw"></pre>
+        </details>
+      </section>
       <div id="sources">
         <h3>Sources</h3>
         <p class="message">Click a source to read the passage the answer comes from.</p>

@@ -6,6 +6,15 @@ const STATUS_TEXT = {
   llm_error: "The answer service could not be reached. Check your internet connection and your API key, then try again.",
 };
 const SHOWS_ANSWER = new Set(["answered", "unverified"]);
+const STEP_NAMES = {
+  dense: "Search by meaning",
+  bm25: "Search by keywords",
+  graph: "Search the concept graph",
+  fusion: "Combine the search results",
+  rerank: "Rerank the passages",
+  redact: "Remove personal data",
+  llm: "Write the answer",
+};
 
 let lastResult = null;
 let openedChunk = null;
@@ -287,6 +296,8 @@ function renderResult(result) {
   document.getElementById("answer").textContent = showsAnswer ? result.answer || "" : "";
   document.getElementById("error-detail").textContent = showsAnswer ? "" : result.answer || "";
   document.getElementById("sources").hidden = !result.citations.length;
+  document.getElementById("trace").hidden = true;
+  document.getElementById("details-button").textContent = "Details";
   document.getElementById("how-found").hidden = !result.retrieved.length;
 
   document.getElementById("citations").replaceChildren(...result.citations.map((citation) => {
@@ -570,6 +581,95 @@ async function loadCorpora() {
   await loadDocuments();
   await loadQuestionSet();
 }
+
+function traceFromCost(result) {
+  const cost = result.cost || {};
+  const spans = Object.entries(cost.retriever_ms || {}).map(([name, ms]) => ({ name, duration_ms: ms }));
+  if (cost.retriever_ms) {
+    spans.push({ name: "fusion", duration_ms: cost.fusion_ms, chunk_ids: result.retrieved.map((chunk) => chunk.id) });
+  }
+  if (cost.llm_calls) {
+    spans.push({
+      name: "llm", duration_ms: cost.llm_ms, model: result.model,
+      prompt_tokens: cost.prompt_tokens, completion_tokens: cost.completion_tokens,
+    });
+  }
+  return { trace_id: null, kind: "question", status: result.status, spans };
+}
+
+async function loadTrace(result) {
+  if (result.trace) return result.trace;
+  if (result.trace_id) return (await api(`/api/traces/${encodeURIComponent(result.trace_id)}`)).json();
+  return traceFromCost(result);
+}
+
+const formatMs = (ms) => (ms >= 1000 ? `${(ms / 1000).toFixed(2)} s` : `${Math.round(ms)} ms`);
+
+function spanTokens(span) {
+  if (span.prompt_tokens === undefined && span.completion_tokens === undefined) return "";
+  return `${span.prompt_tokens ?? 0} in, ${span.completion_tokens ?? 0} out`;
+}
+
+function renderTrace(trace) {
+  const spans = trace.spans || [];
+  const total = trace.duration_ms ?? spans.reduce((sum, span) => sum + (span.duration_ms || 0), 0);
+  const longest = Math.max(1, ...spans.map((span) => span.duration_ms || 0));
+  const tokens = spans.reduce((sum, span) => sum + (span.prompt_tokens || 0) + (span.completion_tokens || 0), 0);
+  const money = spans.reduce((sum, span) => sum + (span.cost || 0), 0);
+  const parts = [`${spans.length} steps in ${formatMs(total)}`];
+  if (tokens) parts.push(`${tokens} tokens`);
+  if (money) parts.push(`$${money.toFixed(5)}`);
+  if (trace.trace_id) parts.push(`trace ${trace.trace_id}`);
+  document.getElementById("trace-summary").textContent = parts.join(" · ");
+
+  document.getElementById("trace-spans").replaceChildren(
+    row(["Step", "Time", "", "Tokens", "Cost", "Passages"], "th"),
+    ...spans.map((span) => {
+      const tr = el("tr", undefined, span.name === "llm" ? "llm" : "");
+      const step = el("td", STEP_NAMES[span.name] || span.name);
+      step.append(el("span", ` (${span.name}${span.model ? `, ${span.model}` : ""})`, "message"));
+      if (span.error) step.append(el("div", span.error, "unverified"));
+      const bar = el("td", undefined, "bar");
+      const fill = el("div", undefined, "bar-fill");
+      fill.style.width = `${((span.duration_ms || 0) / longest) * 100}%`;
+      bar.append(fill);
+      const ids = span.chunk_ids || [];
+      const passages = el("td", ids.length ? String(ids.length) : "", "number");
+      passages.title = ids.join("\n");
+      tr.append(
+        step,
+        el("td", span.duration_ms === undefined ? "" : formatMs(span.duration_ms), "number"),
+        bar,
+        el("td", spanTokens(span), "number"),
+        el("td", span.cost ? `$${span.cost.toFixed(5)}` : "", "number"),
+        passages,
+      );
+      return tr;
+    }),
+  );
+  document.getElementById("trace-raw").textContent = JSON.stringify(trace, null, 2);
+}
+
+document.getElementById("details-button").onclick = async () => {
+  const panel = document.getElementById("trace");
+  const button = document.getElementById("details-button");
+  if (!panel.hidden) {
+    panel.hidden = true;
+    button.textContent = "Details";
+    return;
+  }
+  button.disabled = true;
+  try {
+    renderTrace(await loadTrace(lastResult));
+  } catch (error) {
+    document.getElementById("trace-summary").textContent = `The details for this answer could not be loaded: ${error.message}`;
+    document.getElementById("trace-spans").replaceChildren();
+    document.getElementById("trace-raw").textContent = "";
+  }
+  panel.hidden = false;
+  button.textContent = "Hide details";
+  button.disabled = false;
+};
 
 function showTab(id) {
   for (const button of document.querySelectorAll("#tabs button")) {

@@ -59,6 +59,13 @@ label.upload input { display: block; margin-top: 4px; }
 #ask button { margin-top: 6px; padding: 6px 18px; }
 #answer { font-size: 1.05em; line-height: 1.5; }
 body:not(.advanced) .technical { display: none; }
+#details-button { margin: 4px 0 8px; }
+#trace { background: #fff; border: 1px solid #ddd; padding: 8px 12px; margin-bottom: 12px; }
+#trace h3 { margin-top: 4px; }
+#trace-spans td.number { text-align: right; white-space: nowrap; }
+#trace-spans td.bar { width: 160px; }
+#trace-spans .bar-fill { height: 10px; background: #0b5cad; border-radius: 2px; min-width: 1px; }
+#trace-spans tr.llm .bar-fill { background: #b06f00; }
 .loading::after { content: ""; display: inline-block; width: 1em; animation: dots 1.2s steps(4) infinite; }
 @keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
 
