@@ -51,6 +51,17 @@ tr.stopword td { color: #999; }
 .link { cursor: pointer; color: #0b5cad; text-decoration: underline; }
 .unverified { color: #b00020; }
 
+h1 { font-size: 1.4em; margin: 0 0 12px; }
+details > summary { cursor: pointer; color: #0b5cad; margin: 12px 0 4px; }
+#advanced { border-top: 1px solid #ddd; padding-top: 8px; }
+label.upload { margin-top: 10px; font-size: 0.9em; }
+label.upload input { display: block; margin-top: 4px; }
+#ask button { margin-top: 6px; padding: 6px 18px; }
+#answer { font-size: 1.05em; line-height: 1.5; }
+body:not(.advanced) .technical { display: none; }
+.loading::after { content: ""; display: inline-block; width: 1em; animation: dots 1.2s steps(4) infinite; }
+@keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
+
 .status-answered { color: #1b7a2a; }
 .status-unverified { color: #b06f00; }
 .status-not_found { color: #555; }

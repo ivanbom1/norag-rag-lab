@@ -1,10 +1,11 @@
 const STATUS_TEXT = {
-  answered: "Answer",
-  unverified: "Warning: some citations could not be found in the retrieved text.",
-  not_found: "Not found in the selected documents.",
-  invalid_response: "Error: the language model returned a malformed answer.",
-  llm_error: "Error: the language model could not be reached.",
+  answered: "",
+  unverified: "Some sources below could not be matched exactly in the documents. Check them before relying on this answer.",
+  not_found: "I could not find this in the selected documents. Try rephrasing your question, or check more documents on the left.",
+  invalid_response: "Something went wrong while writing the answer. Please try again.",
+  llm_error: "The answer service could not be reached. Check your internet connection and your API key, then try again.",
 };
+const SHOWS_ANSWER = new Set(["answered", "unverified"]);
 
 let lastResult = null;
 let openedChunk = null;
@@ -153,13 +154,15 @@ async function loadDocuments() {
     checkbox.value = doc.name;
     const remove = el("button", "Delete");
     remove.onclick = () => deleteDocument(doc.name);
-    item.append(checkbox, ` ${doc.name} (${Math.round(doc.size / 1024)} KB) `, remove);
+    const name = el("label", ` ${doc.name} `, "inline");
+    name.prepend(checkbox);
+    item.append(name, el("span", `(${Math.round(doc.size / 1024)} KB) `, "message"), remove);
     return item;
   }));
 }
 
 async function deleteDocument(name) {
-  if (!confirm(`Delete ${name}?`)) return;
+  if (!confirm(`Delete ${name}? It will be removed from the collection and no longer used in answers.`)) return;
   const message = document.getElementById("documents-message");
   try {
     await api(corpusPath(`/documents/${encodeURIComponent(name)}`), { method: "DELETE" });
@@ -174,12 +177,12 @@ document.getElementById("upload").onchange = async (event) => {
   const file = event.target.files[0];
   if (!file) return;
   const message = document.getElementById("documents-message");
-  message.textContent = `Uploading and indexing ${file.name}…`;
+  message.textContent = `Adding ${file.name}, this can take a minute…`;
   const form = new FormData();
   form.append("file", file);
   try {
     const result = await (await api(corpusPath("/documents"), { method: "POST", body: form })).json();
-    message.textContent = `${result.name} indexed (${result.chunks} chunks).`;
+    message.textContent = `${result.name} was added and can now be used in answers.`;
     await loadDocuments();
   } catch (error) {
     message.textContent = error.message;
@@ -234,7 +237,20 @@ document.getElementById("ask").onsubmit = async (event) => {
   const question = event.target.elements.question.value.trim();
   const documents = [...document.querySelectorAll("#documents input:checked")].map((box) => box.value);
   const button = event.target.querySelector("button");
+  const message = document.getElementById("ask-message");
+  message.classList.remove("loading");
+  if (!question) {
+    message.textContent = "Type a question first.";
+    return;
+  }
+  if (!documents.length) {
+    message.textContent = "Check at least one document on the left.";
+    return;
+  }
   button.disabled = true;
+  message.textContent = "Searching your documents and writing an answer";
+  message.classList.add("loading");
+  document.getElementById("result").hidden = true;
   try {
     const response = await api(corpusPath("/ask"), {
       method: "POST",
@@ -245,7 +261,16 @@ document.getElementById("ask").onsubmit = async (event) => {
   } catch (error) {
     renderResult({ status: "llm_error", answer: error.message, citations: [], retrieved: [] });
   }
+  message.textContent = "";
+  message.classList.remove("loading");
   button.disabled = false;
+};
+
+document.querySelector("#ask textarea").onkeydown = (event) => {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    document.getElementById("ask").requestSubmit();
+  }
 };
 
 function renderResult(result) {
@@ -255,17 +280,22 @@ function renderResult(result) {
   document.getElementById("document").hidden = true;
 
   const status = document.getElementById("status");
-  status.textContent = STATUS_TEXT[result.status];
+  const showsAnswer = SHOWS_ANSWER.has(result.status);
+  status.textContent = STATUS_TEXT[result.status] ?? "";
   status.className = `status-${result.status}`;
-  document.getElementById("answer").textContent = result.answer || "";
+  status.hidden = !status.textContent;
+  document.getElementById("answer").textContent = showsAnswer ? result.answer || "" : "";
+  document.getElementById("error-detail").textContent = showsAnswer ? "" : result.answer || "";
+  document.getElementById("sources").hidden = !result.citations.length;
+  document.getElementById("how-found").hidden = !result.retrieved.length;
 
   document.getElementById("citations").replaceChildren(...result.citations.map((citation) => {
     const item = el("li");
     const link = el("span", `[${citation.label}]`, "link");
     link.onclick = () => openChunk(citation.label, citation.quote);
     item.append(link, ` “${citation.quote}”`);
-    if (citation.found_by) item.append(el("span", ` (found by ${foundBy(citation.found_by)})`, "message"));
-    if (!citation.verified) item.append(el("span", " (quote not found in source)", "unverified"));
+    if (citation.found_by) item.append(el("span", ` (found by ${foundBy(citation.found_by)})`, "message technical"));
+    if (!citation.verified) item.append(el("span", " (could not be matched in the document)", "unverified"));
     return item;
   }));
 
@@ -274,7 +304,7 @@ function renderResult(result) {
     const item = el("li");
     const link = el("span", `[${chunk.label}]`, "link");
     link.onclick = () => openChunk(chunk.label);
-    item.append(link, ` ${chunk.source}, chars ${chunk.start}–${chunk.end}, found by ${foundBy(chunk.found_by)}`);
+    item.append(link, ` ${chunk.source}`, el("span", `, chars ${chunk.start}–${chunk.end}, found by ${foundBy(chunk.found_by)}`, "technical"));
     if (chunk.graph) item.append(el("ul", undefined, "message"));
     if (chunk.graph) item.lastChild.append(...graphPaths(chunk.graph));
     return item;
@@ -295,8 +325,10 @@ function openChunk(label, quote) {
     return;
   }
   openedChunk = chunk;
-  document.getElementById("reference-title").textContent =
-    `[${label}] ${chunk.source}, chars ${chunk.start}–${chunk.end}, found by ${foundBy(chunk.found_by)}`;
+  document.getElementById("reference-title").replaceChildren(
+    `[${label}] ${chunk.source}`,
+    el("span", `, chars ${chunk.start}–${chunk.end}, found by ${foundBy(chunk.found_by)}`, "message technical"),
+  );
   document.getElementById("reference-path").replaceChildren(...graphPaths(chunk.graph));
   const span = quote ? findQuote(chunk.text, quote) : null;
   if (span) renderHighlighted(text, chunk.text, span[0], span[1]);
@@ -538,6 +570,25 @@ async function loadCorpora() {
   await loadDocuments();
   await loadQuestionSet();
 }
+
+function showTab(id) {
+  for (const button of document.querySelectorAll("#tabs button")) {
+    button.classList.toggle("active", button.dataset.tab === id);
+    document.getElementById(button.dataset.tab).hidden = button.dataset.tab !== id;
+  }
+}
+
+function applyAdvanced(open) {
+  document.body.classList.toggle("advanced", open);
+  document.getElementById("tabs").hidden = !open;
+  if (!open) showTab("tab-ask");
+  try { localStorage.setItem("advanced", open ? "1" : ""); } catch {}
+}
+
+const advanced = document.getElementById("advanced");
+advanced.ontoggle = () => applyAdvanced(advanced.open);
+try { advanced.open = localStorage.getItem("advanced") === "1"; } catch {}
+applyAdvanced(advanced.open);
 
 loadCorpora();
 loadSettings();

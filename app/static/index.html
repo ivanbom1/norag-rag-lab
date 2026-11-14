@@ -3,23 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Monte Cristo RAG</title>
+  <title>Ask your documents</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <aside>
     <section>
-      <h2>Corpus</h2>
+      <h2>Collection</h2>
       <select id="corpus"></select>
     </section>
 
     <section>
       <h2>Documents</h2>
+      <p class="message">Answers only use the checked documents.</p>
       <ul id="documents"></ul>
-      <input type="file" id="upload" accept=".md,.txt">
+      <label class="upload">Add a document (.md or .txt)
+        <input type="file" id="upload" accept=".md,.txt">
+      </label>
       <p class="message" id="documents-message"></p>
     </section>
 
+    <details id="advanced">
+    <summary>Advanced</summary>
     <section>
       <h2>Settings</h2>
       <form id="settings">
@@ -40,33 +45,43 @@
       </form>
       <p class="message">Used by Ask and Evaluate. With more than one on, the lists are fused with RRF.</p>
     </section>
+    </details>
   </aside>
 
   <main>
-    <nav id="tabs">
+    <nav id="tabs" hidden>
       <button data-tab="tab-ask" class="active">Ask</button>
       <button data-tab="tab-evaluate">Evaluate</button>
       <button data-tab="tab-words">Words</button>
     </nav>
 
     <div id="tab-ask">
+    <h1>Ask your documents</h1>
     <form id="ask">
-      <textarea name="question" rows="3" maxlength="1000" placeholder="Ask a question about the selected documents"></textarea>
+      <textarea name="question" rows="3" maxlength="1000" placeholder="Type your question, then press Enter"></textarea>
       <button type="submit">Ask</button>
+      <p class="message" id="ask-message"></p>
     </form>
 
     <section id="result" hidden>
       <p id="status"></p>
       <p id="answer"></p>
-      <h3>Citations</h3>
-      <ul id="citations"></ul>
-      <div id="graph-view" hidden>
-        <h3>Graph paths</h3>
-        <div id="graph-diagram"></div>
-        <p class="message" id="graph-legend"></p>
+      <p class="message technical" id="error-detail"></p>
+      <div id="sources">
+        <h3>Sources</h3>
+        <p class="message">Click a source to read the passage the answer comes from.</p>
+        <ul id="citations"></ul>
       </div>
-      <h3>Retrieved chunks</h3>
-      <ul id="retrieved"></ul>
+      <details id="how-found">
+        <summary>How this answer was found</summary>
+        <div id="graph-view" hidden>
+          <h3>Graph paths</h3>
+          <div id="graph-diagram"></div>
+          <p class="message" id="graph-legend"></p>
+        </div>
+        <h3>Passages searched</h3>
+        <ul id="retrieved"></ul>
+      </details>
     </section>
 
     <section id="reference" hidden>
