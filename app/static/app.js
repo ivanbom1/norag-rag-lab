@@ -21,6 +21,7 @@ let openedChunk = null;
 let corpus = null;
 let graphs = {};
 
+const rerankOn = () => document.getElementById("rerank").checked;
 const selectedRetrievers = () => [...document.querySelectorAll("#retrievers input:checked")].map((box) => box.value);
 const foundBy = (ranks) => Object.entries(ranks).map(([name, rank]) => `${name} #${rank}`).join(", ");
 
@@ -212,6 +213,7 @@ async function loadSettings() {
   const form = document.getElementById("settings");
   for (const key of ["chunk_size", "overlap_percent", "top_k"]) form.elements[key].value = settings[key];
   for (const box of document.querySelectorAll("#retrievers input")) box.checked = settings.retrievers.includes(box.value);
+  document.getElementById("rerank").checked = Boolean(settings.rerank);
   graphs = settings.graphs;
   updateGraphRetriever();
 }
@@ -264,7 +266,7 @@ document.getElementById("ask").onsubmit = async (event) => {
     const response = await api(corpusPath("/ask"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question, documents, retrievers: selectedRetrievers() }),
+      body: JSON.stringify({ question, documents, retrievers: selectedRetrievers(), rerank: rerankOn() }),
     });
     renderResult(await response.json());
   } catch (error) {
@@ -393,12 +395,12 @@ document.getElementById("evaluate").onsubmit = async (event) => {
     const report = await (await api(corpusPath("/evaluate"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ answers, retrievers: selectedRetrievers() }),
+      body: JSON.stringify({ answers, retrievers: selectedRetrievers(), rerank: rerankOn() }),
     })).json();
     renderEvaluation(report);
     const s = report.settings;
     message.textContent = `${report.corpus}, chunk size ${s.chunk_size}, overlap ${s.overlap_percent}%, ` +
-      `retrievers ${s.retrievers.join(" + ")}. Saved ${report.path}`;
+      `retrievers ${s.retrievers.join(" + ")}${s.rerank ? ", reranked" : ""}. Saved ${report.path}`;
   } catch (error) {
     message.textContent = error.message;
   }
@@ -586,7 +588,11 @@ function traceFromCost(result) {
   const cost = result.cost || {};
   const spans = Object.entries(cost.retriever_ms || {}).map(([name, ms]) => ({ name, duration_ms: ms }));
   if (cost.retriever_ms) {
-    spans.push({ name: "fusion", duration_ms: cost.fusion_ms, chunk_ids: result.retrieved.map((chunk) => chunk.id) });
+    spans.push({ name: "fusion", duration_ms: cost.fusion_ms, chunk_ids: cost.rerank_candidates ? undefined : result.retrieved.map((chunk) => chunk.id) });
+  }
+  if (cost.rerank_candidates) {
+    spans.push({ name: "rerank", duration_ms: cost.rerank_ms, error: cost.rerank_error, candidates: cost.rerank_candidates,
+      chunk_ids: result.retrieved.map((chunk) => chunk.id) });
   }
   if (cost.llm_calls) {
     spans.push({

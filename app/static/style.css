@@ -66,6 +66,7 @@ body:not(.advanced) .technical { display: none; }
 #trace-spans td.bar { width: 160px; }
 #trace-spans .bar-fill { height: 10px; background: #0b5cad; border-radius: 2px; min-width: 1px; }
 #trace-spans tr.llm .bar-fill { background: #b06f00; }
+#rerank { margin-right: 4px; }
 .loading::after { content: ""; display: inline-block; width: 1em; animation: dots 1.2s steps(4) infinite; }
 @keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
 

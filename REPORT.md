@@ -212,3 +212,57 @@ Corpora and folders, stack (FastAPI + HTML/JS, Gemini via the OpenAI SDK), one C
 | Settings reset on restart | Chunk settings go back to the default | Not persisted. |
 | MiniLM truncation | Long chunks are cut at 256 tokens for embedding | Matters for chunk sizes above about 1,000 chars. |
 | Old copies | `data/documents/` and old `chunks_*` collections | Unused. Can be deleted. |
+
+---
+
+# REPORT - RAG V4
+
+## B. New feature: reranking
+
+### What it does
+
+After dense + BM25 fusion, the 30 best fused passages are scored again by a cross-encoder (`cross-encoder/ms-marco-MiniLM-L-6-v2`), which reads the question and each passage together. The best top-k are kept. Code is in `app/reranking.py`, called from `retrieve_with_cost` in `app/answering.py`.
+
+We picked a local cross-encoder over an LLM reranker: no API call, no tokens, no cost, and the passages don't leave the machine for this step. It comes with `sentence-transformers`, which we already use for the embeddings. The model (about 90 MB) is downloaded once and loaded when the server starts.
+
+Switch: "Rerank the passages with a second model" in Advanced, `rerank` in the `/ask`, `/search` and `/evaluate` bodies, `--rerank` in `python -m eval.evaluate`. A reranked passage shows "rerank #n" next to its dense and BM25 ranks.
+
+### Traced, cost
+
+Reranking is its own step in the trace ("Rerank the passages"), with its time and the passages it kept. It makes no LLM call, so it adds no tokens and no money cost. It only adds time:
+
+| corpus | retrieval without rerank | with rerank | of which rerank |
+|---|---|---|---|
+| kestrel | 13 ms | 284 ms | 268 ms |
+| monte-cristo | 25 ms | 363 ms | 320 ms |
+
+Our V3 answer run on kestrel (`kestrel_800_10_20_dense+bm25-answers-20261109-030321.json`) took 1.43 s per question for the LLM call, so reranking adds about 20 % to a question.
+
+### Failures
+
+If the model can't be loaded (no network on first start, missing package), the server still starts. The question is answered with the normal search order, and the Details panel shows the rerank step in red with the reason. Covered by `tests/test_reranking.py` (6 tests: ordering, ranks kept, 30 candidates, fallback, no call when off).
+
+### Evaluation: on vs off
+
+Same settings for both runs (800 / 10 %, dense + BM25, top 10), run one after the other on 14 November. Files: `eval/results/<corpus>_800_10_20_dense+bm25.json` and `..._dense+bm25+rerank.json`.
+
+| corpus | rerank | hit@1 | hit@3 | hit@5 | hit@10 | recall@1 | recall@3 | recall@5 | recall@10 |
+|---|---|---|---|---|---|---|---|---|---|
+| kestrel (10) | off | 0.40 | 1.00 | 1.00 | 1.00 | 0.25 | 0.78 | 0.85 | 0.90 |
+| kestrel (10) | on | **0.70** | 1.00 | 1.00 | 1.00 | **0.45** | **0.85** | 0.85 | 0.85 |
+| monte-cristo (28) | off | 0.43 | 0.61 | 0.64 | 0.71 | 0.38 | 0.54 | 0.59 | 0.68 |
+| monte-cristo (28) | on | **0.46** | **0.64** | 0.64 | 0.71 | **0.41** | **0.59** | 0.59 | 0.66 |
+
+Reranking puts the right passage first more often (kestrel hit@1 0.40 → 0.70), but it does not change which passages are in the top 5: hit@5 and recall@5 are the same on both corpora.
+
+What moved, question by question:
+
+- Better: q01 (KST-2044, rank 3 → 1), q05 (lost phone, 2 → 1), q03 (card payment, three parts 5 → 2), d03 (prisoner number, 7 → 3), d10 (two words of wisdom, 3 → 1), s02 (postmark, 10 → 2), n03 (No. 27, missed → 10).
+- Worse: q07 (annual saving): the 2025 billing policy now comes before the 2026 one (1 → 2). The cross-encoder judges the topic, not the year. h01 (supercargo's trick) drops out of the top 10 (9 → missed), h03 (poison) 5 → 9.
+- Two-hop: the first hop gets better (q08 and q12 rank 2 → 1, n01 4 → 2), but the second hop is pushed out: q12 10 → missed, n01 3 → missed. The second hop doesn't look like the question, which is exactly what the cross-encoder scores. That's what the graph was for in V3.
+
+With 10 and 28 questions, one question is 0.10 or 0.04, so only the kestrel hit@1 change is more than a question or two.
+
+### Decision
+
+Off by default, switch in Advanced. The app sends the top 5 to the LLM, and at k = 5 reranking changes the order but not the content, for +0.3 s on every question. It would matter with a smaller top-k (1 to 3), where hit@1 and hit@3 go up. It's also the wrong tool for two-hop and version questions, which are our hard cases.

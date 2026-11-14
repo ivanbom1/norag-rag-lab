@@ -35,6 +35,7 @@ def main():
     parser.add_argument("--overlap", type=int, default=10)
     parser.add_argument("--retrievers", nargs="+", choices=list(RETRIEVERS), default=DEFAULT_RETRIEVERS,
                         help="retrievers to switch on, fused with RRF (default: %(default)s)")
+    parser.add_argument("--rerank", action="store_true", help="rerank the fused candidates with a cross-encoder")
     parser.add_argument("--answers", action="store_true", help="also generate answers with the LLM")
     parser.add_argument("--answer-top-k", type=int, default=5)
     parser.add_argument("--no-context", action="store_true", help="only run the no-context test (LLM without retrieval)")
@@ -61,11 +62,12 @@ def main():
             continue
 
         ensure_corpus_indexed(corpus, settings)
-        print(f"\n{corpus}, chunks {args.chunk_size}/{args.overlap}%, retrievers: {' + '.join(args.retrievers)}")
+        print(f"\n{corpus}, chunks {args.chunk_size}/{args.overlap}%, retrievers: {' + '.join(args.retrievers)}"
+              f"{', reranked' if args.rerank else ''}")
         path, report = run_evaluation(
             corpus, document_names(corpus), settings, args.answers, args.answer_top_k, args.delay,
             on_progress=lambda row: args.answers and print(f"  {row['id']:4} {row['answer']['status']}"),
-            retrievers=args.retrievers)
+            retrievers=args.retrievers, rerank=args.rerank)
         print_summary(report["summary"])
         print(f"Cost per question: {format_cost(report['summary']['cost'])}")
         print(f"Saved {path}")

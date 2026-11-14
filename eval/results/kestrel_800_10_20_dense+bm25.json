@@ -1,6 +1,6 @@
 {
   "corpus": "kestrel",
-  "created": "2026-11-09T02:58:43",
+  "created": "2026-11-14T18:56:28",
   "settings": {
     "chunk_size": 800,
     "overlap_percent": 10,
@@ -12,6 +12,9 @@
     "rrf_k": 60,
     "candidates_per_retriever": 20,
     "embedding": "all-MiniLM-L6-v2",
+    "rerank": false,
+    "rerank_model": null,
+    "rerank_candidates": null,
     "answer_top_k": null
   },
   "model": null,
@@ -94,15 +97,16 @@
     "cost": {
       "retrieval": {
         "questions": 10,
-        "retrieval_ms": 26.5,
-        "fusion_ms": 0.1,
+        "retrieval_ms": 12.9,
+        "fusion_ms": 0.0,
+        "rerank_ms": 0.0,
         "llm_calls": 0.0,
         "prompt_tokens": 0.0,
         "completion_tokens": 0.0,
         "llm_ms": 0.0,
         "retriever_ms": {
-          "dense": 23.0,
-          "bm25": 3.4
+          "dense": 12.0,
+          "bm25": 0.9
         }
       },
       "answer": null
@@ -133,16 +137,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 31.2,
+          "retrieval_ms": 41.4,
           "retriever_ms": {
-            "dense": 27.8,
-            "bm25": 3.3
+            "dense": 40.0,
+            "bm25": 1.4
           },
-          "fusion_ms": 0.1,
+          "fusion_ms": 0.0,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -325,16 +330,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 22.5,
+          "retrieval_ms": 10.9,
           "retriever_ms": {
-            "dense": 19.0,
-            "bm25": 3.4
+            "dense": 10.0,
+            "bm25": 0.9
           },
-          "fusion_ms": 0.1,
+          "fusion_ms": 0.0,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -520,16 +526,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 23.1,
+          "retrieval_ms": 9.4,
           "retriever_ms": {
-            "dense": 19.4,
-            "bm25": 3.5
+            "dense": 8.6,
+            "bm25": 0.8
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.0,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -715,16 +722,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 29.1,
+          "retrieval_ms": 11.1,
           "retriever_ms": {
-            "dense": 25.5,
-            "bm25": 3.5
+            "dense": 10.0,
+            "bm25": 1.0
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -908,16 +916,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 25.2,
+          "retrieval_ms": 9.8,
           "retriever_ms": {
-            "dense": 22.7,
-            "bm25": 2.4
+            "dense": 9.0,
+            "bm25": 0.8
           },
-          "fusion_ms": 0.1,
+          "fusion_ms": 0.0,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -1082,16 +1091,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 26.0,
+          "retrieval_ms": 9.0,
           "retriever_ms": {
-            "dense": 23.1,
-            "bm25": 2.8
+            "dense": 8.3,
+            "bm25": 0.7
           },
-          "fusion_ms": 0.1,
+          "fusion_ms": 0.0,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -1273,16 +1283,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 23.9,
+          "retrieval_ms": 9.0,
           "retriever_ms": {
-            "dense": 21.3,
-            "bm25": 2.5
+            "dense": 8.3,
+            "bm25": 0.7
           },
-          "fusion_ms": 0.1,
+          "fusion_ms": 0.0,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -1460,16 +1471,17 @@
           "10": 0.5
         },
         "cost": {
-          "retrieval_ms": 25.5,
+          "retrieval_ms": 9.2,
           "retriever_ms": {
-            "dense": 21.5,
-            "bm25": 3.9
+            "dense": 8.2,
+            "bm25": 1.0
           },
-          "fusion_ms": 0.1,
+          "fusion_ms": 0.0,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -1665,16 +1677,17 @@
           "10": 0.5
         },
         "cost": {
-          "retrieval_ms": 33.1,
+          "retrieval_ms": 11.1,
           "retriever_ms": {
-            "dense": 28.2,
-            "bm25": 4.7
+            "dense": 10.1,
+            "bm25": 0.9
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -1856,16 +1869,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 25.0,
+          "retrieval_ms": 8.6,
           "retriever_ms": {
-            "dense": 21.2,
-            "bm25": 3.6
+            "dense": 7.8,
+            "bm25": 0.8
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.0,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {

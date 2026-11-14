@@ -8,7 +8,7 @@ from fastapi.responses import PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app import graph_retriever
+from app import graph_retriever, reranking
 from app.answering import DEFAULT_RETRIEVERS, Retriever, ask, retrieve
 from app.evaluation import check_quotes, load_questions, run_evaluation
 from app.indexing import ChunkSettings, delete_document, ensure_indexed, index_document
@@ -48,6 +48,10 @@ def index_missing_documents():
 @asynccontextmanager
 async def lifespan(app):
     index_missing_documents()
+    try:
+        reranking.load_model()
+    except Exception as error:
+        print(f"Reranking model not loaded, reranking will fall back to the search order: {error}")
     yield
 
 
@@ -62,7 +66,7 @@ class SettingsUpdate(BaseModel):
 
 def settings_response():
     return {"chunk_size": settings.chunk_size, "overlap_percent": settings.overlap_percent, "top_k": top_k,
-            "retrievers": DEFAULT_RETRIEVERS,
+            "retrievers": DEFAULT_RETRIEVERS, "rerank": reranking.DEFAULT_RERANK,
             "graphs": {corpus: graph_retriever.available(corpus, settings) for corpus in SEED_DIRS}}
 
 
@@ -90,6 +94,7 @@ class Question(BaseModel):
     question: str = Field(min_length=1, max_length=1000)
     documents: list[str] | None = None
     retrievers: list[Retriever] = Field(default=DEFAULT_RETRIEVERS, min_length=1)
+    rerank: bool = reranking.DEFAULT_RERANK
 
 
 def selected_sources(corpus, documents):
@@ -112,7 +117,8 @@ def check_retrievers(corpus, retrievers):
 @app.post("/api/corpora/{corpus}/ask")
 def ask_question(corpus: str, body: Question):
     check_retrievers(corpus, body.retrievers)
-    return ask(body.question, corpus, selected_sources(corpus, body.documents), settings, top_k, body.retrievers)
+    return ask(body.question, corpus, selected_sources(corpus, body.documents), settings, top_k, body.retrievers,
+               body.rerank)
 
 
 class SearchQuery(Question):
@@ -123,12 +129,14 @@ class SearchQuery(Question):
 def search(corpus: str, body: SearchQuery):
     sources = selected_sources(corpus, body.documents)
     check_retrievers(corpus, body.retrievers)
-    return {"retrieved": retrieve(body.question, corpus, sources, settings, body.top_k or top_k, body.retrievers)}
+    return {"retrieved": retrieve(body.question, corpus, sources, settings, body.top_k or top_k, body.retrievers,
+                                  body.rerank)}
 
 
 class EvaluationRequest(BaseModel):
     answers: bool = False
     retrievers: list[Retriever] = Field(default=DEFAULT_RETRIEVERS, min_length=1)
+    rerank: bool = reranking.DEFAULT_RERANK
 
 
 @app.post("/api/corpora/{corpus}/evaluate")
@@ -139,7 +147,7 @@ def evaluate(corpus: str, body: EvaluationRequest):
     if problems:
         raise HTTPException(400, "Question set does not match the corpus: " + "; ".join(problems))
     path, report = run_evaluation(corpus, document_names(corpus), settings, body.answers, top_k,
-                                  delay=4 if body.answers else 0, retrievers=body.retrievers)
+                                  delay=4 if body.answers else 0, retrievers=body.retrievers, rerank=body.rerank)
     return {"path": path, **report}
 
 

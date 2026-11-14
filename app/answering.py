@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from openai import APIError, OpenAI
 from pydantic import BaseModel, ValidationError
 
-from app import bm25, graph_retriever
+from app import bm25, graph_retriever, reranking
 from app.fusion import rrf
 from app.indexing import get_collection
 
@@ -85,10 +85,11 @@ def elapsed_ms(start):
 
 def new_cost():
     return {"retrieval_ms": 0.0, "retriever_ms": {}, "fusion_ms": 0.0,
-            "llm_calls": 0, "prompt_tokens": 0, "completion_tokens": 0, "llm_ms": 0.0}
+            "llm_calls": 0, "prompt_tokens": 0, "completion_tokens": 0, "llm_ms": 0.0, "rerank_ms": 0.0}
 
 
-def retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS):
+def retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS,
+                       rerank=reranking.DEFAULT_RERANK):
     cost = new_cost()
     lists = {}
     for name in RETRIEVERS:
@@ -97,14 +98,25 @@ def retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers=DE
             lists[name] = RETRIEVERS[name](question, corpus, sources, settings, max(top_k, CANDIDATES))
             cost["retriever_ms"][name] = elapsed_ms(start)
     start = perf_counter()
-    fused = rrf(lists)[:top_k]
+    fused = rrf(lists)
     cost["fusion_ms"] = elapsed_ms(start)
-    cost["retrieval_ms"] = round(sum(cost["retriever_ms"].values()) + cost["fusion_ms"], 1)
+    if rerank:
+        candidates = fused[:max(top_k, reranking.RERANK_CANDIDATES)]
+        cost["rerank_candidates"] = len(candidates)
+        start = perf_counter()
+        try:
+            fused = reranking.rerank(question, candidates, top_k)
+        except Exception as error:
+            cost["rerank_error"] = f"Reranking failed, the passages keep their search order: {error}"
+            fused = candidates
+        cost["rerank_ms"] = elapsed_ms(start)
+    fused = fused[:top_k]
+    cost["retrieval_ms"] = round(sum(cost["retriever_ms"].values()) + cost["fusion_ms"] + cost["rerank_ms"], 1)
     return [{"label": f"C{i + 1}", **chunk} for i, chunk in enumerate(fused)], cost
 
 
-def retrieve(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS):
-    return retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers)[0]
+def retrieve(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS, rerank=reranking.DEFAULT_RERANK):
+    return retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers, rerank)[0]
 
 
 def normalize(text):
@@ -126,8 +138,8 @@ def verify_citations(citations, chunks):
     return verified
 
 
-def ask(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS):
-    chunks, cost = retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers)
+def ask(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS, rerank=reranking.DEFAULT_RERANK):
+    chunks, cost = retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers, rerank)
     result = {"status": None, "answer": None, "citations": [], "retrieved": chunks, "model": MODEL, "cost": cost}
 
     documents = "\n\n".join(f"[{chunk['label']}] {chunk['text']}" for chunk in chunks)

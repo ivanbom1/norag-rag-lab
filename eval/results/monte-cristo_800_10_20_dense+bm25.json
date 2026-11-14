@@ -1,6 +1,6 @@
 {
   "corpus": "monte-cristo",
-  "created": "2026-11-09T02:58:50",
+  "created": "2026-11-14T18:56:32",
   "settings": {
     "chunk_size": 800,
     "overlap_percent": 10,
@@ -12,6 +12,9 @@
     "rrf_k": 60,
     "candidates_per_retriever": 20,
     "embedding": "all-MiniLM-L6-v2",
+    "rerank": false,
+    "rerank_model": null,
+    "rerank_candidates": null,
     "answer_top_k": null
   },
   "model": null,
@@ -94,15 +97,16 @@
     "cost": {
       "retrieval": {
         "questions": 28,
-        "retrieval_ms": 149.6,
-        "fusion_ms": 0.2,
+        "retrieval_ms": 25.0,
+        "fusion_ms": 0.1,
+        "rerank_ms": 0.0,
         "llm_calls": 0.0,
         "prompt_tokens": 0.0,
         "completion_tokens": 0.0,
         "llm_ms": 0.0,
         "retriever_ms": {
-          "dense": 104.9,
-          "bm25": 44.5
+          "dense": 17.4,
+          "bm25": 7.4
         }
       },
       "answer": null
@@ -132,16 +136,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 153.3,
+          "retrieval_ms": 22.0,
           "retriever_ms": {
-            "dense": 112.9,
-            "bm25": 40.2
+            "dense": 17.5,
+            "bm25": 4.4
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -316,16 +321,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 145.9,
+          "retrieval_ms": 24.1,
           "retriever_ms": {
-            "dense": 110.0,
-            "bm25": 35.7
+            "dense": 18.2,
+            "bm25": 5.8
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -498,16 +504,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 174.6,
+          "retrieval_ms": 24.0,
           "retriever_ms": {
-            "dense": 125.0,
-            "bm25": 49.4
+            "dense": 17.6,
+            "bm25": 6.3
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -684,16 +691,17 @@
           "10": 0.0
         },
         "cost": {
-          "retrieval_ms": 192.0,
+          "retrieval_ms": 31.8,
           "retriever_ms": {
-            "dense": 112.7,
-            "bm25": 79.2
+            "dense": 17.7,
+            "bm25": 14.0
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -856,16 +864,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 126.3,
+          "retrieval_ms": 23.7,
           "retriever_ms": {
-            "dense": 93.0,
-            "bm25": 33.1
+            "dense": 18.0,
+            "bm25": 5.6
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -1046,16 +1055,17 @@
           "10": 0.0
         },
         "cost": {
-          "retrieval_ms": 158.0,
+          "retrieval_ms": 22.2,
           "retriever_ms": {
-            "dense": 112.6,
-            "bm25": 45.3
+            "dense": 17.3,
+            "bm25": 4.8
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -1234,16 +1244,17 @@
           "10": 0.0
         },
         "cost": {
-          "retrieval_ms": 181.5,
+          "retrieval_ms": 28.2,
           "retriever_ms": {
-            "dense": 117.3,
-            "bm25": 64.1
+            "dense": 17.7,
+            "bm25": 10.4
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -1422,16 +1433,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 174.6,
+          "retrieval_ms": 26.3,
           "retriever_ms": {
-            "dense": 119.7,
-            "bm25": 54.7
+            "dense": 17.3,
+            "bm25": 8.9
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -1612,16 +1624,17 @@
           "10": 0.0
         },
         "cost": {
-          "retrieval_ms": 116.0,
+          "retrieval_ms": 19.1,
           "retriever_ms": {
-            "dense": 102.5,
-            "bm25": 13.2
+            "dense": 16.6,
+            "bm25": 2.4
           },
-          "fusion_ms": 0.3,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -1786,16 +1799,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 148.0,
+          "retrieval_ms": 28.2,
           "retriever_ms": {
-            "dense": 95.8,
-            "bm25": 52.1
+            "dense": 16.7,
+            "bm25": 11.4
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -1958,16 +1972,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 124.7,
+          "retrieval_ms": 25.8,
           "retriever_ms": {
-            "dense": 91.2,
-            "bm25": 33.4
+            "dense": 17.3,
+            "bm25": 8.4
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -2150,16 +2165,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 132.3,
+          "retrieval_ms": 25.1,
           "retriever_ms": {
-            "dense": 96.4,
-            "bm25": 35.8
+            "dense": 20.8,
+            "bm25": 4.2
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -2326,16 +2342,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 121.8,
+          "retrieval_ms": 22.2,
           "retriever_ms": {
-            "dense": 94.2,
-            "bm25": 27.4
+            "dense": 18.3,
+            "bm25": 3.8
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -2504,16 +2521,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 176.8,
+          "retrieval_ms": 34.9,
           "retriever_ms": {
-            "dense": 108.7,
-            "bm25": 67.9
+            "dense": 19.1,
+            "bm25": 15.7
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -2686,16 +2704,17 @@
           "10": 0.0
         },
         "cost": {
-          "retrieval_ms": 224.0,
+          "retrieval_ms": 39.4,
           "retriever_ms": {
-            "dense": 109.1,
-            "bm25": 114.8
+            "dense": 19.4,
+            "bm25": 19.9
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -2866,16 +2885,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 145.7,
+          "retrieval_ms": 24.9,
           "retriever_ms": {
-            "dense": 93.5,
-            "bm25": 52.0
+            "dense": 18.1,
+            "bm25": 6.7
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -3054,16 +3074,17 @@
           "10": 0.0
         },
         "cost": {
-          "retrieval_ms": 127.5,
+          "retrieval_ms": 22.4,
           "retriever_ms": {
-            "dense": 94.0,
-            "bm25": 33.3
+            "dense": 17.2,
+            "bm25": 5.1
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -3228,16 +3249,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 122.0,
+          "retrieval_ms": 23.1,
           "retriever_ms": {
-            "dense": 92.7,
-            "bm25": 29.2
+            "dense": 16.8,
+            "bm25": 6.2
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -3411,16 +3433,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 134.2,
+          "retrieval_ms": 21.3,
           "retriever_ms": {
-            "dense": 98.6,
-            "bm25": 35.5
+            "dense": 16.9,
+            "bm25": 4.3
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -3588,16 +3611,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 168.5,
+          "retrieval_ms": 24.4,
           "retriever_ms": {
-            "dense": 98.4,
-            "bm25": 70.0
+            "dense": 16.4,
+            "bm25": 7.9
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -3761,16 +3785,17 @@
           "10": 0.5
         },
         "cost": {
-          "retrieval_ms": 148.9,
+          "retrieval_ms": 23.1,
           "retriever_ms": {
-            "dense": 102.7,
-            "bm25": 46.0
+            "dense": 16.8,
+            "bm25": 6.2
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -3940,16 +3965,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 138.0,
+          "retrieval_ms": 24.6,
           "retriever_ms": {
-            "dense": 98.0,
-            "bm25": 39.9
+            "dense": 16.4,
+            "bm25": 8.1
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -4119,16 +4145,17 @@
           "10": 0.5
         },
         "cost": {
-          "retrieval_ms": 178.6,
+          "retrieval_ms": 25.4,
           "retriever_ms": {
-            "dense": 111.3,
-            "bm25": 67.1
+            "dense": 17.1,
+            "bm25": 8.2
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -4303,16 +4330,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 111.9,
+          "retrieval_ms": 21.1,
           "retriever_ms": {
-            "dense": 96.9,
-            "bm25": 14.8
+            "dense": 16.6,
+            "bm25": 4.4
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -4343,7 +4371,7 @@
               "bm25": 4
             },
             "rrf": 0.03125,
-            "distance": 0.548,
+            "distance": 0.547,
             "score": 9.593,
             "relevant_to": []
           },
@@ -4493,16 +4521,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 125.2,
+          "retrieval_ms": 21.9,
           "retriever_ms": {
-            "dense": 91.1,
-            "bm25": 34.0
+            "dense": 17.1,
+            "bm25": 4.7
           },
           "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -4711,16 +4740,17 @@
           "10": 1.0
         },
         "cost": {
-          "retrieval_ms": 189.1,
+          "retrieval_ms": 20.7,
           "retriever_ms": {
-            "dense": 170.2,
-            "bm25": 18.7
+            "dense": 16.7,
+            "bm25": 3.9
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -4900,16 +4930,17 @@
           "10": 0.0
         },
         "cost": {
-          "retrieval_ms": 139.7,
+          "retrieval_ms": 27.8,
           "retriever_ms": {
-            "dense": 97.5,
-            "bm25": 42.0
+            "dense": 16.5,
+            "bm25": 11.2
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {
@@ -5074,16 +5105,17 @@
           "10": 0.0
         },
         "cost": {
-          "retrieval_ms": 108.6,
+          "retrieval_ms": 21.1,
           "retriever_ms": {
-            "dense": 90.0,
-            "bm25": 18.4
+            "dense": 16.5,
+            "bm25": 4.5
           },
-          "fusion_ms": 0.2,
+          "fusion_ms": 0.1,
           "llm_calls": 0,
           "prompt_tokens": 0,
           "completion_tokens": 0,
-          "llm_ms": 0.0
+          "llm_ms": 0.0,
+          "rerank_ms": 0.0
         },
         "retrieved": [
           {

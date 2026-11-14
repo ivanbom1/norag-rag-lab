@@ -11,6 +11,7 @@ from app import bm25
 from app.answering import (CANDIDATES, DEFAULT_RETRIEVERS, MODEL, RETRIEVERS, ask, llm, normalize, retrieve,
                            retrieve_with_cost)
 from app.fusion import RRF_K
+from app.reranking import RERANK_CANDIDATES, RERANK_MODEL
 
 QUESTION_SETS = {
     "kestrel": "kestrel-kb/eval/questions.starter.jsonl",
@@ -22,7 +23,7 @@ CORPUS_DESCRIPTIONS = {
 }
 RESULTS_DIR = "eval/results"
 KS = (1, 3, 5, 10)
-SCORE_KEYS = ("found_by", "rrf", "distance", "score")
+SCORE_KEYS = ("found_by", "rrf", "distance", "score", "rerank_score")
 
 
 def scores(chunk):
@@ -58,8 +59,8 @@ def first_relevant_rank(item, chunks):
     return next((rank for rank, chunk in enumerate(chunks, start=1) if is_relevant(chunk, item)), None)
 
 
-def evaluate_retrieval(question, corpus, sources, settings, retrievers):
-    chunks, cost = retrieve_with_cost(question["question"], corpus, sources, settings, max(KS), retrievers)
+def evaluate_retrieval(question, corpus, sources, settings, retrievers, rerank=False):
+    chunks, cost = retrieve_with_cost(question["question"], corpus, sources, settings, max(KS), retrievers, rerank)
     ranks = [first_relevant_rank(item, chunks) for item in question["evidence"]]
     found = lambda k: [rank is not None and rank <= k for rank in ranks]
     return {
@@ -76,8 +77,8 @@ def evaluate_retrieval(question, corpus, sources, settings, retrievers):
     }
 
 
-def evaluate_answer(question, corpus, sources, settings, top_k, retrievers):
-    result = ask(question["question"], corpus, sources, settings, top_k, retrievers)
+def evaluate_answer(question, corpus, sources, settings, top_k, retrievers, rerank=False):
+    result = ask(question["question"], corpus, sources, settings, top_k, retrievers, rerank)
     return {
         "top_k": top_k,
         "status": result["status"],
@@ -93,7 +94,7 @@ def evaluate_answer(question, corpus, sources, settings, top_k, retrievers):
     }
 
 
-COST_KEYS = ("retrieval_ms", "fusion_ms", "llm_calls", "prompt_tokens", "completion_tokens", "llm_ms")
+COST_KEYS = ("retrieval_ms", "fusion_ms", "rerank_ms", "llm_calls", "prompt_tokens", "completion_tokens", "llm_ms")
 
 
 def average_cost(costs):
@@ -102,7 +103,7 @@ def average_cost(costs):
     n = len(costs)
     return {
         "questions": n,
-        **{key: round(sum(cost[key] for cost in costs) / n, 1) for key in COST_KEYS},
+        **{key: round(sum(cost.get(key, 0) for cost in costs) / n, 1) for key in COST_KEYS},
         "retriever_ms": {name: round(sum(cost["retriever_ms"].get(name, 0) for cost in costs) / n, 1)
                          for name in RETRIEVERS if any(name in cost["retriever_ms"] for cost in costs)},
     }
@@ -112,7 +113,8 @@ def format_cost(cost):
     parts = []
     if retrieval := cost["retrieval"]:
         per_retriever = ", ".join(f"{name} {ms}" for name, ms in retrieval["retriever_ms"].items())
-        parts.append(f"retrieval {retrieval['retrieval_ms']} ms ({per_retriever}, fusion {retrieval['fusion_ms']}), "
+        rerank = f", rerank {retrieval['rerank_ms']}" if retrieval.get("rerank_ms") else ""
+        parts.append(f"retrieval {retrieval['retrieval_ms']} ms ({per_retriever}, fusion {retrieval['fusion_ms']}{rerank}), "
                      f"{retrieval['llm_calls']:g} LLM calls")
     if answer := cost["answer"]:
         parts.append(f"answer {answer['llm_calls']:g} LLM calls, {answer['prompt_tokens']:.0f} prompt + "
@@ -141,33 +143,33 @@ def summarize(rows):
     }
 
 
-def results_name(corpus, settings, retrievers):
+def results_name(corpus, settings, retrievers, rerank=False):
     # Dense alone keeps the V2 file names. Otherwise: corpus_800_10_20_bm25, corpus_800_10_20_dense+bm25...
-    if retrievers == ["dense"]:
+    if retrievers == ["dense"] and not rerank:
         return settings.collection_name(corpus)
-    return f"{bm25.table_name(corpus, settings)}_{'+'.join(retrievers)}"
+    return f"{bm25.table_name(corpus, settings)}_{'+'.join(retrievers)}{'+rerank' if rerank else ''}"
 
 
 def run_evaluation(corpus, sources, settings, answers=False, answer_top_k=5, delay=0, on_progress=None,
-                   retrievers=DEFAULT_RETRIEVERS):
+                   retrievers=DEFAULT_RETRIEVERS, rerank=False):
     retrievers = [name for name in RETRIEVERS if name in retrievers]
     # Warm-up: the first dense query loads the embedding model, which would inflate the first latency.
-    retrieve("warm-up", corpus, sources, settings, 1, retrievers)
+    retrieve("warm-up", corpus, sources, settings, 1, retrievers, rerank)
     rows = []
     for question in load_questions(corpus):
         row = {"id": question["id"], "type": question["type"], "question": question["question"],
                "answerable": question["answerable"], "expected_answer": question["expected_answer"]}
         if question["answerable"]:
-            row["retrieval"] = evaluate_retrieval(question, corpus, sources, settings, retrievers)
+            row["retrieval"] = evaluate_retrieval(question, corpus, sources, settings, retrievers, rerank)
         if answers:
-            row["answer"] = evaluate_answer(question, corpus, sources, settings, answer_top_k, retrievers)
+            row["answer"] = evaluate_answer(question, corpus, sources, settings, answer_top_k, retrievers, rerank)
             time.sleep(delay)
         rows.append(row)
         if on_progress:
             on_progress(row)
 
     created = datetime.now()
-    name = results_name(corpus, settings, retrievers) + (f"-answers-{created:%Y%m%d-%H%M%S}" if answers else "")
+    name = results_name(corpus, settings, retrievers, rerank) + (f"-answers-{created:%Y%m%d-%H%M%S}" if answers else "")
     report = {
         "corpus": corpus,
         "created": created.isoformat(timespec="seconds"),
@@ -175,6 +177,8 @@ def run_evaluation(corpus, sources, settings, answers=False, answer_top_k=5, del
                      "min_paragraph_length": settings.min_paragraph_length, "retrievers": retrievers,
                      "rrf_k": RRF_K, "candidates_per_retriever": CANDIDATES,
                      "embedding": "all-MiniLM-L6-v2" if "dense" in retrievers else None,
+                     "rerank": rerank, "rerank_model": RERANK_MODEL if rerank else None,
+                     "rerank_candidates": RERANK_CANDIDATES if rerank else None,
                      "answer_top_k": answer_top_k if answers else None},
         "model": MODEL if answers else None,
         "sources": sources,
