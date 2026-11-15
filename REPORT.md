@@ -266,3 +266,58 @@ With 10 and 28 questions, one question is 0.10 or 0.04, so only the kestrel hit@
 ### Decision
 
 Off by default, switch in Advanced. The app sends the top 5 to the LLM, and at k = 5 reranking changes the order but not the content, for +0.3 s on every question. It would matter with a smaller top-k (1 to 3), where hit@1 and hit@3 go up. It's also the wrong tool for two-hop and version questions, which are our hard cases.
+
+## A. Observability: decision log
+
+<!-- Skeleton: each ✍️ line is a question from the V4 slides, with the facts from the code in brackets.
+     Replace each one with your own sentences, then delete the brackets. -->
+
+### What do we trace?
+
+✍️ [One trace per question asked in the app (`/ask`) and one per indexing run (app startup when something is missing, chunk settings changed, document uploaded). The evaluation CLI makes none, so evaluation runs don't fill the store.]
+
+✍️ [Question trace: corpus, selected documents, settings, retrievers, rerank on/off, the question and the answer (redacted), citation chunk ids and verified, status, total time. Spans: one per retriever (time, ranked chunk ids), fusion, rerank, redact (counts per type), llm (model, tokens, cost in $, time, error).]
+
+✍️ [Indexing trace: reason, settings, one span per document: chunks, time for chunking, embedding + Chroma, BM25.]
+
+✍️ [Never in a trace: chunk text (ids only), prompts, API keys.]
+
+### Where are they stored, and for how long?
+
+✍️ [`traces/traces.sqlite3`, one row per trace, spans as JSON in the row. Kept 30 days, deleted when the app starts (`RETENTION_DAYS` in `app/tracing.py`). Gitignored.]
+
+### Who can read them? Do they leave the machine?
+
+✍️ [Anyone with access to the laptop, or to the app's `GET /api/traces` and `GET /api/traces/{id}` (no login, the app is local). They never leave the machine; only the LLM call goes to Google.]
+
+### Personal data in traces
+
+✍️ [Your decision: the question and the answer are stored after redaction (`[EMAIL_1]`…), the redact span only stores counts per type, never the values. Names are not removed (see C).]
+
+### Cost in dollars
+
+✍️ [List price of gemini-3.5-flash-lite: $0.30 in / $2.50 out per million tokens (ai.google.dev pricing, Nov 2026). Our free-tier key is not billed, so the cost shown is what a paid key would pay. Example: 365 + 95 tokens = $0.000347.]
+
+### Options we rejected
+
+✍️ [JSON lines: no lookup of one trace by id without reading the file. Langfuse / Phoenix: one more service to install and run; a hosted one would send questions and chunk ids off the machine. A separate spans table: only useful for SQL on spans, i.e. the optional metrics page, which we did not build.]
+
+## C. Responsible AI: personal data redaction (decision log)
+
+### What it does
+
+✍️ [Emails, phone numbers (international, French, North American), IBANs, card numbers and IP addresses are replaced by numbered placeholders (`[EMAIL_1]`, the same one each time the value appears) before the call to the LLM: in the question, in every chunk of the prompt, and in the graph extraction calls. The answer and the citations get the real values back in memory, so the user sees them and citations still verify. Traces get the redacted text only. The stored index (Chroma, BM25) is not changed: it does not leave the machine.]
+
+### How we detect, and why
+
+✍️ [Patterns (regular expressions), with a checksum for IBANs (mod 97) and card numbers (Luhn) so that order numbers and mistyped IBANs are not replaced. Phone numbers are checked before IP addresses, so 06.99.00.56.78 is a phone number.]
+
+✍️ [Why not names: a local NER model (spaCy) would remove every character of Monte Cristo (Dantès, Mercédès…) and break the answers. Why not an LLM: to find the personal data, the text would be sent to the provider, which is what we are trying to avoid.]
+
+### How we checked it
+
+✍️ [`tests/test_redaction.py`: 10 values of 5 kinds replaced and restored, and look-alikes left alone (dates, times, KST-2044, chunk ids, prices, version numbers, a 16-digit number that fails Luhn, an IBAN with a wrong checksum). `tests/test_tracing.py`: `ask()` with a fake LLM, the prompt and the stored trace contain no email. `samples/contacts-test.md` (fake data) uploaded in the app: the answer shows the real email and phone, the trace shows `[EMAIL_1]` / `[PHONE_1]` and `replaced: {EMAIL: 2, PHONE: 4, IBAN: 1, CARD: 1, IP: 1}`.]
+
+### Known gaps
+
+✍️ [Names and postal addresses are not detected. Formats outside the patterns (other countries' phone formats, emails written "name at domain") get through. The LLM still sees names next to the placeholders.]
