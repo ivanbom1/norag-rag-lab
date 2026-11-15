@@ -1,9 +1,12 @@
 import bisect
 import os
 from dataclasses import dataclass
+from time import perf_counter
 
 import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
+
+from app import bm25
 
 CHROMA_PATH = "./chroma_db"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
@@ -19,9 +22,8 @@ class ChunkSettings:
     overlap_percent: int = 10
     min_paragraph_length: int = 20
 
-    @property
-    def collection_name(self):
-        return f"chunks_{self.chunk_size}_{self.overlap_percent}_{self.min_paragraph_length}_minilm"
+    def collection_name(self, corpus):
+        return f"{corpus}_{self.chunk_size}_{self.overlap_percent}_{self.min_paragraph_length}_minilm"
 
 
 def chunk_text(text, settings):
@@ -65,16 +67,24 @@ def chunk_text(text, settings):
     return chunks
 
 
-def get_collection(settings):
-    return client.get_or_create_collection(name=settings.collection_name, embedding_function=embedding_function)
+def get_collection(corpus, settings):
+    return client.get_or_create_collection(name=settings.collection_name(corpus), embedding_function=embedding_function)
 
 
-def index_document(path, settings):
+def ms_since(start):
+    return round((perf_counter() - start) * 1000, 1)
+
+
+def index_document(path, corpus, settings, trace=None):
+    """trace: when given, gets one span for this document with the time of each step."""
+    started = perf_counter()
     source = os.path.basename(path)
     with open(path, encoding="utf-8") as f:
         chunks = chunk_text(f.read(), settings)
+    chunk_ms = ms_since(started)
 
-    collection = get_collection(settings)
+    start = perf_counter()
+    collection = get_collection(corpus, settings)
     collection.delete(where={"source": source})
     for batch_start in range(0, len(chunks), BATCH_SIZE):
         batch = chunks[batch_start:batch_start + BATCH_SIZE]
@@ -86,14 +96,48 @@ def index_document(path, settings):
                 for i, chunk in enumerate(batch)
             ],
         )
+    embed_ms = ms_since(start)
+    start = perf_counter()
+    # Same chunks, same ids, in the BM25 index.
+    bm25.index_chunks(source, corpus, settings, [
+        {"id": f"{source}#{i}", "chunk_index": i, **chunk} for i, chunk in enumerate(chunks)
+    ])
+    if trace:
+        trace.add_span("index_document", ms_since(started), document=source, chunks=len(chunks), chunk_ms=chunk_ms,
+                       embed_ms=embed_ms, bm25_ms=ms_since(start))
     return len(chunks)
 
 
-def is_indexed(source, settings):
-    return len(get_collection(settings).get(where={"source": source}, limit=1)["ids"]) > 0
+def copy_to_bm25(source, corpus, settings):
+    """Fill the BM25 index from chunks already in Chroma (no re-chunking, no re-embedding)."""
+    data = get_collection(corpus, settings).get(where={"source": source}, include=["documents", "metadatas"])
+    chunks = [{"id": chunk_id, "text": text, "chunk_index": metadata["chunk_index"],
+               "start": metadata["start"], "end": metadata["end"]}
+              for chunk_id, text, metadata in zip(data["ids"], data["documents"], data["metadatas"])]
+    return bm25.index_chunks(source, corpus, settings, chunks)
 
 
-def delete_document(source):
+def ensure_indexed(path, corpus, settings, trace=None):
+    """Make sure a document is in both indexes. Returns what was done: "indexed", "bm25" or None."""
+    source = os.path.basename(path)
+    if not is_indexed(source, corpus, settings):
+        index_document(path, corpus, settings, trace)
+        return "indexed"
+    if not bm25.is_indexed(source, corpus, settings):
+        start = perf_counter()
+        chunks = copy_to_bm25(source, corpus, settings)
+        if trace:
+            trace.add_span("copy_to_bm25", ms_since(start), document=source, chunks=chunks)
+        return "bm25"
+    return None
+
+
+def is_indexed(source, corpus, settings):
+    return len(get_collection(corpus, settings).get(where={"source": source}, limit=1)["ids"]) > 0
+
+
+def delete_document(source, corpus):
     for collection in client.list_collections():
-        if collection.name.startswith("chunks_"):
+        if collection.name.startswith(f"{corpus}_"):
             collection.delete(where={"source": source})
+    bm25.delete_document(source, corpus)

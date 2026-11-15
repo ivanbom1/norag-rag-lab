@@ -30,6 +30,8 @@ future/
 # Documents managed by the app
 data/
 
-# Evaluation runs, except the V1 baseline
-eval/results/*
-!eval/results/chunks_800_10_20_minilm_k5.json
+# BM25 index (SQLite)
+bm25_db/
+
+# Traces (SQLite, kept 30 days)
+traces/

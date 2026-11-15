@@ -1,0 +1,2882 @@
+{
+  "corpus": "kestrel",
+  "created": "2026-11-09T03:01:12",
+  "settings": {
+    "chunk_size": 800,
+    "overlap_percent": 10,
+    "min_paragraph_length": 20,
+    "retrievers": [
+      "dense"
+    ],
+    "rrf_k": 60,
+    "candidates_per_retriever": 20,
+    "embedding": "all-MiniLM-L6-v2",
+    "answer_top_k": 5
+  },
+  "model": "gemini-3.5-flash-lite",
+  "sources": [
+    "billing-policy-2025.md",
+    "billing-policy-2026.md",
+    "product-guide.md",
+    "service-catalog.md",
+    "support-runbook-errors.md"
+  ],
+  "summary": {
+    "overall": {
+      "questions": 10,
+      "hit@1": 0.5,
+      "hit@3": 0.7,
+      "hit@5": 0.8,
+      "hit@10": 1.0,
+      "recall@1": 0.325,
+      "recall@3": 0.6,
+      "recall@5": 0.7,
+      "recall@10": 0.85
+    },
+    "by_type": {
+      "exact_identifier": {
+        "questions": 2,
+        "hit@1": 0.5,
+        "hit@3": 0.5,
+        "hit@5": 0.5,
+        "hit@10": 1.0,
+        "recall@1": 0.25,
+        "recall@3": 0.5,
+        "recall@5": 0.5,
+        "recall@10": 1.0
+      },
+      "split_answer": {
+        "questions": 2,
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "recall@1": 0.625,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "recall@10": 1.0
+      },
+      "vocabulary": {
+        "questions": 1,
+        "hit@1": 1.0,
+        "hit@3": 1.0,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "recall@1": 1.0,
+        "recall@3": 1.0,
+        "recall@5": 1.0,
+        "recall@10": 1.0
+      },
+      "versions": {
+        "questions": 2,
+        "hit@1": 0.0,
+        "hit@3": 0.5,
+        "hit@5": 1.0,
+        "hit@10": 1.0,
+        "recall@1": 0.0,
+        "recall@3": 0.5,
+        "recall@5": 1.0,
+        "recall@10": 1.0
+      },
+      "two_hop": {
+        "questions": 3,
+        "hit@1": 0.333,
+        "hit@3": 0.667,
+        "hit@5": 0.667,
+        "hit@10": 1.0,
+        "recall@1": 0.167,
+        "recall@3": 0.333,
+        "recall@5": 0.333,
+        "recall@10": 0.5
+      }
+    },
+    "cost": {
+      "retrieval": {
+        "questions": 10,
+        "retrieval_ms": 24.2,
+        "fusion_ms": 0.1,
+        "llm_calls": 0.0,
+        "prompt_tokens": 0.0,
+        "completion_tokens": 0.0,
+        "llm_ms": 0.0,
+        "retriever_ms": {
+          "dense": 24.1
+        }
+      },
+      "answer": {
+        "questions": 12,
+        "retrieval_ms": 23.7,
+        "fusion_ms": 0.1,
+        "llm_calls": 1.0,
+        "prompt_tokens": 1039.3,
+        "completion_tokens": 161.2,
+        "llm_ms": 2088.5,
+        "retriever_ms": {
+          "dense": 23.5
+        }
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "q01",
+      "type": "exact_identifier",
+      "question": "What does error KST-2044 mean and how do I fix it?",
+      "answerable": true,
+      "expected_answer": "The data source refused the connection because the Kestrel IP addresses are not on its allowlist. Add both 203.0.113.10 and 203.0.113.11; adding only one causes intermittent errors.",
+      "retrieval": {
+        "evidence_ranks": [
+          6,
+          6
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 24.7,
+          "retriever_ms": {
+            "dense": 24.6
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "support-runbook-errors.md#3",
+            "source": "support-runbook-errors.md",
+            "start": 2180,
+            "end": 2980,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.506,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "support-runbook-errors.md#0",
+            "source": "support-runbook-errors.md",
+            "start": 0,
+            "end": 800,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.585,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "product-guide.md#11",
+            "source": "product-guide.md",
+            "start": 7938,
+            "end": 8518,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.591,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "support-runbook-errors.md#6",
+            "source": "support-runbook-errors.md",
+            "start": 4340,
+            "end": 5140,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.613,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "support-runbook-errors.md#5",
+            "source": "support-runbook-errors.md",
+            "start": 3620,
+            "end": 4420,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.616,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "support-runbook-errors.md#4",
+            "source": "support-runbook-errors.md",
+            "start": 2900,
+            "end": 3698,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
+            "distance": 0.619,
+            "relevant_to": [
+              0,
+              1
+            ]
+          },
+          {
+            "rank": 7,
+            "id": "support-runbook-errors.md#8",
+            "source": "support-runbook-errors.md",
+            "start": 5780,
+            "end": 6580,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
+            "distance": 0.621,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "support-runbook-errors.md#7",
+            "source": "support-runbook-errors.md",
+            "start": 5060,
+            "end": 5860,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.664,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "support-runbook-errors.md#10",
+            "source": "support-runbook-errors.md",
+            "start": 7220,
+            "end": 7894,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
+            "distance": 0.69,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "support-runbook-errors.md#1",
+            "source": "support-runbook-errors.md",
+            "start": 720,
+            "end": 1540,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
+            "distance": 0.705,
+            "relevant_to": []
+          }
+        ]
+      },
+      "answer": {
+        "top_k": 5,
+        "status": "not_found",
+        "answer": "The provided documents do not contain information about error code KST-2044.",
+        "citations": [],
+        "retrieved": [
+          {
+            "label": "C1",
+            "id": "support-runbook-errors.md#3",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.506
+          },
+          {
+            "label": "C2",
+            "id": "support-runbook-errors.md#0",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.585
+          },
+          {
+            "label": "C3",
+            "id": "product-guide.md#11",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.591
+          },
+          {
+            "label": "C4",
+            "id": "support-runbook-errors.md#6",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.613
+          },
+          {
+            "label": "C5",
+            "id": "support-runbook-errors.md#5",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.616
+          }
+        ],
+        "evidence_in_context": false,
+        "cost": {
+          "retrieval_ms": 19.8,
+          "retriever_ms": {
+            "dense": 19.7
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 1,
+          "prompt_tokens": 1069,
+          "completion_tokens": 41,
+          "llm_ms": 1488.2
+        },
+        "grade": null,
+        "failure": null
+      }
+    },
+    {
+      "id": "q02",
+      "type": "exact_identifier",
+      "question": "A user gets KST-4012 when accepting an invitation. What should support tell them?",
+      "answerable": true,
+      "expected_answer": "There is no free seat. An Admin must free a seat, or the Owner must add seats or upgrade. The same invitation then works if it is less than 7 days old.",
+      "retrieval": {
+        "evidence_ranks": [
+          2,
+          1
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.5,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 21.0,
+          "retriever_ms": {
+            "dense": 20.9
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "support-runbook-errors.md#7",
+            "source": "support-runbook-errors.md",
+            "start": 5060,
+            "end": 5860,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.386,
+            "relevant_to": [
+              1
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "support-runbook-errors.md#6",
+            "source": "support-runbook-errors.md",
+            "start": 4340,
+            "end": 5140,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.523,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 3,
+            "id": "support-runbook-errors.md#3",
+            "source": "support-runbook-errors.md",
+            "start": 2180,
+            "end": 2980,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.554,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "product-guide.md#11",
+            "source": "product-guide.md",
+            "start": 7938,
+            "end": 8518,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.571,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "product-guide.md#3",
+            "source": "product-guide.md",
+            "start": 2160,
+            "end": 2960,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.59,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "support-runbook-errors.md#1",
+            "source": "support-runbook-errors.md",
+            "start": 720,
+            "end": 1540,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
+            "distance": 0.598,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "support-runbook-errors.md#4",
+            "source": "support-runbook-errors.md",
+            "start": 2900,
+            "end": 3698,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
+            "distance": 0.61,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "support-runbook-errors.md#5",
+            "source": "support-runbook-errors.md",
+            "start": 3620,
+            "end": 4420,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.616,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "support-runbook-errors.md#10",
+            "source": "support-runbook-errors.md",
+            "start": 7220,
+            "end": 7894,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
+            "distance": 0.619,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "support-runbook-errors.md#0",
+            "source": "support-runbook-errors.md",
+            "start": 0,
+            "end": 800,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
+            "distance": 0.629,
+            "relevant_to": []
+          }
+        ]
+      },
+      "answer": {
+        "top_k": 5,
+        "status": "unverified",
+        "answer": "Support should explain that an Admin of the workspace must remove a member to free a seat, or the Owner must add seats or move to a larger plan. Once a seat is free, the same invitation link works again as long as it is less than 7 days old.",
+        "citations": [
+          {
+            "label": "C1",
+            "quote": "Support action: explain that an Admin of the workspace must remove a member to free a seat, or the Owner must add seats or move to a larger plan. Once a seat is free, the same invitation link works again as long as it is less than 7 days old.",
+            "chunk_id": "support-runbook-errors.md#7",
+            "found_by": {
+              "dense": 1
+            },
+            "verified": false
+          }
+        ],
+        "retrieved": [
+          {
+            "label": "C1",
+            "id": "support-runbook-errors.md#7",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.386
+          },
+          {
+            "label": "C2",
+            "id": "support-runbook-errors.md#6",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.523
+          },
+          {
+            "label": "C3",
+            "id": "support-runbook-errors.md#3",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.554
+          },
+          {
+            "label": "C4",
+            "id": "product-guide.md#11",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.571
+          },
+          {
+            "label": "C5",
+            "id": "product-guide.md#3",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.59
+          }
+        ],
+        "evidence_in_context": true,
+        "cost": {
+          "retrieval_ms": 25.0,
+          "retriever_ms": {
+            "dense": 24.9
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 1,
+          "prompt_tokens": 1045,
+          "completion_tokens": 160,
+          "llm_ms": 1008.8
+        },
+        "grade": null,
+        "failure": null
+      }
+    },
+    {
+      "id": "q03",
+      "type": "split_answer",
+      "question": "What happens, step by step, when a customer's card payment fails?",
+      "answerable": true,
+      "expected_answer": "E-mail to the Owner and billing contact, retries after 1, 3 and 7 days, then a 21-day grace period (everything works), then read-only, then suspension at 60 days. Nothing is deleted.",
+      "retrieval": {
+        "evidence_ranks": [
+          3,
+          1,
+          1,
+          1
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.75,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 30.3,
+          "retriever_ms": {
+            "dense": 30.2
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "billing-policy-2026.md#5",
+            "source": "billing-policy-2026.md",
+            "start": 3644,
+            "end": 4464,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.42,
+            "relevant_to": [
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "billing-policy-2025.md#3",
+            "source": "billing-policy-2025.md",
+            "start": 2189,
+            "end": 3004,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.431,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "billing-policy-2026.md#4",
+            "source": "billing-policy-2026.md",
+            "start": 2924,
+            "end": 3724,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.437,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 4,
+            "id": "support-runbook-errors.md#9",
+            "source": "support-runbook-errors.md",
+            "start": 6500,
+            "end": 7300,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.454,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "billing-policy-2025.md#4",
+            "source": "billing-policy-2025.md",
+            "start": 2924,
+            "end": 3744,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.502,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "support-runbook-errors.md#10",
+            "source": "support-runbook-errors.md",
+            "start": 7220,
+            "end": 7894,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
+            "distance": 0.506,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "billing-policy-2025.md#1",
+            "source": "billing-policy-2025.md",
+            "start": 733,
+            "end": 1549,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
+            "distance": 0.529,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "service-catalog.md#2",
+            "source": "service-catalog.md",
+            "start": 1545,
+            "end": 2387,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.577,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "billing-policy-2025.md#2",
+            "source": "billing-policy-2025.md",
+            "start": 1453,
+            "end": 2284,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
+            "distance": 0.599,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "billing-policy-2026.md#2",
+            "source": "billing-policy-2026.md",
+            "start": 1453,
+            "end": 2269,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
+            "distance": 0.603,
+            "relevant_to": []
+          }
+        ]
+      },
+      "answer": {
+        "top_k": 5,
+        "status": "answered",
+        "answer": "When a payment fails, the workspace Owner and the billing contact receive an e-mail straight away. The card is retried automatically at specific intervals (such as 1 day, 3 days, and 7 days after the first attempt, or 3 days and 7 days depending on the document details). Updating the card before the next retry is usually enough to solve the problem, and no late fee is charged. If all retries fail, the workspace enters a grace period (either 14 or 21 days from the first failed attempt), during which everything keeps working and a banner reminds Admins of the overdue payment. After the grace period, the workspace becomes read-only (members can view dashboards but not edit them, scheduled reports are paused, and datasets stop refreshing). If the amount remains unpaid 60 days after the first failed attempt, the workspace is suspended and nobody can sign in until the payment succeeds.",
+        "citations": [
+          {
+            "label": "C1",
+            "quote": "If all retries fail, the workspace enters a grace period of 21 days from the first failed attempt, during which everything keeps working. A banner reminds Admins that payment is overdue.",
+            "chunk_id": "billing-policy-2026.md#5",
+            "found_by": {
+              "dense": 1
+            },
+            "verified": true
+          },
+          {
+            "label": "C1",
+            "quote": "After the grace period, the workspace becomes read-only: members can view dashboards but cannot edit them, scheduled reports are paused, and datasets stop refreshing.",
+            "chunk_id": "billing-policy-2026.md#5",
+            "found_by": {
+              "dense": 1
+            },
+            "verified": true
+          },
+          {
+            "label": "C1",
+            "quote": "If the amount is still unpaid 60 days after the first failed attempt, the workspace is suspended: nobody can sign in to it until the outstanding amount is paid.",
+            "chunk_id": "billing-policy-2026.md#5",
+            "found_by": {
+              "dense": 1
+            },
+            "verified": true
+          },
+          {
+            "label": "C3",
+            "quote": "When a payment fails, the workspace Owner and the billing contact receive an e-mail straight away. We then retry the payment automatically 1 day, 3 days and 7 days after the first attempt.",
+            "chunk_id": "billing-policy-2026.md#4",
+            "found_by": {
+              "dense": 3
+            },
+            "verified": true
+          },
+          {
+            "label": "C3",
+            "quote": "updating the card before the next retry is usually enough to solve the problem. No lat",
+            "chunk_id": "billing-policy-2026.md#4",
+            "found_by": {
+              "dense": 3
+            },
+            "verified": true
+          }
+        ],
+        "retrieved": [
+          {
+            "label": "C1",
+            "id": "billing-policy-2026.md#5",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.42
+          },
+          {
+            "label": "C2",
+            "id": "billing-policy-2025.md#3",
+            "source": "billing-policy-2025.md",
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.431
+          },
+          {
+            "label": "C3",
+            "id": "billing-policy-2026.md#4",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.437
+          },
+          {
+            "label": "C4",
+            "id": "support-runbook-errors.md#9",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.454
+          },
+          {
+            "label": "C5",
+            "id": "billing-policy-2025.md#4",
+            "source": "billing-policy-2025.md",
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.502
+          }
+        ],
+        "evidence_in_context": true,
+        "cost": {
+          "retrieval_ms": 19.8,
+          "retriever_ms": {
+            "dense": 19.7
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 1,
+          "prompt_tokens": 1011,
+          "completion_tokens": 494,
+          "llm_ms": 1794.5
+        },
+        "grade": null,
+        "failure": null
+      }
+    },
+    {
+      "id": "q04",
+      "type": "split_answer",
+      "question": "Which plans include single sign-on, and how does an admin set it up?",
+      "answerable": true,
+      "expected_answer": "Business and Enterprise. An Admin opens Settings → Security → Single sign-on, downloads the Kestrel SP metadata, registers Kestrel in the identity provider, pastes the IdP metadata URL back, tests with one Admin, then enforces it.",
+      "retrieval": {
+        "evidence_ranks": [
+          3,
+          1
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.5,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 20.1,
+          "retriever_ms": {
+            "dense": 20.0
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "product-guide.md#5",
+            "source": "product-guide.md",
+            "start": 3618,
+            "end": 4418,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.482,
+            "relevant_to": [
+              1
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "product-guide.md#2",
+            "source": "product-guide.md",
+            "start": 1440,
+            "end": 2240,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.554,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "product-guide.md#1",
+            "source": "product-guide.md",
+            "start": 720,
+            "end": 1520,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.566,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 4,
+            "id": "product-guide.md#6",
+            "source": "product-guide.md",
+            "start": 4338,
+            "end": 5138,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.628,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "support-runbook-errors.md#1",
+            "source": "support-runbook-errors.md",
+            "start": 720,
+            "end": 1540,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.632,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "support-runbook-errors.md#2",
+            "source": "support-runbook-errors.md",
+            "start": 1460,
+            "end": 2258,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
+            "distance": 0.65,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "product-guide.md#9",
+            "source": "product-guide.md",
+            "start": 6498,
+            "end": 7298,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
+            "distance": 0.675,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "service-catalog.md#1",
+            "source": "service-catalog.md",
+            "start": 759,
+            "end": 1625,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.676,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "product-guide.md#4",
+            "source": "product-guide.md",
+            "start": 2880,
+            "end": 3698,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
+            "distance": 0.685,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "service-catalog.md#0",
+            "source": "service-catalog.md",
+            "start": 0,
+            "end": 858,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
+            "distance": 0.688,
+            "relevant_to": []
+          }
+        ]
+      },
+      "answer": {
+        "top_k": 5,
+        "status": "unverified",
+        "answer": "Single sign-on (SAML) is included on the Business and Enterprise plans. To set it up, an Admin goes to Settings → Security → Single sign-on, downloads the Kestrel service provider metadata, registers Kestrel in the identity provider, and then pastes the identity provider metadata URL back into Kestrel.",
+        "citations": [
+          {
+            "label": "C3",
+            "quote": "Single sign-on (SAML) | — | — | — | Yes | Yes |",
+            "chunk_id": "product-guide.md#1",
+            "found_by": {
+              "dense": 3
+            },
+            "verified": true
+          },
+          {
+            "label": "C1",
+            "quote": "To set it up, an Admin opens Settings → Security → Single sign-on, downloads the Kestrel service provider metadata, registers Kestrel in the identity provider, and pastes the identity provider metadata URL back into Kestrel.",
+            "chunk_id": "product-guide.md#5",
+            "found_by": {
+              "dense": 1
+            },
+            "verified": false
+          }
+        ],
+        "retrieved": [
+          {
+            "label": "C1",
+            "id": "product-guide.md#5",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.482
+          },
+          {
+            "label": "C2",
+            "id": "product-guide.md#2",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.554
+          },
+          {
+            "label": "C3",
+            "id": "product-guide.md#1",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.566
+          },
+          {
+            "label": "C4",
+            "id": "product-guide.md#6",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.628
+          },
+          {
+            "label": "C5",
+            "id": "support-runbook-errors.md#1",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.632
+          }
+        ],
+        "evidence_in_context": true,
+        "cost": {
+          "retrieval_ms": 27.2,
+          "retriever_ms": {
+            "dense": 27.1
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 1,
+          "prompt_tokens": 1116,
+          "completion_tokens": 201,
+          "llm_ms": 1086.4
+        },
+        "grade": null,
+        "failure": null
+      }
+    },
+    {
+      "id": "q05",
+      "type": "vocabulary",
+      "question": "I lost my phone and I can't log in anymore. What can I do?",
+      "answerable": true,
+      "expected_answer": "Use a backup code. Without one, ask a workspace Admin to reset your second factor. If you are the only Admin or the Owner, contact support from the account's e-mail address; identity verification can take up to 2 business days.",
+      "retrieval": {
+        "evidence_ranks": [
+          1,
+          1
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 1.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 34.2,
+          "retriever_ms": {
+            "dense": 34.1
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "product-guide.md#6",
+            "source": "product-guide.md",
+            "start": 4338,
+            "end": 5138,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.568,
+            "relevant_to": [
+              0,
+              1
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "support-runbook-errors.md#2",
+            "source": "support-runbook-errors.md",
+            "start": 1460,
+            "end": 2258,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.659,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "support-runbook-errors.md#3",
+            "source": "support-runbook-errors.md",
+            "start": 2180,
+            "end": 2980,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.689,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "support-runbook-errors.md#1",
+            "source": "support-runbook-errors.md",
+            "start": 720,
+            "end": 1540,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.732,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "support-runbook-errors.md#9",
+            "source": "support-runbook-errors.md",
+            "start": 6500,
+            "end": 7300,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.75,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "product-guide.md#7",
+            "source": "product-guide.md",
+            "start": 5058,
+            "end": 5858,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
+            "distance": 0.773,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "product-guide.md#11",
+            "source": "product-guide.md",
+            "start": 7938,
+            "end": 8518,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
+            "distance": 0.776,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "billing-policy-2026.md#5",
+            "source": "billing-policy-2026.md",
+            "start": 3644,
+            "end": 4464,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.813,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "billing-policy-2026.md#4",
+            "source": "billing-policy-2026.md",
+            "start": 2924,
+            "end": 3724,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
+            "distance": 0.821,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "support-runbook-errors.md#5",
+            "source": "support-runbook-errors.md",
+            "start": 3620,
+            "end": 4420,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
+            "distance": 0.824,
+            "relevant_to": []
+          }
+        ]
+      },
+      "answer": {
+        "top_k": 5,
+        "status": "answered",
+        "answer": "If you lost your authenticator device and have backup codes, you can use one of your backup codes at the second-factor prompt, then set up two-factor authentication again from Profile → Security. If you have neither your authenticator device nor any backup code, you should ask an Admin of your workspace to reset your second factor from Settings → Members. If you are the only Admin or the workspace Owner, you must write to support from the e-mail address registered on your account.",
+        "citations": [
+          {
+            "label": "C1",
+            "quote": "If you no longer have your authenticator device, use one of your backup codes at the second-factor prompt, then set up two-factor authentication again from **Profile → Security**.",
+            "chunk_id": "product-guide.md#6",
+            "found_by": {
+              "dense": 1
+            },
+            "verified": true
+          },
+          {
+            "label": "C1",
+            "quote": "If you have neither your authenticator device nor any backup code, ask an Admin of your workspace to reset your second factor from **Settings → Members**. You will set it up again at your next sign-in.",
+            "chunk_id": "product-guide.md#6",
+            "found_by": {
+              "dense": 1
+            },
+            "verified": true
+          },
+          {
+            "label": "C1",
+            "quote": "If you are the only Admin, or the workspace Owner, write to support from the e-mail address registered on the account.",
+            "chunk_id": "product-guide.md#6",
+            "found_by": {
+              "dense": 1
+            },
+            "verified": true
+          }
+        ],
+        "retrieved": [
+          {
+            "label": "C1",
+            "id": "product-guide.md#6",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.568
+          },
+          {
+            "label": "C2",
+            "id": "support-runbook-errors.md#2",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.659
+          },
+          {
+            "label": "C3",
+            "id": "support-runbook-errors.md#3",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.689
+          },
+          {
+            "label": "C4",
+            "id": "support-runbook-errors.md#1",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.732
+          },
+          {
+            "label": "C5",
+            "id": "support-runbook-errors.md#9",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.75
+          }
+        ],
+        "evidence_in_context": true,
+        "cost": {
+          "retrieval_ms": 38.0,
+          "retriever_ms": {
+            "dense": 37.9
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 1,
+          "prompt_tokens": 1085,
+          "completion_tokens": 300,
+          "llm_ms": 1318.0
+        },
+        "grade": null,
+        "failure": null
+      }
+    },
+    {
+      "id": "q06",
+      "type": "versions",
+      "question": "Can I get a refund on my annual plan 45 days after it renewed?",
+      "answerable": true,
+      "expected_answer": "Yes, under the current (March 2026) policy: annual plans are refundable within 60 days of renewal, pro-rated from the request date. The old 2025 policy allowed only 30 days.",
+      "retrieval": {
+        "evidence_ranks": [
+          4,
+          4
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 18.9,
+          "retriever_ms": {
+            "dense": 18.8
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "billing-policy-2025.md#3",
+            "source": "billing-policy-2025.md",
+            "start": 2189,
+            "end": 3004,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.422,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "billing-policy-2026.md#4",
+            "source": "billing-policy-2026.md",
+            "start": 2924,
+            "end": 3724,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.487,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "billing-policy-2026.md#6",
+            "source": "billing-policy-2026.md",
+            "start": 4384,
+            "end": 5131,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.487,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "billing-policy-2026.md#3",
+            "source": "billing-policy-2026.md",
+            "start": 2189,
+            "end": 3004,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.493,
+            "relevant_to": [
+              0,
+              1
+            ]
+          },
+          {
+            "rank": 5,
+            "id": "billing-policy-2025.md#0",
+            "source": "billing-policy-2025.md",
+            "start": 0,
+            "end": 813,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.555,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "billing-policy-2025.md#4",
+            "source": "billing-policy-2025.md",
+            "start": 2924,
+            "end": 3744,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
+            "distance": 0.584,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "billing-policy-2026.md#0",
+            "source": "billing-policy-2026.md",
+            "start": 0,
+            "end": 813,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
+            "distance": 0.593,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "billing-policy-2026.md#5",
+            "source": "billing-policy-2026.md",
+            "start": 3644,
+            "end": 4464,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.626,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "billing-policy-2025.md#1",
+            "source": "billing-policy-2025.md",
+            "start": 733,
+            "end": 1549,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
+            "distance": 0.674,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "support-runbook-errors.md#9",
+            "source": "support-runbook-errors.md",
+            "start": 6500,
+            "end": 7300,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
+            "distance": 0.682,
+            "relevant_to": []
+          }
+        ]
+      },
+      "answer": {
+        "top_k": 5,
+        "status": "unverified",
+        "answer": "Yes, annual plans can be refunded if the request is made within 60 days of the purchase or renewal date. Since 45 days is within this 60-day window, you can request a refund, which will be pro-rated for the unused full months of the annual period.",
+        "citations": [
+          {
+            "label": "C4",
+            "quote": "Annual plans can be refunded if the request is made within 60 days of the purchase or renewal date. The refund is pro-rated from the date of the request: you are refunded the unused full months of the annual period.",
+            "chunk_id": "billing-policy-2026.md#3",
+            "found_by": {
+              "dense": 4
+            },
+            "verified": false
+          }
+        ],
+        "retrieved": [
+          {
+            "label": "C1",
+            "id": "billing-policy-2025.md#3",
+            "source": "billing-policy-2025.md",
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.422
+          },
+          {
+            "label": "C2",
+            "id": "billing-policy-2026.md#4",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.487
+          },
+          {
+            "label": "C3",
+            "id": "billing-policy-2026.md#6",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.487
+          },
+          {
+            "label": "C4",
+            "id": "billing-policy-2026.md#3",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.493
+          },
+          {
+            "label": "C5",
+            "id": "billing-policy-2025.md#0",
+            "source": "billing-policy-2025.md",
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.555
+          }
+        ],
+        "evidence_in_context": true,
+        "cost": {
+          "retrieval_ms": 17.6,
+          "retriever_ms": {
+            "dense": 17.5
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 1,
+          "prompt_tokens": 978,
+          "completion_tokens": 157,
+          "llm_ms": 4349.8
+        },
+        "grade": null,
+        "failure": null
+      }
+    },
+    {
+      "id": "q07",
+      "type": "versions",
+      "question": "How much do I save by paying annually instead of monthly?",
+      "answerable": true,
+      "expected_answer": "20% compared with twelve months of monthly billing (it was 15% under the 2025 policy).",
+      "retrieval": {
+        "evidence_ranks": [
+          2
+        ],
+        "hit": {
+          "1": false,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 1.0,
+          "5": 1.0,
+          "10": 1.0
+        },
+        "cost": {
+          "retrieval_ms": 17.0,
+          "retriever_ms": {
+            "dense": 16.9
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "billing-policy-2025.md#1",
+            "source": "billing-policy-2025.md",
+            "start": 733,
+            "end": 1549,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.567,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "billing-policy-2026.md#1",
+            "source": "billing-policy-2026.md",
+            "start": 733,
+            "end": 1533,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.585,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 3,
+            "id": "billing-policy-2025.md#0",
+            "source": "billing-policy-2025.md",
+            "start": 0,
+            "end": 813,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.616,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "billing-policy-2026.md#0",
+            "source": "billing-policy-2026.md",
+            "start": 0,
+            "end": 813,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.695,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "billing-policy-2026.md#6",
+            "source": "billing-policy-2026.md",
+            "start": 4384,
+            "end": 5131,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.753,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "billing-policy-2026.md#3",
+            "source": "billing-policy-2026.md",
+            "start": 2189,
+            "end": 3004,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
+            "distance": 0.786,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "billing-policy-2025.md#3",
+            "source": "billing-policy-2025.md",
+            "start": 2189,
+            "end": 3004,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
+            "distance": 0.794,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "billing-policy-2025.md#5",
+            "source": "billing-policy-2025.md",
+            "start": 3664,
+            "end": 4122,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.816,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "product-guide.md#9",
+            "source": "product-guide.md",
+            "start": 6498,
+            "end": 7298,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
+            "distance": 0.823,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "billing-policy-2025.md#4",
+            "source": "billing-policy-2025.md",
+            "start": 2924,
+            "end": 3744,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
+            "distance": 0.844,
+            "relevant_to": []
+          }
+        ]
+      },
+      "answer": {
+        "top_k": 5,
+        "status": "not_found",
+        "answer": "The provided documents contain conflicting information regarding the discount percentage for annual billing (stating 15% in C1 and 20% in C2), and therefore the exact savings cannot be reliably determined.",
+        "citations": [
+          {
+            "label": "C1",
+            "quote": "Customers who choose annual billing receive a 15% discount compared with twelve months of monthly billing.",
+            "chunk_id": "billing-policy-2025.md#1",
+            "found_by": {
+              "dense": 1
+            },
+            "verified": true
+          },
+          {
+            "label": "C2",
+            "quote": "Customers who choose annual billing receive a 20% discount compared with twelve months of monthly billing.",
+            "chunk_id": "billing-policy-2026.md#1",
+            "found_by": {
+              "dense": 2
+            },
+            "verified": true
+          }
+        ],
+        "retrieved": [
+          {
+            "label": "C1",
+            "id": "billing-policy-2025.md#1",
+            "source": "billing-policy-2025.md",
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.567
+          },
+          {
+            "label": "C2",
+            "id": "billing-policy-2026.md#1",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.585
+          },
+          {
+            "label": "C3",
+            "id": "billing-policy-2025.md#0",
+            "source": "billing-policy-2025.md",
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.616
+          },
+          {
+            "label": "C4",
+            "id": "billing-policy-2026.md#0",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.695
+          },
+          {
+            "label": "C5",
+            "id": "billing-policy-2026.md#6",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.753
+          }
+        ],
+        "evidence_in_context": true,
+        "cost": {
+          "retrieval_ms": 21.1,
+          "retriever_ms": {
+            "dense": 21.0
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 1,
+          "prompt_tokens": 937,
+          "completion_tokens": 154,
+          "llm_ms": 9161.6
+        },
+        "grade": null,
+        "failure": null
+      }
+    },
+    {
+      "id": "q08",
+      "type": "two_hop",
+      "question": "Error KST-5031 happened on the last two scheduled reports. Which team should support contact, and where?",
+      "answerable": true,
+      "expected_answer": "Messaging, which owns postroom: post in #oncall-messaging as SEV-2. Outside 08:00–20:00 on weekdays, escalate to the Platform on-call.",
+      "retrieval": {
+        "evidence_ranks": [
+          1,
+          null
+        ],
+        "hit": {
+          "1": true,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.5,
+          "3": 0.5,
+          "5": 0.5,
+          "10": 0.5
+        },
+        "cost": {
+          "retrieval_ms": 21.4,
+          "retriever_ms": {
+            "dense": 21.3
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "support-runbook-errors.md#8",
+            "source": "support-runbook-errors.md",
+            "start": 5780,
+            "end": 6580,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.372,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 2,
+            "id": "product-guide.md#11",
+            "source": "product-guide.md",
+            "start": 7938,
+            "end": 8518,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.408,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "support-runbook-errors.md#0",
+            "source": "support-runbook-errors.md",
+            "start": 0,
+            "end": 800,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.466,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "support-runbook-errors.md#3",
+            "source": "support-runbook-errors.md",
+            "start": 2180,
+            "end": 2980,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.497,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "support-runbook-errors.md#7",
+            "source": "support-runbook-errors.md",
+            "start": 5060,
+            "end": 5860,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.507,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "support-runbook-errors.md#1",
+            "source": "support-runbook-errors.md",
+            "start": 720,
+            "end": 1540,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
+            "distance": 0.513,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "support-runbook-errors.md#6",
+            "source": "support-runbook-errors.md",
+            "start": 4340,
+            "end": 5140,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
+            "distance": 0.515,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "support-runbook-errors.md#5",
+            "source": "support-runbook-errors.md",
+            "start": 3620,
+            "end": 4420,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.528,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "support-runbook-errors.md#10",
+            "source": "support-runbook-errors.md",
+            "start": 7220,
+            "end": 7894,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
+            "distance": 0.553,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "support-runbook-errors.md#4",
+            "source": "support-runbook-errors.md",
+            "start": 2900,
+            "end": 3698,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
+            "distance": 0.564,
+            "relevant_to": []
+          }
+        ]
+      },
+      "answer": {
+        "top_k": 5,
+        "status": "unverified",
+        "answer": "If the error happens on two consecutive deliveries, support should escalate to the team that owns postroom as SEV-2.",
+        "citations": [
+          {
+            "label": "C1",
+            "quote": "Escalate: if the error happens on two consecutive deliveries, or for several customers on the same day, escalate to the team that owns postroom, as SEV-2.",
+            "chunk_id": "support-runbook-errors.md#8",
+            "found_by": {
+              "dense": 1
+            },
+            "verified": false
+          }
+        ],
+        "retrieved": [
+          {
+            "label": "C1",
+            "id": "support-runbook-errors.md#8",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.372
+          },
+          {
+            "label": "C2",
+            "id": "product-guide.md#11",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.408
+          },
+          {
+            "label": "C3",
+            "id": "support-runbook-errors.md#0",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.466
+          },
+          {
+            "label": "C4",
+            "id": "support-runbook-errors.md#3",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.497
+          },
+          {
+            "label": "C5",
+            "id": "support-runbook-errors.md#7",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.507
+          }
+        ],
+        "evidence_in_context": true,
+        "cost": {
+          "retrieval_ms": 23.1,
+          "retriever_ms": {
+            "dense": 23.0
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 1,
+          "prompt_tokens": 1065,
+          "completion_tokens": 110,
+          "llm_ms": 883.2
+        },
+        "grade": null,
+        "failure": null
+      }
+    },
+    {
+      "id": "q09",
+      "type": "not_in_corpus",
+      "question": "Is there a Kestrel mobile app for iPhone?",
+      "answerable": false,
+      "expected_answer": "Not in the documents.",
+      "answer": {
+        "top_k": 5,
+        "status": "not_found",
+        "answer": "The provided documents do not contain information about whether there is a Kestrel mobile app for iPhone.",
+        "citations": [],
+        "retrieved": [
+          {
+            "label": "C1",
+            "id": "product-guide.md#0",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.637
+          },
+          {
+            "label": "C2",
+            "id": "service-catalog.md#0",
+            "source": "service-catalog.md",
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.638
+          },
+          {
+            "label": "C3",
+            "id": "product-guide.md#4",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.693
+          },
+          {
+            "label": "C4",
+            "id": "product-guide.md#10",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.714
+          },
+          {
+            "label": "C5",
+            "id": "billing-policy-2026.md#0",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.758
+          }
+        ],
+        "evidence_in_context": null,
+        "cost": {
+          "retrieval_ms": 21.8,
+          "retriever_ms": {
+            "dense": 21.6
+          },
+          "fusion_ms": 0.2,
+          "llm_calls": 1,
+          "prompt_tokens": 994,
+          "completion_tokens": 42,
+          "llm_ms": 1036.9
+        },
+        "grade": null,
+        "failure": null
+      }
+    },
+    {
+      "id": "q10",
+      "type": "not_in_corpus",
+      "question": "How much does one seat cost per month on the Business plan?",
+      "answerable": false,
+      "expected_answer": "Not in the documents (the billing policy says prices are on the pricing page).",
+      "answer": {
+        "top_k": 5,
+        "status": "not_found",
+        "answer": "The provided documents do not state the cost of one seat on the Business plan.",
+        "citations": [],
+        "retrieved": [
+          {
+            "label": "C1",
+            "id": "billing-policy-2026.md#3",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.544
+          },
+          {
+            "label": "C2",
+            "id": "billing-policy-2026.md#1",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.544
+          },
+          {
+            "label": "C3",
+            "id": "billing-policy-2025.md#0",
+            "source": "billing-policy-2025.md",
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.563
+          },
+          {
+            "label": "C4",
+            "id": "product-guide.md#1",
+            "source": "product-guide.md",
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.601
+          },
+          {
+            "label": "C5",
+            "id": "billing-policy-2025.md#2",
+            "source": "billing-policy-2025.md",
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.615
+          }
+        ],
+        "evidence_in_context": null,
+        "cost": {
+          "retrieval_ms": 16.2,
+          "retriever_ms": {
+            "dense": 16.1
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 1,
+          "prompt_tokens": 1040,
+          "completion_tokens": 39,
+          "llm_ms": 760.0
+        },
+        "grade": null,
+        "failure": null
+      }
+    },
+    {
+      "id": "q11",
+      "type": "two_hop",
+      "question": "Many dashboards of one customer suddenly stop with KST-3012, even ones that used to be fast. Who should support escalate to, and in which channel?",
+      "answerable": true,
+      "expected_answer": "Analytics Engine, in #oncall-analytics. They are on a 24/7 rotation.",
+      "retrieval": {
+        "evidence_ranks": [
+          2,
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": true,
+          "5": true,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.5,
+          "5": 0.5,
+          "10": 0.5
+        },
+        "cost": {
+          "retrieval_ms": 22.7,
+          "retriever_ms": {
+            "dense": 22.6
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "support-runbook-errors.md#5",
+            "source": "support-runbook-errors.md",
+            "start": 3620,
+            "end": 4420,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.417,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "support-runbook-errors.md#6",
+            "source": "support-runbook-errors.md",
+            "start": 4340,
+            "end": 5140,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.455,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 3,
+            "id": "support-runbook-errors.md#1",
+            "source": "support-runbook-errors.md",
+            "start": 720,
+            "end": 1540,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.511,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "support-runbook-errors.md#8",
+            "source": "support-runbook-errors.md",
+            "start": 5780,
+            "end": 6580,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.53,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "support-runbook-errors.md#3",
+            "source": "support-runbook-errors.md",
+            "start": 2180,
+            "end": 2980,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.544,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "support-runbook-errors.md#0",
+            "source": "support-runbook-errors.md",
+            "start": 0,
+            "end": 800,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
+            "distance": 0.549,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "product-guide.md#11",
+            "source": "product-guide.md",
+            "start": 7938,
+            "end": 8518,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
+            "distance": 0.563,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "support-runbook-errors.md#7",
+            "source": "support-runbook-errors.md",
+            "start": 5060,
+            "end": 5860,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.564,
+            "relevant_to": []
+          },
+          {
+            "rank": 9,
+            "id": "support-runbook-errors.md#4",
+            "source": "support-runbook-errors.md",
+            "start": 2900,
+            "end": 3698,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
+            "distance": 0.619,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "service-catalog.md#4",
+            "source": "service-catalog.md",
+            "start": 3040,
+            "end": 3840,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
+            "distance": 0.626,
+            "relevant_to": []
+          }
+        ]
+      },
+      "answer": {
+        "top_k": 5,
+        "status": "unverified",
+        "answer": "Support should escalate to the Analytics Engine. The documents do not state which channel to use, only that issues go to the owning team of the service, which is listed in the Service Catalog.",
+        "citations": [
+          {
+            "label": "C1",
+            "quote": "Escalate: to Analytics Engine only if a query",
+            "chunk_id": "support-runbook-errors.md#5",
+            "found_by": {
+              "dense": 1
+            },
+            "verified": false
+          },
+          {
+            "label": "C2",
+            "quote": "Escalate: to Analytics Engine only if a query that used to finish quickly suddenly times out for many datasets of the same customer.",
+            "chunk_id": "support-runbook-errors.md#6",
+            "found_by": {
+              "dense": 2
+            },
+            "verified": false
+          },
+          {
+            "label": "C3",
+            "quote": "The owning team of each service and its on-call channel are listed in the Service Catalog.",
+            "chunk_id": "support-runbook-errors.md#1",
+            "found_by": {
+              "dense": 3
+            },
+            "verified": true
+          }
+        ],
+        "retrieved": [
+          {
+            "label": "C1",
+            "id": "support-runbook-errors.md#5",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.417
+          },
+          {
+            "label": "C2",
+            "id": "support-runbook-errors.md#6",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.455
+          },
+          {
+            "label": "C3",
+            "id": "support-runbook-errors.md#1",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.511
+          },
+          {
+            "label": "C4",
+            "id": "support-runbook-errors.md#8",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.53
+          },
+          {
+            "label": "C5",
+            "id": "support-runbook-errors.md#3",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.544
+          }
+        ],
+        "evidence_in_context": true,
+        "cost": {
+          "retrieval_ms": 21.7,
+          "retriever_ms": {
+            "dense": 21.6
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 1,
+          "prompt_tokens": 1134,
+          "completion_tokens": 189,
+          "llm_ms": 1186.4
+        },
+        "grade": null,
+        "failure": null
+      }
+    },
+    {
+      "id": "q12",
+      "type": "two_hop",
+      "question": "The automatic payment retries did not run for a customer. Which team should support contact, and in which channel?",
+      "answerable": true,
+      "expected_answer": "Payments Core, they own ledger which runs the retries. Post in #oncall-payments (24/7 rotation).",
+      "retrieval": {
+        "evidence_ranks": [
+          8,
+          null
+        ],
+        "hit": {
+          "1": false,
+          "3": false,
+          "5": false,
+          "10": true
+        },
+        "recall": {
+          "1": 0.0,
+          "3": 0.0,
+          "5": 0.0,
+          "10": 0.5
+        },
+        "cost": {
+          "retrieval_ms": 31.5,
+          "retriever_ms": {
+            "dense": 31.4
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "llm_ms": 0.0
+        },
+        "retrieved": [
+          {
+            "rank": 1,
+            "id": "billing-policy-2026.md#4",
+            "source": "billing-policy-2026.md",
+            "start": 2924,
+            "end": 3724,
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.549,
+            "relevant_to": []
+          },
+          {
+            "rank": 2,
+            "id": "billing-policy-2026.md#5",
+            "source": "billing-policy-2026.md",
+            "start": 3644,
+            "end": 4464,
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.55,
+            "relevant_to": []
+          },
+          {
+            "rank": 3,
+            "id": "support-runbook-errors.md#10",
+            "source": "support-runbook-errors.md",
+            "start": 7220,
+            "end": 7894,
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.557,
+            "relevant_to": []
+          },
+          {
+            "rank": 4,
+            "id": "service-catalog.md#4",
+            "source": "service-catalog.md",
+            "start": 3040,
+            "end": 3840,
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.576,
+            "relevant_to": []
+          },
+          {
+            "rank": 5,
+            "id": "billing-policy-2025.md#3",
+            "source": "billing-policy-2025.md",
+            "start": 2189,
+            "end": 3004,
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.586,
+            "relevant_to": []
+          },
+          {
+            "rank": 6,
+            "id": "support-runbook-errors.md#1",
+            "source": "support-runbook-errors.md",
+            "start": 720,
+            "end": 1540,
+            "found_by": {
+              "dense": 6
+            },
+            "rrf": 0.01515,
+            "distance": 0.596,
+            "relevant_to": []
+          },
+          {
+            "rank": 7,
+            "id": "billing-policy-2025.md#4",
+            "source": "billing-policy-2025.md",
+            "start": 2924,
+            "end": 3744,
+            "found_by": {
+              "dense": 7
+            },
+            "rrf": 0.01493,
+            "distance": 0.601,
+            "relevant_to": []
+          },
+          {
+            "rank": 8,
+            "id": "service-catalog.md#2",
+            "source": "service-catalog.md",
+            "start": 1545,
+            "end": 2387,
+            "found_by": {
+              "dense": 8
+            },
+            "rrf": 0.01471,
+            "distance": 0.608,
+            "relevant_to": [
+              0
+            ]
+          },
+          {
+            "rank": 9,
+            "id": "support-runbook-errors.md#9",
+            "source": "support-runbook-errors.md",
+            "start": 6500,
+            "end": 7300,
+            "found_by": {
+              "dense": 9
+            },
+            "rrf": 0.01449,
+            "distance": 0.61,
+            "relevant_to": []
+          },
+          {
+            "rank": 10,
+            "id": "billing-policy-2026.md#2",
+            "source": "billing-policy-2026.md",
+            "start": 1453,
+            "end": 2269,
+            "found_by": {
+              "dense": 10
+            },
+            "rrf": 0.01429,
+            "distance": 0.617,
+            "relevant_to": []
+          }
+        ]
+      },
+      "answer": {
+        "top_k": 5,
+        "status": "not_found",
+        "answer": "The provided documents do not contain information about which team or channel support should contact if the automatic payment retries did not run.",
+        "citations": [],
+        "retrieved": [
+          {
+            "label": "C1",
+            "id": "billing-policy-2026.md#4",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 1
+            },
+            "rrf": 0.01639,
+            "distance": 0.549
+          },
+          {
+            "label": "C2",
+            "id": "billing-policy-2026.md#5",
+            "source": "billing-policy-2026.md",
+            "found_by": {
+              "dense": 2
+            },
+            "rrf": 0.01613,
+            "distance": 0.55
+          },
+          {
+            "label": "C3",
+            "id": "support-runbook-errors.md#10",
+            "source": "support-runbook-errors.md",
+            "found_by": {
+              "dense": 3
+            },
+            "rrf": 0.01587,
+            "distance": 0.557
+          },
+          {
+            "label": "C4",
+            "id": "service-catalog.md#4",
+            "source": "service-catalog.md",
+            "found_by": {
+              "dense": 4
+            },
+            "rrf": 0.01562,
+            "distance": 0.576
+          },
+          {
+            "label": "C5",
+            "id": "billing-policy-2025.md#3",
+            "source": "billing-policy-2025.md",
+            "found_by": {
+              "dense": 5
+            },
+            "rrf": 0.01538,
+            "distance": 0.586
+          }
+        ],
+        "evidence_in_context": false,
+        "cost": {
+          "retrieval_ms": 32.5,
+          "retriever_ms": {
+            "dense": 32.4
+          },
+          "fusion_ms": 0.1,
+          "llm_calls": 1,
+          "prompt_tokens": 998,
+          "completion_tokens": 48,
+          "llm_ms": 987.7
+        },
+        "grade": null,
+        "failure": null
+      }
+    }
+  ]
+}

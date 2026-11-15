@@ -3,18 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Monte Cristo RAG</title>
+  <title>Ask your documents</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <aside>
     <section>
+      <h2>Collection</h2>
+      <select id="corpus"></select>
+    </section>
+
+    <section>
       <h2>Documents</h2>
+      <p class="message">Answers only use the checked documents.</p>
       <ul id="documents"></ul>
-      <input type="file" id="upload" accept=".md,.txt">
+      <label class="upload">Add a document (.md or .txt)
+        <input type="file" id="upload" accept=".md,.txt">
+      </label>
       <p class="message" id="documents-message"></p>
     </section>
 
+    <details id="advanced">
+    <summary>Advanced</summary>
     <section>
       <h2>Settings</h2>
       <form id="settings">
@@ -25,25 +35,69 @@
       </form>
       <p class="message" id="settings-message"></p>
     </section>
+
+    <section>
+      <h2>Retrievers</h2>
+      <form id="retrievers">
+        <label><input type="checkbox" value="dense"> Dense (embeddings)</label>
+        <label><input type="checkbox" value="bm25"> BM25 (keywords)</label>
+        <label id="graph-retriever"><input type="checkbox" value="graph"> Graph (Kestrel concept graph)</label>
+      </form>
+      <label><input type="checkbox" id="rerank"> Rerank the passages with a second model</label>
+      <p class="message">Used by Ask and Evaluate. With more than one on, the lists are fused with RRF.</p>
+    </section>
+    </details>
   </aside>
 
   <main>
+    <nav id="tabs" hidden>
+      <button data-tab="tab-ask" class="active">Ask</button>
+      <button data-tab="tab-evaluate">Evaluate</button>
+      <button data-tab="tab-words">Words</button>
+    </nav>
+
+    <div id="tab-ask">
+    <h1>Ask your documents</h1>
     <form id="ask">
-      <textarea name="question" rows="3" maxlength="1000" placeholder="Ask a question about the selected documents"></textarea>
+      <textarea name="question" rows="3" maxlength="1000" placeholder="Type your question, then press Enter"></textarea>
       <button type="submit">Ask</button>
+      <p class="message" id="ask-message"></p>
     </form>
 
     <section id="result" hidden>
       <p id="status"></p>
       <p id="answer"></p>
-      <h3>Citations</h3>
-      <ul id="citations"></ul>
-      <h3>Retrieved chunks</h3>
-      <ul id="retrieved"></ul>
+      <p class="message technical" id="error-detail"></p>
+      <button type="button" id="details-button">Details</button>
+      <section id="trace" hidden>
+        <h3>What happened for this question</h3>
+        <p class="message" id="trace-summary"></p>
+        <table id="trace-spans"></table>
+        <details>
+          <summary>Raw trace</summary>
+          <pre id="trace-raw"></pre>
+        </details>
+      </section>
+      <div id="sources">
+        <h3>Sources</h3>
+        <p class="message">Click a source to read the passage the answer comes from.</p>
+        <ul id="citations"></ul>
+      </div>
+      <details id="how-found">
+        <summary>How this answer was found</summary>
+        <div id="graph-view" hidden>
+          <h3>Graph paths</h3>
+          <div id="graph-diagram"></div>
+          <p class="message" id="graph-legend"></p>
+        </div>
+        <h3>Passages searched</h3>
+        <ul id="retrieved"></ul>
+      </details>
     </section>
 
     <section id="reference" hidden>
       <h3 id="reference-title"></h3>
+      <ul id="reference-path" class="message"></ul>
       <pre id="reference-text"></pre>
       <button id="show-in-document">Show in document</button>
     </section>
@@ -52,6 +106,53 @@
       <h3 id="document-title"></h3>
       <pre id="document-text"></pre>
     </section>
+    </div>
+
+    <div id="tab-evaluate" hidden>
+      <form id="evaluate">
+        <p>Runs the question set of the selected corpus with the current settings and saves the results to a file.</p>
+        <label class="inline"><input type="checkbox" name="answers"> Also generate answers (calls the LLM, takes a few minutes)</label>
+        <button type="submit">Run evaluation</button>
+      </form>
+      <p class="message" id="evaluate-message"></p>
+      <section id="evaluation" hidden>
+        <h3>Retrieval, per question type</h3>
+        <table id="evaluation-summary"></table>
+        <p class="message" id="evaluation-cost"></p>
+        <h3>Per question</h3>
+        <table id="evaluation-questions"></table>
+      </section>
+    </div>
+
+    <div id="tab-words" hidden>
+      <p class="message">Words of the selected corpus, counted in its chunks at the current chunk setting. Lowercased, no stemming.</p>
+
+      <h3>Question mode</h3>
+      <form id="question-words">
+        <select name="question_id"><option value="">Type a question, or pick one from the question set</option></select>
+        <textarea name="question" rows="2" maxlength="1000"></textarea>
+        <button type="submit">Analyze words</button>
+      </form>
+      <section id="question-words-result" hidden>
+        <p id="question-words-summary"></p>
+        <table id="question-words-table"></table>
+      </section>
+
+      <h3>Corpus mode</h3>
+      <form id="vocabulary">
+        <input name="contains" placeholder="Filter words, e.g. kst or phone">
+        <label class="inline"><input type="checkbox" name="stopwords"> Show stopwords</label>
+        <button type="submit">Show vocabulary</button>
+      </form>
+      <p id="vocabulary-summary" class="message"></p>
+      <table id="vocabulary-table"></table>
+
+      <section id="word-chunks" hidden>
+        <h3 id="word-chunks-title"></h3>
+        <table id="word-chunks-table"></table>
+        <pre id="word-chunk-text" hidden></pre>
+      </section>
+    </div>
   </main>
 
   <script src="app.js"></script>

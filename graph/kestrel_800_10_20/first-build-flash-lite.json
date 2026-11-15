@@ -1,0 +1,51 @@
+{
+  "corpus": "kestrel",
+  "created": "2026-11-09T03:37:31",
+  "models": {
+    "gemini-3.5-flash-lite": 42
+  },
+  "chunks": 42,
+  "extracted_now": 42,
+  "failed_chunks": [],
+  "triples": 23,
+  "quotes_not_in_chunk": 1,
+  "dropped_triples": 0,
+  "dropped_reasons": {},
+  "nodes": 30,
+  "edges": 22,
+  "nodes_by_type": {
+    "Channel": 6,
+    "ErrorCode": 2,
+    "Feature": 4,
+    "Person": 6,
+    "Policy": 3,
+    "Role": 1,
+    "Service": 2,
+    "Team": 6
+  },
+  "edges_by_relation": {
+    "raised_by": 1,
+    "escalates_to": 1,
+    "covers": 1,
+    "supersedes": 1,
+    "can_do": 3,
+    "replaced": 1,
+    "led_by": 6,
+    "on_call_channel": 6,
+    "covered_by": 2
+  },
+  "merges": [],
+  "cost_total": {
+    "llm_calls": 42,
+    "prompt_tokens": 31542,
+    "completion_tokens": 2100,
+    "llm_ms": 31977.9
+  },
+  "cost_this_run": {
+    "llm_calls": 42,
+    "prompt_tokens": 31542,
+    "completion_tokens": 2100,
+    "llm_ms": 31977.9,
+    "wall_seconds": 200.1
+  }
+}
