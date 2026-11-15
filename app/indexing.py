@@ -1,6 +1,7 @@
 import bisect
 import os
 from dataclasses import dataclass
+from time import perf_counter
 
 import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
@@ -70,11 +71,19 @@ def get_collection(corpus, settings):
     return client.get_or_create_collection(name=settings.collection_name(corpus), embedding_function=embedding_function)
 
 
-def index_document(path, corpus, settings):
+def ms_since(start):
+    return round((perf_counter() - start) * 1000, 1)
+
+
+def index_document(path, corpus, settings, trace=None):
+    """trace: when given, gets one span for this document with the time of each step."""
+    started = perf_counter()
     source = os.path.basename(path)
     with open(path, encoding="utf-8") as f:
         chunks = chunk_text(f.read(), settings)
+    chunk_ms = ms_since(started)
 
+    start = perf_counter()
     collection = get_collection(corpus, settings)
     collection.delete(where={"source": source})
     for batch_start in range(0, len(chunks), BATCH_SIZE):
@@ -87,10 +96,15 @@ def index_document(path, corpus, settings):
                 for i, chunk in enumerate(batch)
             ],
         )
+    embed_ms = ms_since(start)
+    start = perf_counter()
     # Same chunks, same ids, in the BM25 index.
     bm25.index_chunks(source, corpus, settings, [
         {"id": f"{source}#{i}", "chunk_index": i, **chunk} for i, chunk in enumerate(chunks)
     ])
+    if trace:
+        trace.add_span("index_document", ms_since(started), document=source, chunks=len(chunks), chunk_ms=chunk_ms,
+                       embed_ms=embed_ms, bm25_ms=ms_since(start))
     return len(chunks)
 
 
@@ -103,14 +117,17 @@ def copy_to_bm25(source, corpus, settings):
     return bm25.index_chunks(source, corpus, settings, chunks)
 
 
-def ensure_indexed(path, corpus, settings):
+def ensure_indexed(path, corpus, settings, trace=None):
     """Make sure a document is in both indexes. Returns what was done: "indexed", "bm25" or None."""
     source = os.path.basename(path)
     if not is_indexed(source, corpus, settings):
-        index_document(path, corpus, settings)
+        index_document(path, corpus, settings, trace)
         return "indexed"
     if not bm25.is_indexed(source, corpus, settings):
-        copy_to_bm25(source, corpus, settings)
+        start = perf_counter()
+        chunks = copy_to_bm25(source, corpus, settings)
+        if trace:
+            trace.add_span("copy_to_bm25", ms_since(start), document=source, chunks=chunks)
         return "bm25"
     return None
 

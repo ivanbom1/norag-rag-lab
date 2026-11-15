@@ -32,3 +32,6 @@ data/
 
 # BM25 index (SQLite)
 bm25_db/
+
+# Traces (SQLite, kept 30 days)
+traces/

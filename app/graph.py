@@ -30,6 +30,7 @@ from pydantic import BaseModel, ValidationError, model_validator
 from app.answering import elapsed_ms, llm, normalize
 from app.graph_retriever import graph_dir
 from app.indexing import get_collection
+from app.redaction import Redactor
 
 # flash-lite (the answer model) extracted almost nothing; see first-build-flash-lite.json in the graph folder.
 GRAPH_MODEL = "gemini-3-flash-preview"
@@ -212,7 +213,9 @@ def extract(chunk, title, model, headings="- none"):
     cost = {"llm_calls": 0, "prompt_tokens": 0, "completion_tokens": 0, "llm_ms": 0.0}
     row = {"chunk_id": chunk["id"], "source": chunk["source"], "text_hash": text_hash(chunk["text"]), "model": model,
            "status": "failed", "triples": [], "dropped": [], "error": None, "cost": cost}
-    messages = [{"role": "user", "content": build_prompt(chunk, title, headings)}]
+    # personal data in the chunk is replaced before the call and put back in the triples
+    redactor = Redactor()
+    messages = [{"role": "user", "content": build_prompt({**chunk, "text": redactor.redact(chunk["text"])}, title, headings)}]
     try:
         for attempt in range(2):
             content = call_llm(messages, model, cost)
@@ -224,7 +227,9 @@ def extract(chunk, title, model, headings="- none"):
                              {"role": "user", "content": f"Your reply did not validate ({row['error']}). "
                                                          "Reply again with valid JSON only."}]
                 continue
-            row["triples"], row["dropped"] = validate_triples(raw.triples, chunk["text"])
+            triples = [{key: redactor.restore(value) if isinstance(value, str) else value for key, value in triple.items()}
+                       for triple in raw.triples]
+            row["triples"], row["dropped"] = validate_triples(triples, chunk["text"])
             row["status"], row["error"] = "ok", None
             break
     except APIError as error:

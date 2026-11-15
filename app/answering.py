@@ -6,9 +6,10 @@ from dotenv import load_dotenv
 from openai import APIError, OpenAI
 from pydantic import BaseModel, ValidationError
 
-from app import bm25, graph_retriever, reranking
+from app import bm25, graph_retriever, reranking, tracing
 from app.fusion import rrf
 from app.indexing import get_collection
+from app.redaction import Redactor
 
 load_dotenv()
 
@@ -89,7 +90,8 @@ def new_cost():
 
 
 def retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS,
-                       rerank=reranking.DEFAULT_RERANK):
+                       rerank=reranking.DEFAULT_RERANK, trace=None):
+    """trace: when given, gets one span per step with the chunk ids that step returned."""
     cost = new_cost()
     lists = {}
     for name in RETRIEVERS:
@@ -97,9 +99,14 @@ def retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers=DE
             start = perf_counter()
             lists[name] = RETRIEVERS[name](question, corpus, sources, settings, max(top_k, CANDIDATES))
             cost["retriever_ms"][name] = elapsed_ms(start)
+            if trace:
+                trace.add_span(name, cost["retriever_ms"][name], chunk_ids=[chunk["id"] for chunk in lists[name]])
     start = perf_counter()
     fused = rrf(lists)
     cost["fusion_ms"] = elapsed_ms(start)
+    if trace:
+        kept = max(top_k, reranking.RERANK_CANDIDATES) if rerank else top_k
+        trace.add_span("fusion", cost["fusion_ms"], chunk_ids=[chunk["id"] for chunk in fused[:kept]])
     if rerank:
         candidates = fused[:max(top_k, reranking.RERANK_CANDIDATES)]
         cost["rerank_candidates"] = len(candidates)
@@ -110,6 +117,9 @@ def retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers=DE
             cost["rerank_error"] = f"Reranking failed, the passages keep their search order: {error}"
             fused = candidates
         cost["rerank_ms"] = elapsed_ms(start)
+        if trace:
+            trace.add_span("rerank", cost["rerank_ms"], candidates=len(candidates), error=cost.get("rerank_error"),
+                           chunk_ids=[chunk["id"] for chunk in fused[:top_k]])
     fused = fused[:top_k]
     cost["retrieval_ms"] = round(sum(cost["retriever_ms"].values()) + cost["fusion_ms"] + cost["rerank_ms"], 1)
     return [{"label": f"C{i + 1}", **chunk} for i, chunk in enumerate(fused)], cost
@@ -138,11 +148,29 @@ def verify_citations(citations, chunks):
     return verified
 
 
-def ask(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS, rerank=reranking.DEFAULT_RERANK):
-    chunks, cost = retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers, rerank)
+def ask(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVERS, rerank=reranking.DEFAULT_RERANK,
+        trace=None):
+    """trace: when given, gets the steps as spans, and the question and answer with personal data replaced."""
+    chunks, cost = retrieve_with_cost(question, corpus, sources, settings, top_k, retrievers, rerank, trace)
     result = {"status": None, "answer": None, "citations": [], "retrieved": chunks, "model": MODEL, "cost": cost}
 
-    documents = "\n\n".join(f"[{chunk['label']}] {chunk['text']}" for chunk in chunks)
+    # personal data never leaves the machine: the LLM gets placeholders, the user gets the values back
+    redactor = Redactor()
+    start = perf_counter()
+    redacted_question = redactor.redact(question)
+    documents = "\n\n".join(f"[{chunk['label']}] {redactor.redact(chunk['text'])}" for chunk in chunks)
+    if trace:
+        trace.add_span("redact", elapsed_ms(start), replaced=dict(redactor.counts))
+        trace.data["question"] = redacted_question
+
+    final = generate(result, cost, redactor, chunks, redacted_question, documents, trace)
+    if trace:
+        trace.data["answer"] = redactor.redact(final["answer"] or "")
+        trace.data["citations"] = [{"chunk_id": c["chunk_id"], "verified": c["verified"]} for c in final["citations"]]
+    return final
+
+
+def generate(result, cost, redactor, chunks, question, documents, trace):
     cost["llm_calls"] += 1
     start = perf_counter()
     try:
@@ -153,22 +181,29 @@ def ask(question, corpus, sources, settings, top_k, retrievers=DEFAULT_RETRIEVER
         )
     except APIError as error:
         cost["llm_ms"] += elapsed_ms(start)
+        if trace:
+            trace.add_span("llm", cost["llm_ms"], model=MODEL, error=error.message)
         return {**result, "status": "llm_error", "answer": f"The language model could not be reached: {error.message}"}
     cost["llm_ms"] += elapsed_ms(start)
     if response.usage:
         cost["prompt_tokens"] += response.usage.prompt_tokens
         cost["completion_tokens"] += response.usage.completion_tokens
+    if trace:
+        trace.add_span("llm", cost["llm_ms"], model=MODEL, prompt_tokens=cost["prompt_tokens"],
+                       completion_tokens=cost["completion_tokens"],
+                       cost=tracing.llm_cost(MODEL, cost["prompt_tokens"], cost["completion_tokens"]))
 
     try:
         parsed = LLMAnswer.model_validate_json(response.choices[0].message.content or "")
     except ValidationError:
         return {**result, "status": "invalid_response", "answer": "The language model returned a malformed answer."}
 
-    citations = verify_citations(parsed.citations, chunks)
+    restored = [Citation(chunk_id=c.chunk_id, quote=redactor.restore(c.quote)) for c in parsed.citations]
+    citations = verify_citations(restored, chunks)
     if not parsed.answerable:
         status = "not_found"
     elif citations and all(citation["verified"] for citation in citations):
         status = "answered"
     else:
         status = "unverified"
-    return {**result, "status": status, "answer": parsed.answer, "citations": citations}
+    return {**result, "status": status, "answer": redactor.restore(parsed.answer), "citations": citations}

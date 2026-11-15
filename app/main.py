@@ -8,7 +8,7 @@ from fastapi.responses import PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app import graph_retriever, reranking
+from app import graph_retriever, reranking, tracing
 from app.answering import DEFAULT_RETRIEVERS, Retriever, ask, retrieve
 from app.evaluation import check_quotes, load_questions, run_evaluation
 from app.indexing import ChunkSettings, delete_document, ensure_indexed, index_document
@@ -36,18 +36,39 @@ def document_names(corpus):
     return sorted(os.listdir(corpus_dir(corpus)))
 
 
-def index_missing_documents():
+def settings_fields():
+    return {"chunk_size": settings.chunk_size, "overlap_percent": settings.overlap_percent, "top_k": top_k}
+
+
+def save_trace(trace, status):
+    """A trace that cannot be written must not break the request."""
+    try:
+        return tracing.save(trace, status)
+    except Exception as error:
+        print(f"Trace {trace.id} not saved: {error}")
+        return None
+
+
+def index_missing_documents(reason):
+    """Returns the documents indexed and the trace of the run (None when there was nothing to index)."""
+    trace = tracing.Trace("indexing", reason=reason, settings=settings_fields())
     indexed = []
-    for corpus in SEED_DIRS:
-        for name in document_names(corpus):
-            if ensure_indexed(os.path.join(corpus_dir(corpus), name), corpus, settings):
-                indexed.append(f"{corpus}/{name}")
-    return indexed
+    try:
+        for corpus in SEED_DIRS:
+            for name in document_names(corpus):
+                if ensure_indexed(os.path.join(corpus_dir(corpus), name), corpus, settings, trace):
+                    indexed.append(f"{corpus}/{name}")
+    except Exception as error:
+        trace.data["error"] = str(error)
+        save_trace(trace, "error")
+        raise
+    return indexed, save_trace(trace, "ok") if indexed else None
 
 
 @asynccontextmanager
 async def lifespan(app):
-    index_missing_documents()
+    tracing.delete_old()
+    index_missing_documents("startup")
     try:
         reranking.load_model()
     except Exception as error:
@@ -81,8 +102,9 @@ def update_settings(update: SettingsUpdate):
     settings = ChunkSettings(chunk_size=update.chunk_size, overlap_percent=update.overlap_percent)
     top_k = update.top_k
     started = time.time()
-    indexed = index_missing_documents()
-    return {**settings_response(), "reindexed": indexed, "seconds": round(time.time() - started, 1)}
+    indexed, trace_id = index_missing_documents("settings changed")
+    return {**settings_response(), "reindexed": indexed, "seconds": round(time.time() - started, 1),
+            "trace_id": trace_id}
 
 
 @app.get("/api/corpora")
@@ -117,8 +139,16 @@ def check_retrievers(corpus, retrievers):
 @app.post("/api/corpora/{corpus}/ask")
 def ask_question(corpus: str, body: Question):
     check_retrievers(corpus, body.retrievers)
-    return ask(body.question, corpus, selected_sources(corpus, body.documents), settings, top_k, body.retrievers,
-               body.rerank)
+    sources = selected_sources(corpus, body.documents)
+    trace = tracing.Trace("question", corpus=corpus, documents=sources, settings=settings_fields(),
+                          retrievers=body.retrievers, rerank=body.rerank)
+    try:
+        result = ask(body.question, corpus, sources, settings, top_k, body.retrievers, body.rerank, trace)
+    except Exception as error:
+        trace.data["error"] = str(error)
+        save_trace(trace, "error")
+        raise
+    return {**result, "trace_id": save_trace(trace, result["status"])}
 
 
 class SearchQuery(Question):
@@ -214,7 +244,27 @@ def upload_document(corpus: str, file: UploadFile):
 
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
-    return {"name": file.filename, "chunks": index_document(path, corpus, settings)}
+    trace = tracing.Trace("indexing", reason="upload", corpus=corpus, settings=settings_fields())
+    try:
+        chunks = index_document(path, corpus, settings, trace)
+    except Exception as error:
+        trace.data["error"] = str(error)
+        save_trace(trace, "error")
+        raise
+    return {"name": file.filename, "chunks": chunks, "trace_id": save_trace(trace, "ok")}
+
+
+@app.get("/api/traces")
+def list_traces(kind: str | None = None, limit: int = Query(20, ge=1, le=200)):
+    return tracing.recent(kind, limit)
+
+
+@app.get("/api/traces/{trace_id}")
+def get_trace(trace_id: str):
+    trace = tracing.get(trace_id)
+    if trace is None:
+        raise HTTPException(404, "This trace does not exist, or it is older than 30 days.")
+    return trace
 
 
 @app.get("/api/corpora/{corpus}/documents/{name}/text", response_class=PlainTextResponse)
