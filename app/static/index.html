@@ -11,6 +11,13 @@
     <section>
       <h2>Collection</h2>
       <select id="corpus"></select>
+      <button type="button" id="new-collection-button">New collection</button>
+      <form id="new-collection" hidden>
+        <input name="name" placeholder="e.g. my-notes" maxlength="40" required>
+        <button type="submit">Create</button>
+        <button type="button" id="new-collection-cancel">Cancel</button>
+      </form>
+      <p class="message" id="collection-message"></p>
     </section>
 
     <section>
@@ -21,6 +28,17 @@
         <input type="file" id="upload" accept=".md,.txt">
       </label>
       <p class="message" id="documents-message"></p>
+    </section>
+
+    <section id="graph-section">
+      <h2>Concept graph</h2>
+      <p class="message" id="graph-status"></p>
+      <progress id="graph-progress" hidden></progress>
+      <button type="button" id="graph-build" hidden>Build concept graph</button>
+      <div id="graph-ready" hidden>
+        <label><input type="checkbox" id="graph-use"> Use it to answer questions</label>
+        <button type="button" id="graph-explore">Explore the graph</button>
+      </div>
     </section>
 
     <details id="advanced">
@@ -34,6 +52,7 @@
         <button type="submit">Apply</button>
       </form>
       <p class="message" id="settings-message"></p>
+      <p class="message" id="llm-info"></p>
     </section>
 
     <section>
@@ -41,7 +60,7 @@
       <form id="retrievers">
         <label><input type="checkbox" value="dense"> Dense (embeddings)</label>
         <label><input type="checkbox" value="bm25"> BM25 (keywords)</label>
-        <label id="graph-retriever"><input type="checkbox" value="graph"> Graph (Kestrel concept graph)</label>
+        <label id="graph-retriever"><input type="checkbox" value="graph"> Graph (concept graph)</label>
       </form>
       <label><input type="checkbox" id="rerank"> Rerank the passages with a second model</label>
       <p class="message">Used by Ask and Evaluate. With more than one on, the lists are fused with RRF.</p>
@@ -93,6 +112,22 @@
         <h3>Passages searched</h3>
         <ul id="retrieved"></ul>
       </details>
+    </section>
+
+    <section id="explorer" hidden>
+      <h3>Explore the concept graph</h3>
+      <input id="concept-filter" placeholder="Find a concept, e.g. a name or a term">
+      <p class="message" id="concept-summary"></p>
+      <ul id="concept-list"></ul>
+      <div id="concept-detail" hidden>
+        <h3 id="concept-title"></h3>
+        <p class="message" id="concept-meta"></p>
+        <button type="button" id="concept-ask">Ask about it</button>
+        <ul id="concept-links"></ul>
+        <h3 id="concept-chunk-title" hidden></h3>
+        <pre id="concept-chunk" hidden></pre>
+      </div>
+      <button type="button" id="explorer-close">Close</button>
     </section>
 
     <section id="reference" hidden>

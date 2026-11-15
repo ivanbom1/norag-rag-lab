@@ -1,4 +1,5 @@
 import os
+import re
 import shutil
 import time
 from contextlib import asynccontextmanager
@@ -8,32 +9,41 @@ from fastapi.responses import PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app import graph_retriever, reranking, tracing
+from app import graph_jobs, graph_retriever, reranking, tracing
 from app.answering import DEFAULT_RETRIEVERS, Retriever, ask, retrieve
-from app.evaluation import check_quotes, load_questions, run_evaluation
-from app.indexing import ChunkSettings, delete_document, ensure_indexed, index_document
+from app.evaluation import QUESTION_SETS, check_quotes, load_questions, run_evaluation
+from app.indexing import ChunkSettings, delete_document, ensure_indexed, get_collection, index_document
+from app.llm import describe as describe_llm
 from app.words import question_words, vocabulary, word_chunks
 
 CORPORA_DIR = "data/corpora"
 SEED_DIRS = {"monte-cristo": "corpus", "kestrel": "kestrel-kb/docs"}
 ALLOWED_EXTENSIONS = {".md", ".txt"}
+COLLECTION_NAME = re.compile(r"[a-z0-9][a-z0-9-]{1,39}")
 
 settings = ChunkSettings()
 top_k = 5
+GRAPH_WORKERS = int(os.getenv("GRAPH_WORKERS") or 4)
+GRAPH_DELAY = float(os.getenv("GRAPH_DELAY") or 0)
 
 for corpus, seed in SEED_DIRS.items():
     if not os.path.isdir(os.path.join(CORPORA_DIR, corpus)):
         shutil.copytree(seed, os.path.join(CORPORA_DIR, corpus), ignore=shutil.ignore_patterns(".*"))
 
 
+def corpus_names():
+    return sorted(name for name in os.listdir(CORPORA_DIR)
+                  if os.path.isdir(os.path.join(CORPORA_DIR, name)) and not name.startswith("."))
+
+
 def corpus_dir(corpus):
-    if corpus not in SEED_DIRS:
-        raise HTTPException(404, f"Unknown corpus: {corpus}")
+    if corpus not in corpus_names():
+        raise HTTPException(404, f"Unknown collection: {corpus}")
     return os.path.join(CORPORA_DIR, corpus)
 
 
 def document_names(corpus):
-    return sorted(os.listdir(corpus_dir(corpus)))
+    return sorted(name for name in os.listdir(corpus_dir(corpus)) if not name.startswith("."))
 
 
 def settings_fields():
@@ -54,7 +64,7 @@ def index_missing_documents(reason):
     trace = tracing.Trace("indexing", reason=reason, settings=settings_fields())
     indexed = []
     try:
-        for corpus in SEED_DIRS:
+        for corpus in corpus_names():
             for name in document_names(corpus):
                 if ensure_indexed(os.path.join(corpus_dir(corpus), name), corpus, settings, trace):
                     indexed.append(f"{corpus}/{name}")
@@ -88,7 +98,8 @@ class SettingsUpdate(BaseModel):
 def settings_response():
     return {"chunk_size": settings.chunk_size, "overlap_percent": settings.overlap_percent, "top_k": top_k,
             "retrievers": DEFAULT_RETRIEVERS, "rerank": reranking.DEFAULT_RERANK,
-            "graphs": {corpus: graph_retriever.available(corpus, settings) for corpus in SEED_DIRS}}
+            "graphs": {corpus: graph_retriever.available(corpus, settings) for corpus in corpus_names()},
+            "llm": describe_llm()}
 
 
 @app.get("/api/settings")
@@ -109,7 +120,22 @@ def update_settings(update: SettingsUpdate):
 
 @app.get("/api/corpora")
 def list_corpora():
-    return list(SEED_DIRS)
+    return corpus_names()
+
+
+class NewCollection(BaseModel):
+    name: str = Field(min_length=2, max_length=40)
+
+
+@app.post("/api/corpora", status_code=201)
+def create_collection(body: NewCollection):
+    name = body.name.strip().lower()
+    if not COLLECTION_NAME.fullmatch(name):
+        raise HTTPException(400, "Use 2 to 40 lowercase letters, digits or dashes, starting with a letter or digit.")
+    if name in corpus_names():
+        raise HTTPException(409, f"A collection called {name} already exists.")
+    os.makedirs(os.path.join(CORPORA_DIR, name))
+    return {"name": name}
 
 
 class Question(BaseModel):
@@ -132,8 +158,8 @@ def selected_sources(corpus, documents):
 
 def check_retrievers(corpus, retrievers):
     if "graph" in retrievers and not graph_retriever.available(corpus, settings):
-        raise HTTPException(400, f"No graph for {corpus} at chunk size {settings.chunk_size} / "
-                                 f"{settings.overlap_percent} % overlap. Build it with python -m app.graph.")
+        raise HTTPException(400, f"{corpus} has no concept graph at chunk size {settings.chunk_size} / "
+                                 f"{settings.overlap_percent} % overlap yet. Build it in the Concept graph section.")
 
 
 @app.post("/api/corpora/{corpus}/ask")
@@ -172,6 +198,8 @@ class EvaluationRequest(BaseModel):
 @app.post("/api/corpora/{corpus}/evaluate")
 def evaluate(corpus: str, body: EvaluationRequest):
     directory = corpus_dir(corpus)
+    if corpus not in QUESTION_SETS:
+        raise HTTPException(400, f"{corpus} has no question set, so it can't be evaluated.")
     check_retrievers(corpus, body.retrievers)
     problems = check_quotes(load_questions(corpus), directory)
     if problems:
@@ -184,6 +212,8 @@ def evaluate(corpus: str, body: EvaluationRequest):
 @app.get("/api/corpora/{corpus}/questions")
 def list_questions(corpus: str):
     corpus_dir(corpus)
+    if corpus not in QUESTION_SETS:
+        return []
     return [{key: question[key] for key in ("id", "type", "question", "answerable")} for question in load_questions(corpus)]
 
 
@@ -283,6 +313,51 @@ def remove_document(corpus: str, name: str):
         raise HTTPException(404, f"{name} not found.")
     os.remove(path)
     delete_document(name, corpus)
+
+
+@app.get("/api/corpora/{corpus}/graph")
+def graph_status(corpus: str):
+    return graph_jobs.status(corpus, settings, corpus_dir(corpus))
+
+
+@app.post("/api/corpora/{corpus}/graph", status_code=202)
+def build_graph(corpus: str):
+    directory = corpus_dir(corpus)
+    if not document_names(corpus):
+        raise HTTPException(400, "Add at least one document before building the concept graph.")
+    if not graph_jobs.start(corpus, settings, directory, settings_fields(), GRAPH_WORKERS, GRAPH_DELAY):
+        raise HTTPException(409, "The concept graph of this collection is already being built.")
+    return graph_jobs.status(corpus, settings, directory)
+
+
+def require_graph(corpus):
+    corpus_dir(corpus)
+    if not graph_retriever.available(corpus, settings):
+        raise HTTPException(404, f"{corpus} has no concept graph yet.")
+
+
+@app.get("/api/corpora/{corpus}/graph/concepts")
+def list_concepts(corpus: str, contains: str = "", limit: int = Query(50, ge=1, le=500)):
+    require_graph(corpus)
+    return graph_jobs.concepts(corpus, settings, contains, limit)
+
+
+@app.get("/api/corpora/{corpus}/graph/concepts/{node_id:path}")
+def get_concept(corpus: str, node_id: str):
+    require_graph(corpus)
+    found = graph_jobs.concept(corpus, settings, node_id)
+    if found is None:
+        raise HTTPException(404, f"Unknown concept: {node_id}")
+    return found
+
+
+@app.get("/api/corpora/{corpus}/chunks/{chunk_id:path}")
+def get_chunk(corpus: str, chunk_id: str):
+    corpus_dir(corpus)
+    found = get_collection(corpus, settings).get(ids=[chunk_id])
+    if not found["ids"]:
+        raise HTTPException(404, "This passage no longer exists. Its document may have been deleted.")
+    return {"id": chunk_id, "text": found["documents"][0], **found["metadatas"][0]}
 
 
 app.mount("/", StaticFiles(directory="app/static", html=True), name="static")

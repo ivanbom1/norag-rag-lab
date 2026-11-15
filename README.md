@@ -9,14 +9,14 @@ It comes with two collections:
 | `kestrel` | The knowledge base of Kestrel Analytics, a made-up B2B software company (product guide, billing policies, error runbook) | `kestrel-kb/docs/` |
 | `monte-cristo` | *The Count of Monte Cristo* in 5 volumes, with a few planted test facts | `corpus/` |
 
-You can add your own `.md` or `.txt` documents from the page.
+You can create your own collections and add `.md` or `.txt` documents from the page, then build a **concept graph** of any collection, explore it, and use it to answer questions.
 
-Built with FastAPI, ChromaDB, `all-MiniLM-L6-v2` embeddings, BM25 (SQLite FTS5), a cross-encoder reranker and Gemini through the OpenAI SDK.
+Built with FastAPI, ChromaDB, `all-MiniLM-L6-v2` embeddings, BM25 (SQLite FTS5), a cross-encoder reranker and any language model with an OpenAI-compatible API (Google Gemini by default).
 
 ## What you need
 
 - **Python 3.10 to 3.13** (`python3 --version`)
-- **A Google Gemini API key**, free from [Google AI Studio](https://aistudio.google.com/app/apikey)
+- **A language model with an OpenAI-compatible API.** A free Google Gemini key from [Google AI Studio](https://aistudio.google.com/app/apikey) works out of the box; any other provider or a local server (Ollama, LM Studio…) works too, see [Choose the language model](#choose-the-language-model).
 - **An internet connection on the first start**, to download two small models (about 90 MB each) from Hugging Face
 - About 2 GB of disk space for the Python packages
 
@@ -36,7 +36,7 @@ pip install -r requirements.txt
 cp .env.example .env               # Windows: copy .env.example .env
 ```
 
-Open `.env` in a text editor and replace `your_google_api_key_here` with your key. Then start the app:
+Open `.env` in a text editor and set `LLM_URL`, `LLM_API_KEY` and `LLM_MODEL` (see [Choose the language model](#choose-the-language-model); for Gemini, only the key needs changing). Then start the app:
 
 ```bash
 uvicorn app.main:app
@@ -54,9 +54,25 @@ source .venv/bin/activate
 uvicorn app.main:app
 ```
 
+## Choose the language model
+
+The app talks to the language model through the OpenAI API format, so any compatible server works. Set these in `.env` (or `.env.local`, which takes priority and is also kept out of git):
+
+| Variable | What it is | Example |
+|---|---|---|
+| `LLM_URL` | base URL of the API | `https://generativelanguage.googleapis.com/v1beta/openai/` (Gemini), `https://api.openai.com/v1`, `http://localhost:11434/v1` (Ollama) |
+| `LLM_API_KEY` | the API key; leave it empty for a local server that doesn't need one | |
+| `LLM_MODEL` | the model that writes the answers | `gemini-3.5-flash-lite`, `gpt-4o-mini`, `llama3.2` |
+| `LLM_GRAPH_MODEL` | optional: the model that builds concept graphs; defaults to `LLM_MODEL` | `gemini-3-flash-preview` |
+| `LLM_PRICE_INPUT`, `LLM_PRICE_OUTPUT` | optional: USD per million tokens, to show the cost in Details (known for `gemini-3.5-flash-lite`, otherwise 0) | `0.15`, `0.60` |
+
+Restart the app after changing them. **Advanced → Settings** shows the model and server in use. If a server doesn't support JSON-schema output, the app asks for plain JSON instead and reads it from the reply.
+
+An older `.env` with only `GOOGLE_API_KEY` still works: the app then uses Gemini.
+
 ## Use the app
 
-1. **Pick a collection** at the top left.
+1. **Pick a collection** at the top left, or click **New collection** to make your own (lowercase letters, digits and dashes) and add its documents.
 2. **Choose the documents** the answer may use. All of them are checked by default. Uncheck one to leave it out.
 3. **Type your question** and press Enter.
 4. Read the answer. Under **Sources**, click a source to read the passage it comes from, then **Show in document** to see it in its document.
@@ -66,6 +82,13 @@ If the documents don't contain the answer, the app says so instead of making one
 
 **Add a document** with *Add a document* in the sidebar (`.md` or `.txt`). It is indexed straight away and can be used in the next question. **Delete** removes it from the collection.
 
+**Concept graph.** The *Concept graph* section of the sidebar builds a graph of the concepts in the collection (people, organizations, places, ideas…) and the links between them:
+
+1. Click **Build concept graph**. The language model reads each passage once, so a large collection takes a while; the page shows the progress and you can keep asking questions meanwhile.
+2. When it's ready, **Use it to answer questions** is checked: the graph becomes one more search, next to meaning and keywords.
+3. **Explore the graph** lists the concepts. Click one to see what it's linked to, open the passage each link comes from, or click **Ask about it**.
+4. After you add or delete documents, the section says the graph is out of date: **Update concept graph** only reads the new passages.
+
 ## Details: what happened for each answer
 
 Every answer has a **Details** button. It opens a table with one row per step of the request:
@@ -74,26 +97,27 @@ Every answer has a **Details** button. It opens a table with one row per step of
 |---|---|
 | Search by meaning (`dense`) | finds passages whose meaning is close to the question (embeddings) |
 | Search by keywords (`bm25`) | finds passages that share the question's words, good for codes like `KST-2044` |
-| Search the concept graph (`graph`) | follows the links between concepts (Kestrel only, Advanced) |
+| Search the concept graph (`graph`) | follows the links between concepts, when the collection has a graph and *Use it to answer questions* is checked |
 | Combine the search results (`fusion`) | merges the lists into one (reciprocal rank fusion) |
 | Rerank the passages (`rerank`) | reorders the best passages with a second model (Advanced, off by default) |
-| Write the answer (`llm`) | the call to Gemini, with its tokens and cost |
+| Write the answer (`llm`) | the call to the language model, with its tokens and cost |
 
 Each row shows its time, the tokens and cost of the LLM call, and how many passages it kept (hover to see their ids). **Raw trace** shows the full record.
 
-_To be completed (Part A): where traces are stored, how long they are kept, what they contain and what they leave out, and how to open the trace of an indexing run._
+Every question, every indexing run and every concept graph build is recorded as a trace in `traces/traces.sqlite3` on your machine, kept 30 days. Traces hold timings, token counts, chunk ids and the redacted question and answer, never the passage text, the prompts or API keys. The API lists them at `GET /api/traces` and returns one at `GET /api/traces/{id}`. Details in `REPORT_V4.md`, part A.
 
 ## Protecting users and data
 
-_To be completed (Part C)._
+Before anything is sent to the language model (questions, passages, graph extraction), email addresses, phone numbers, IBANs, card numbers and IP addresses are replaced by placeholders such as `[EMAIL_1]`. The real values are put back only in what you see on the page. Traces keep the placeholders. Names and postal addresses are not detected. Details in `REPORT_V4.md`, part C.
 
 ## Advanced mode
 
 Click **Advanced** at the bottom of the sidebar for the tools we used to build and tune the app. The page remembers whether it was open.
 
 - **Settings:** passage size (chunk size), overlap between passages, and how many passages go to the language model (top-k). A new passage size re-indexes the collection, which takes a few minutes.
-- **Retrievers:** turn each search on or off. **Rerank the passages with a second model** turns reranking on (see `REPORT.md`, part B, for why it is off by default).
-- **Evaluate** tab: runs the question set of the collection and shows hit rate and recall.
+- **Settings** also shows the language model in use.
+- **Retrievers:** turn each search on or off. **Rerank the passages with a second model** turns reranking on (see `REPORT_V4.md`, part B, for why it is off by default).
+- **Evaluate** tab: runs the question set of the collection and shows hit rate and recall (only `kestrel` and `monte-cristo` have one).
 - **Words** tab: the vocabulary of the collection, and which words of a question appear in it.
 - Under each answer, **How this answer was found** lists every passage searched and which search found it.
 
@@ -126,17 +150,24 @@ Question sets: `kestrel-kb/eval/questions.starter.jsonl` and `eval/questions/mon
 - `no-context-<corpus>.jsonl`: the LLM's answer without retrieval and an LLM judge's verdict, with an `override` field for the human decision.
 - `comparison.md`: written by `eval.compare`.
 
-## The concept graph (Kestrel)
+## How the concept graph works
 
-The graph for Kestrel at 800 / 10 % is already in the repo (`graph/kestrel_800_10_20/`), so the **Graph** retriever works without building anything. To rebuild it (one LLM call per passage, cached):
+The language model extracts (entity, relation, entity) triples from every passage, each with a short quote from the passage. Entities with the same type and name are merged. The graph retriever finds the entities named in the question, walks up to 2 relations from them, and returns the passages those relations came from. The Ask tab draws the paths it followed.
+
+- **`kestrel`** uses a fixed schema written for its knowledge base (error codes, services, teams, plans…, `ENTITY_TYPES` and `RELATIONS` in `app/graph.py`). Its graph at 800 / 10 % is already in the repo (`graph/kestrel_800_10_20/`).
+- **Every other collection** uses a general schema: people, organizations, places, products, concepts, events and works, with free relation names like `works_for` or `located_in`.
+
+Graphs are stored in `graph/<collection>_<chunk size>_<overlap>_20/` and cached per passage, so an update only calls the language model for new, changed or failed passages. One graph is built per collection and passage size. The page builds it in the background with 4 calls at a time (`GRAPH_WORKERS` and `GRAPH_DELAY` in `.env` change that, if your provider limits the rate).
+
+From the terminal:
 
 ```bash
-python -m app.graph --corpus kestrel --workers 6     # only new, changed or failed passages call the LLM
+python -m app.graph --corpus my-notes --workers 6    # any collection
 python -m app.graph --corpus kestrel --force         # extract every passage again
 python -m app.graph --corpus kestrel --sample 10     # 10 random triples to grade by hand, in triple-grades.json
 ```
 
-An LLM extracts (entity, relation, entity) triples from every passage, with a fixed schema (`ENTITY_TYPES` and `RELATIONS` in `app/graph.py`). The graph retriever finds the entities named in the question, walks up to 2 relations from them, and returns the passages those relations came from. The Ask tab draws the paths it followed. Details are in `REPORT.md`.
+Details are in `REPORT_V3.md` and `REPORT_V4.md`.
 
 ## Tests
 
@@ -144,14 +175,16 @@ An LLM extracts (entity, relation, entity) triples from every passage, with a fi
 python -m pytest tests
 ```
 
-The tests don't call the LLM, but `GOOGLE_API_KEY` must be set (the `.env` file is enough).
+The tests don't call the language model and don't need an API key.
 
 ## Troubleshooting
 
 | Problem | Fix |
 |---|---|
-| `OpenAIError: Missing credentials` when starting | `.env` is missing or has no key. Run `cp .env.example .env` and put your key in it. |
-| "The answer service could not be reached" on every question | Check the key in `.env` and your internet connection, then restart the app. |
+| "The answer service could not be reached" on every question | Check `LLM_URL`, `LLM_API_KEY` and `LLM_MODEL` in `.env` (Advanced → Settings shows what the app uses) and your connection, then restart the app. |
+| "The language model returned a malformed answer" | The model didn't return the JSON the app asks for. Small local models do this more often: try a larger one. |
+| Concept graph: "Every passage failed" | Usually a wrong key, model name or a rate limit. The message shows the first error. Fix it and click **Build** again: passages that worked are kept. |
+| Concept graph build is slow or hits rate limits | Lower `GRAPH_WORKERS` (or raise `GRAPH_DELAY`) in `.env` and restart. A collection the size of `monte-cristo` has thousands of passages. |
 | `uvicorn: command not found` or `No module named ...` | The virtual environment isn't active: `source .venv/bin/activate`. |
 | `Address already in use` | Another app uses port 8000. Run `uvicorn app.main:app --port 8001` and open http://localhost:8001. |
 | The first start seems stuck | Indexing and the model downloads take about 5 minutes. Wait for `Application startup complete`. |
@@ -165,13 +198,16 @@ The tests don't call the LLM, but `GOOGLE_API_KEY` must be set (the `.env` file 
 |---|---|
 | `app/main.py` | the FastAPI app and its API (docs at http://localhost:8000/docs) |
 | `app/answering.py` | retrieval, fusion, reranking and the LLM call |
+| `app/llm.py` | the language model settings (`LLM_URL`, `LLM_API_KEY`, `LLM_MODEL`) and client |
 | `app/indexing.py`, `app/bm25.py` | splitting into passages, ChromaDB and BM25 indexes |
 | `app/graph.py`, `app/graph_retriever.py` | building and searching the concept graph |
+| `app/graph_jobs.py` | building a graph in the background from the page, its status, and the explorer |
+| `app/tracing.py`, `app/redaction.py` | traces, and personal data redaction |
 | `app/reranking.py` | the cross-encoder reranker |
 | `app/static/` | the web page |
 | `eval/`, `app/evaluation.py` | evaluation and comparison |
 | `tests/` | unit tests |
-| `REPORT.md` | results, decisions and known failures, V3 and V4 |
+| `REPORT_V3.md`, `REPORT_V4.md` | results, decisions and known failures |
 | `data/`, `chroma_db/`, `bm25_db/` | created on the first start, not in git |
 
 ## Earlier experiments (V1)
@@ -184,100 +220,3 @@ python ask_rag_google.py       # retrieve 5 passages first, then ask
 ```
 
 They aren't needed for the web app.
-=======
-## Notes
-
-- Both applications use the OpenAI SDK to interact with Google Gemini via Google's OpenAI-compatible endpoint.
-- The RAG app splits the text into fixed-size chunks with an overlap (`CHUNK_SIZE`, `OVERLAP_PERCENT` and `MIN_PARAGRAPH_LENGTH` at the top of the script), indexes them into `chroma_db/` and reuses them across runs.
-- There is one index per document (`DOCUMENT_FILE`) and chunking configuration. When no index exists for the current document and settings, the script asks before building one (this takes a little while).
-- Debug prompt printing can be enabled by passing `debug=True` in the NoRAG app.
-- RAG app prints retrieved context for verification.
-- Streaming output is enabled by default in both applications (controlled by `STREAM_ON` variable).
-
-- Using the shortened version of the text (`docs/CrimeAndPunishment-shorter.txt`)
-	- Go online at https://gemini.google.com/app
-	- At the prompt, start writing "Here is a story: ",
-	- Then paste the content of docs/CrimeAndPunishment-shorter.txt into the Gemini chat app and then, at the end of the prompt, ask "What can you tell me about Denis Amselemovitch?"
-	- Observe the response from Gemini.
-
-# Free books from Project Gutenberg
-- https://www.gutenberg.org/
-# Crime and Punishment by Fyodor Dostoevsky
-- https://www.gutenberg.org/ebooks/2554
-# Huckleberry Finn by Mark Twain
-- https://www.gutenberg.org/ebooks/76
-
----
-
-# V1 RAG web app (Monte Cristo)
-
-A web app that answers questions about *The Count of Monte Cristo* with verified citations. It runs on FastAPI, ChromaDB, all-MiniLM-L6-v2 and Gemini.
-
-## What was added
-
-| Path | Purpose |
-|---|---|
-| `scripts/build_corpus.py` | Downloads Gutenberg #1184, cleans it, splits it into 5 volume files and plants test facts |
-| `corpus/` | The 5 volume files; they are copied to `data/documents/` the first time the app runs |
-| `app/indexing.py` | Chunking with character offsets back into the source file; one Chroma collection per chunk setting |
-| `app/answering.py` | Retrieval, LLM call with a JSON schema, Pydantic validation and citation checks |
-| `app/main.py` | API for documents, settings and questions; also serves the UI |
-| `app/static/` | Plain HTML/JS frontend |
-| `eval/` | 30-question set, evaluation script and the V1 baseline result |
-| `tests/` | pytest tests for the chunk offsets |
-
-## Run
-
-```bash
-pip install -r requirements.txt      # .env must contain GOOGLE_API_KEY
-uvicorn app.main:app --reload        # http://localhost:8000, API docs at /docs
-```
-
-The first start indexes the corpus, which takes about 2 minutes.
-
-## Test
-
-```bash
-python -m pytest tests                                   # offset tests, no LLM
-python -m eval.evaluate                                  # retrieval hit@k and MRR, no LLM
-python -m eval.evaluate --answers --no-context --delay 4 # + answer accuracy and an LLM-only comparison (~60 Gemini calls)
-python -m eval.evaluate --chunk-size 400 --overlap 10    # compare another chunk setting
-```
-
-Manual checks in the UI:
-
-- **Ask** *What jewel was in the purse that saved Morrel from ruin?*
-  - It should answer **ruby**. The corpus was edited to say ruby, while the original book says diamond, so a ruby answer shows the app reads the corpus instead of relying on the model's memory.
-  - Click `[C1]`, then **Show in document**: the cited text is highlighted.
-- **Ask** *Who directed the 2002 film adaptation?* It should reply "Not found in the selected documents."
-- **Restrict documents:** uncheck vol2 and vol3 and ask the purse question again. The answer should be "not found".
-- **Upload a document:** upload a small `.md` file with an invented fact, ask about it, then delete it and ask again.
-- **Change settings:** a top-k change applies instantly. A new chunk size re-indexes everything, which takes about 2 minutes.
-
-## Baseline (800 chars, 10 % overlap, top-5)
-
-These results are in `eval/results/chunks_800_10_20_minilm_k5.json`.
-
-- **Retrieval:** hit@5 **0.44–0.48** and MRR ≈ 0.36. The range comes from repeated runs on the same index (see the last decision below). All 3 split questions fail retrieval.
-- **Answers:** accuracy **0.60**. All 5 unanswerable questions return `not_found`.
-- **Model without the documents:** Gemini, asked with no retrieved text, matched the corpus on 15 of the 25 answerable questions. It said "diamond" and "28 February" where the corpus says ruby and the 25th.
-
-## Decisions
-
-| Topic | Decision |
-|---|---|
-| Corpus | Monte Cristo, split into one file per volume, with planted facts so a grounded answer can be told apart from the model's memory. The plants are: new facts, one fact split across two volumes, and two deliberate contradictions with the original book (ruby instead of diamond, 25th instead of 24th of February). |
-| Stack | FastAPI with a plain HTML/JS frontend, no build step |
-| Vector store | One Chroma collection per (chunk size, overlap). Switching back to a setting that was already indexed is instant. |
-| Distance | Chroma's default squared L2. The vectors are normalised, so the ranking is the same as cosine similarity. |
-| Documents | Stored in `data/documents/`. Uploads must be `.md` or `.txt` in UTF-8. Deleting a document removes its chunks from every collection. |
-| Parameter change | A new chunk size or overlap re-indexes before the request returns. A top-k change needs no re-indexing. |
-| Response schema | `{answerable, answer, citations[{chunk_id, quote}]}`, validated with Pydantic |
-| Citation check | The cited chunk must be one of the retrieved chunks, and the quote must appear in it, ignoring whitespace differences |
-| Answer statuses | `answered`, `unverified` (the answer is shown with a warning), `not_found`, `invalid_response`, `llm_error`. A malformed response or an LLM error never crashes the app. |
-| Relevance cutoff | None in V1. Distances were logged as data for V2. |
-| References | Each reference points to a chunk with its file and character span. The UI opens the chunk and can also show it highlighted in the full document. |
-| Eval evidence | Stored as exact quotes, converted to character spans when the eval runs, so it doesn't depend on the chunk size. Each question lists the required parts of its answer; each part can be found in any one of several passages, all located by searching the text. |
-| Hit rule | A chunk counts as a hit if it overlaps the evidence span. The metrics are hit@k and MRR, broken down by question type. |
-| Eval scope | Retrieval only by default (no LLM). The LLM checks are opt-in flags. Only the baseline result is committed. |
-| HNSW | Chroma's search is approximate, so top-k can change from one run to the next. This was kept as it is and documented as a known failure. |
