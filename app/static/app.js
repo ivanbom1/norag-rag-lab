@@ -35,6 +35,7 @@ const DIAGRAM_PATHS_PER_CHUNK = 2;
 const TYPE_COLORS = {
   ErrorCode: "#f8c4c4", Service: "#c4dcf8", Team: "#c8ecc4", Channel: "#f8e4b0", Person: "#e4d0f4",
   Plan: "#c4ecec", Role: "#f4d4e8", Feature: "#eeeeee", Policy: "#e8e0cc",
+  Organization: "#c8ecc4", Place: "#f8e4b0", Product: "#c4dcf8", Concept: "#eeeeee", Event: "#f8c4c4", Work: "#e8e0cc",
 };
 
 function svg(tag, attributes, text) {
@@ -194,6 +195,7 @@ document.getElementById("upload").onchange = async (event) => {
     const result = await (await api(corpusPath("/documents"), { method: "POST", body: form })).json();
     message.textContent = `${result.name} was added and can now be used in answers.`;
     await loadDocuments();
+    await refreshGraph();
   } catch (error) {
     message.textContent = error.message;
   }
@@ -205,7 +207,9 @@ function updateGraphRetriever() {
   const box = label.querySelector("input");
   box.disabled = !graphs[corpus];
   if (box.disabled) box.checked = false;
-  label.title = box.disabled ? "No graph for this corpus / chunk settings (build it with python -m app.graph)" : "";
+  label.title = box.disabled ? "This collection has no concept graph yet: build it in the Concept graph section." : "";
+  const use = document.getElementById("graph-use");
+  use.checked = box.checked;
 }
 
 async function loadSettings() {
@@ -216,6 +220,13 @@ async function loadSettings() {
   document.getElementById("rerank").checked = Boolean(settings.rerank);
   graphs = settings.graphs;
   updateGraphRetriever();
+  if (settings.llm) {
+    const host = (() => { try { return new URL(settings.llm.url).host; } catch { return settings.llm.url; } })();
+    document.getElementById("llm-info").textContent =
+      `Language model: ${settings.llm.model} at ${host}` +
+      (settings.llm.graph_model !== settings.llm.model ? `, concept graph: ${settings.llm.graph_model}` : "") +
+      (settings.llm.api_key_set ? "." : ". No API key set.");
+  }
 }
 
 document.getElementById("settings").onsubmit = async (event) => {
@@ -234,6 +245,7 @@ document.getElementById("settings").onsubmit = async (event) => {
     })).json();
     graphs = result.graphs;
     updateGraphRetriever();
+    refreshGraph();
     message.textContent = result.reindexed.length
       ? `Re-indexed ${result.reindexed.length} document(s) in ${result.seconds} s.`
       : "Saved. No re-indexing needed.";
@@ -560,7 +572,7 @@ document.getElementById("question-words").onsubmit = async (event) => {
   );
 };
 
-async function loadCorpora() {
+async function loadCorpora(selected) {
   const corpora = await (await api("/api/corpora")).json();
   const select = document.getElementById("corpus");
   select.replaceChildren(...corpora.map((name) => {
@@ -568,21 +580,254 @@ async function loadCorpora() {
     option.value = name;
     return option;
   }));
-  corpus = corpora[0];
+  corpus = corpora.includes(selected) ? selected : corpora.includes(corpus) ? corpus : corpora[0];
+  select.value = corpus;
   updateGraphRetriever();
   select.onchange = () => {
     corpus = select.value;
-    for (const id of ["result", "reference", "document", "evaluation", "question-words-result", "word-chunks"]) {
+    for (const id of ["result", "reference", "document", "evaluation", "question-words-result", "word-chunks", "explorer"]) {
       document.getElementById(id).hidden = true;
     }
     document.getElementById("vocabulary-table").replaceChildren();
+    document.getElementById("documents-message").textContent = "";
     loadDocuments();
     loadQuestionSet();
     updateGraphRetriever();
+    refreshGraph();
   };
   await loadDocuments();
   await loadQuestionSet();
+  await refreshGraph();
 }
+
+const newCollectionForm = document.getElementById("new-collection");
+document.getElementById("new-collection-button").onclick = () => {
+  newCollectionForm.hidden = false;
+  newCollectionForm.elements.name.focus();
+};
+document.getElementById("new-collection-cancel").onclick = () => {
+  newCollectionForm.hidden = true;
+  newCollectionForm.reset();
+};
+newCollectionForm.onsubmit = async (event) => {
+  event.preventDefault();
+  const message = document.getElementById("collection-message");
+  try {
+    const result = await (await api("/api/corpora", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: newCollectionForm.elements.name.value }),
+    })).json();
+    newCollectionForm.hidden = true;
+    newCollectionForm.reset();
+    await loadCorpora(result.name);
+    document.getElementById("result").hidden = true;
+    document.getElementById("explorer").hidden = true;
+    message.textContent = `${result.name} was created. Add its documents below.`;
+  } catch (error) {
+    message.textContent = error.message;
+  }
+};
+
+let graphPoll = null;
+let graphWasBuilding = false;
+
+const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
+
+function shortError(text) {
+  if (!text) return "";
+  if (/\b429\b|RESOURCE_EXHAUSTED|quota/i.test(text)) return "the language model's rate limit or daily quota was reached (error 429)";
+  const flat = text.replace(/\s+/g, " ");
+  return flat.length > 160 ? flat.slice(0, 159) + "…" : flat;
+}
+
+const formatBuilt = (iso) => (iso ? new Date(iso).toLocaleString([], { dateStyle: "medium", timeStyle: "short" }) : "");
+
+async function refreshGraph() {
+  const forCorpus = corpus;
+  let info;
+  try {
+    info = await (await api(corpusPath("/graph"))).json();
+  } catch (error) {
+    document.getElementById("graph-status").textContent = error.message;
+    return;
+  }
+  if (forCorpus !== corpus) return;
+  renderGraphStatus(info);
+  clearTimeout(graphPoll);
+  if (info.state === "building") graphPoll = setTimeout(refreshGraph, 2000);
+}
+
+function renderGraphStatus(info) {
+  const status = document.getElementById("graph-status");
+  const button = document.getElementById("graph-build");
+  const progress = document.getElementById("graph-progress");
+  const ready = info.state === "ready";
+  const lines = [];
+  progress.hidden = info.state !== "building";
+  button.hidden = false;
+  button.disabled = info.state === "building";
+  document.getElementById("graph-ready").hidden = !ready;
+
+  if (info.state === "building") {
+    progress.max = info.total || 1;
+    progress.value = info.done;
+    lines.push(el("span", info.total === null
+      ? "Starting…"
+      : `Reading the passages: ${info.done} of ${info.total}${info.failed ? `, ${info.failed} failed` : ""}.`));
+    button.textContent = "Building…";
+  } else if (ready) {
+    lines.push(el("span", `${plural(info.nodes, "concept")} and ${plural(info.edges, "link")}, built ${formatBuilt(info.built)}.`));
+    if (!info.nodes) lines.push(el("span", " The graph is empty: the language model found nothing to link.", "graph-warning"));
+    if (info.failed) lines.push(el("span", ` ${plural(info.failed, "passage")} failed${info.first_error ? ` (${shortError(info.first_error)})` : ""}. Retry ${info.failed === 1 ? "it" : "them"} with the button below.`, "graph-warning"));
+    if (info.out_of_date) lines.push(el("span", " The documents changed since: update it to include them.", "graph-warning"));
+    button.textContent = "Update concept graph";
+    button.hidden = !info.out_of_date && !info.failed;
+    if (info.failed) button.textContent = info.out_of_date ? "Update concept graph" : "Retry failed passages";
+  } else if (!info.passages) {
+    lines.push(el("span", "Add documents to this collection, then build its concept graph here."));
+    button.hidden = true;
+  } else {
+    lines.push(el("span", `No concept graph yet. Building it sends each passage to the language model once ` +
+      `(${plural(info.passages, "passage")} in this collection), then links the concepts it finds.`));
+    button.textContent = "Build concept graph";
+    button.hidden = !info.passages;
+  }
+  if (info.error) lines.push(el("span", ` The last build failed: ${shortError(info.error)}`, "graph-error"));
+  status.replaceChildren(...lines);
+
+  if (ready && graphWasBuilding && info.nodes) {
+    graphs[corpus] = true;
+    updateGraphRetriever();
+    setGraphUse(true);
+  } else {
+    graphs[corpus] = ready && info.nodes > 0;
+    updateGraphRetriever();
+  }
+  graphWasBuilding = info.state === "building";
+}
+
+function setGraphUse(on) {
+  const box = document.querySelector('#graph-retriever input');
+  if (box.disabled) return;
+  box.checked = on;
+  document.getElementById("graph-use").checked = on;
+}
+
+document.getElementById("graph-use").onchange = (event) => setGraphUse(event.target.checked);
+document.querySelector('#graph-retriever input').addEventListener("change", (event) => {
+  document.getElementById("graph-use").checked = event.target.checked;
+});
+
+document.getElementById("graph-build").onclick = async () => {
+  const info = await (await api(corpusPath("/graph"))).json();
+  if (info.passages > 200 && !confirm(`This sends up to ${info.passages} passages to the language model, ` +
+    "one call each. It can take a long time and use a lot of your quota. Continue?")) return;
+  try {
+    renderGraphStatus(await (await api(corpusPath("/graph"), { method: "POST" })).json());
+    graphWasBuilding = true;
+    graphPoll = setTimeout(refreshGraph, 1000);
+  } catch (error) {
+    document.getElementById("graph-status").textContent = error.message;
+  }
+};
+
+let conceptTimer = null;
+let openConcept = null;
+
+document.getElementById("graph-explore").onclick = () => {
+  const explorer = document.getElementById("explorer");
+  explorer.hidden = false;
+  document.getElementById("concept-detail").hidden = true;
+  loadConcepts();
+  explorer.scrollIntoView({ behavior: "smooth" });
+};
+document.getElementById("explorer-close").onclick = () => { document.getElementById("explorer").hidden = true; };
+document.getElementById("concept-filter").oninput = () => {
+  clearTimeout(conceptTimer);
+  conceptTimer = setTimeout(loadConcepts, 250);
+};
+
+function typeTag(type) {
+  const tag = el("span", type, "type-tag");
+  tag.style.background = TYPE_COLORS[type] || "#eee";
+  return tag;
+}
+
+async function loadConcepts() {
+  const contains = document.getElementById("concept-filter").value;
+  const summary = document.getElementById("concept-summary");
+  try {
+    const data = await (await api(corpusPath(`/graph/concepts?${new URLSearchParams({ contains, limit: 60 })}`))).json();
+    summary.textContent = data.matching > data.concepts.length
+      ? `${data.matching} concepts match, the ${data.concepts.length} most linked are shown.`
+      : `${data.matching} of ${data.total} concepts.`;
+    document.getElementById("concept-list").replaceChildren(...data.concepts.map((concept) => {
+      const item = el("li");
+      const link = el("span", concept.name, "link");
+      link.onclick = () => showConcept(concept.id);
+      item.append(link, typeTag(concept.type), el("span", ` ${plural(concept.links, "link")}`, "message"));
+      return item;
+    }));
+  } catch (error) {
+    summary.textContent = error.message;
+  }
+}
+
+async function showConcept(id) {
+  const data = await (await api(corpusPath(`/graph/concepts/${encodeURIComponent(id)}`))).json();
+  openConcept = data;
+  document.getElementById("concept-detail").hidden = false;
+  document.getElementById("concept-chunk").hidden = true;
+  document.getElementById("concept-chunk-title").hidden = true;
+  document.getElementById("concept-title").replaceChildren(data.name, typeTag(data.type));
+  const others = data.aliases.filter((name) => name !== data.name);
+  document.getElementById("concept-meta").textContent =
+    `${plural(data.links.length, "link")}, found in ${plural(data.chunks.length, "passage")}` + (others.length ? `. Also written: ${others.join(", ")}.` : ".");
+  document.getElementById("concept-links").replaceChildren(...data.links.map((edge) => {
+    const item = el("li");
+    const other = el("span", edge.other.name, "link");
+    other.onclick = () => showConcept(edge.other.id);
+    const arrow = ` —${edge.relation}→ `;
+    if (edge.outgoing) item.append(`${data.name}${arrow}`, other);
+    else item.append(other, `${arrow}${data.name}`);
+    edge.chunks.forEach((chunkId, i) => {
+      const link = el("span", `[${i + 1}]`, "link");
+      link.title = chunkId;
+      link.onclick = () => showConceptChunk(chunkId, edge.quotes[i] || edge.quotes[0]);
+      item.append(" ", link);
+    });
+    return item;
+  }));
+  document.getElementById("concept-detail").scrollIntoView({ behavior: "smooth" });
+}
+
+async function showConceptChunk(chunkId, quote) {
+  const title = document.getElementById("concept-chunk-title");
+  const pre = document.getElementById("concept-chunk");
+  title.hidden = false;
+  pre.hidden = false;
+  try {
+    const chunk = await (await api(corpusPath(`/chunks/${encodeURIComponent(chunkId)}`))).json();
+    title.textContent = `${chunk.source}, passage ${chunk.id.split("#").pop()}`;
+    const span = quote ? findQuote(chunk.text, quote) : null;
+    if (span) renderHighlighted(pre, chunk.text, span[0], span[1]);
+    else pre.textContent = chunk.text;
+  } catch (error) {
+    title.textContent = error.message;
+    pre.textContent = "";
+  }
+  pre.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+document.getElementById("concept-ask").onclick = () => {
+  if (!openConcept) return;
+  const textarea = document.querySelector("#ask textarea");
+  textarea.value = `What do the documents say about ${openConcept.name}?`;
+  setGraphUse(true);
+  textarea.focus();
+  textarea.scrollIntoView({ behavior: "smooth", block: "center" });
+};
 
 function traceFromCost(result) {
   const cost = result.cost || {};

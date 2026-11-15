@@ -4,7 +4,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from app import answering, tracing
+from app import answering, llm, tracing
 
 
 @pytest.fixture(autouse=True)
@@ -55,7 +55,7 @@ def test_ask_sends_no_personal_data_and_traces_it_redacted(monkeypatch):
         trace.add_span("dense", 5.0, chunk_ids=[CHUNK["id"]])
         return [{"label": "C1", **CHUNK}], answering.new_cost()
 
-    monkeypatch.setattr(answering.llm.chat.completions, "create", fake_llm)
+    monkeypatch.setattr(llm.client.chat.completions, "create", fake_llm)
     monkeypatch.setattr(answering, "retrieve_with_cost", fake_retrieve)
     trace = tracing.Trace("question")
     result = answering.ask("Who is marie@example.com?", "kestrel", ["contacts.md"], None, 5, trace=trace)

@@ -18,7 +18,8 @@ PRICES = {"gemini-3.5-flash-lite": (0.30, 2.50)}
 
 
 def llm_cost(model, prompt_tokens, completion_tokens):
-    price_in, price_out = PRICES.get(model, (0, 0))
+    price_in, price_out = PRICES.get(model) or (float(os.getenv("LLM_PRICE_INPUT") or 0),
+                                                float(os.getenv("LLM_PRICE_OUTPUT") or 0))
     return round((prompt_tokens * price_in + completion_tokens * price_out) / 1_000_000, 6)
 
 

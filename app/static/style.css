@@ -67,6 +67,19 @@ body:not(.advanced) .technical { display: none; }
 #trace-spans .bar-fill { height: 10px; background: #0b5cad; border-radius: 2px; min-width: 1px; }
 #trace-spans tr.llm .bar-fill { background: #b06f00; }
 #rerank { margin-right: 4px; }
+#new-collection-button { margin-left: 6px; }
+#new-collection { margin-top: 6px; }
+#new-collection input { width: 120px; }
+#graph-progress { width: 100%; }
+#graph-ready label { margin: 8px 0 4px; }
+#explorer { background: #fff; border: 1px solid #ddd; padding: 8px 12px; margin: 12px 0; }
+#concept-filter { width: 100%; box-sizing: border-box; padding: 4px; }
+#concept-list { columns: 2; }
+#concept-list li, #concept-links li { break-inside: avoid; }
+.type-tag { font-size: 0.75em; padding: 0 5px; border: 1px solid #999; border-radius: 4px; margin-left: 4px; color: #333; }
+.graph-warning { color: #b06f00; }
+.graph-error { color: #b00020; }
+#graph-status { overflow-wrap: anywhere; }
 .loading::after { content: ""; display: inline-block; width: 1em; animation: dots 1.2s steps(4) infinite; }
 @keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
 

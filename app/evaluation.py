@@ -8,9 +8,10 @@ from openai import APIError
 from pydantic import BaseModel, ValidationError
 
 from app import bm25
-from app.answering import (CANDIDATES, DEFAULT_RETRIEVERS, MODEL, RETRIEVERS, ask, llm, normalize, retrieve,
+from app.answering import (CANDIDATES, DEFAULT_RETRIEVERS, MODEL, RETRIEVERS, ask, normalize, retrieve,
                            retrieve_with_cost)
 from app.fusion import RRF_K
+from app.llm import chat, json_text
 from app.reranking import RERANK_CANDIDATES, RERANK_MODEL
 
 QUESTION_SETS = {
@@ -208,11 +209,8 @@ def judge(question, answer):
     prompt = (f"Question: {question['question']}\nReference answer: {question['expected_answer']}\n"
               f"Candidate answer: {answer}\n\nIs the candidate answer correct, meaning it states the key facts of "
               "the reference answer without contradicting it? Reply with correct and a one-sentence reason.")
-    response = llm.chat.completions.create(
-        model=MODEL, messages=[{"role": "user", "content": prompt}],
-        response_format={"type": "json_schema", "json_schema": {"name": "verdict", "schema": VERDICT_SCHEMA}},
-    )
-    return Verdict.model_validate_json(response.choices[0].message.content or "")
+    response = chat([{"role": "user", "content": prompt}], MODEL, VERDICT_SCHEMA, "verdict")
+    return Verdict.model_validate_json(json_text(response))
 
 
 def run_no_context(corpus, delay=0, on_progress=None):
@@ -232,9 +230,9 @@ def run_no_context(corpus, delay=0, on_progress=None):
         row = {"id": question["id"], "type": question["type"], "answerable": question["answerable"],
                "question": question["question"], "expected_answer": question["expected_answer"]}
         try:
-            response = llm.chat.completions.create(model=MODEL, messages=[{"role": "user", "content": (
+            response = chat([{"role": "user", "content": (
                 f"This question is about {CORPUS_DESCRIPTIONS[corpus]}. Answer it in one or two sentences from "
-                f"your own knowledge. If you do not know, say so.\n\nQuestion: {question['question']}")}])
+                f"your own knowledge. If you do not know, say so.\n\nQuestion: {question['question']}")}], MODEL)
             row["answer"] = response.choices[0].message.content or ""
             # Unanswerable questions have no correct answer to know in advance: they are not flagged.
             if question["answerable"]:

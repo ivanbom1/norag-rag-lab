@@ -3,7 +3,7 @@ import json
 import httpx
 from openai import RateLimitError
 
-from app import graph
+from app import graph, llm
 
 CHUNK = "### postroom\n\nSends every e-mail that leaves Kestrel.\nOwner: **Messaging**."
 
@@ -66,11 +66,11 @@ def test_heading_context_gives_the_short_headings_the_chunk_lost():
 
 def test_invalid_response_is_retried_once_then_the_chunk_fails(monkeypatch):
     replies = iter(["not json", json.dumps({"triples": [triple("postroom", "Service", "owned_by", "Messaging", "Team")]})])
-    monkeypatch.setattr(graph, "call_llm", lambda messages, model, cost: next(replies))
+    monkeypatch.setattr(graph, "call_llm", lambda messages, model, cost, schema="kestrel": next(replies))
     row = graph.extract({"id": "catalog#1", "source": "service-catalog.md", "text": CHUNK}, "Service Catalog", "m")
     assert row["status"] == "ok" and len(row["triples"]) == 1
 
-    monkeypatch.setattr(graph, "call_llm", lambda messages, model, cost: "still not json")
+    monkeypatch.setattr(graph, "call_llm", lambda messages, model, cost, schema="kestrel": "still not json")
     row = graph.extract({"id": "catalog#1", "source": "service-catalog.md", "text": CHUNK}, "Service Catalog", "m")
     assert row["status"] == "failed" and row["error"].startswith("invalid response")
 
@@ -83,8 +83,45 @@ def test_daily_quota_is_not_retried(monkeypatch):
         response = httpx.Response(429, request=httpx.Request("POST", "https://example.test"))
         raise RateLimitError("GenerateRequestsPerDayPerProjectPerModel-FreeTier", response=response, body=None)
 
-    monkeypatch.setattr(graph.llm.chat.completions, "create", quota_exceeded)
+    monkeypatch.setattr(llm.client.chat.completions, "create", quota_exceeded)
     row = graph.extract({"id": "service-catalog.md#1", "source": "service-catalog.md", "text": CHUNK}, "Service catalog",
                         graph.GRAPH_MODEL)
     assert row["status"] == "failed" and "llm error" in row["error"]
     assert len(calls) == 1 and row["cost"]["llm_calls"] == 1
+
+
+def test_general_schema_accepts_free_relations_and_cleans_them():
+    kept, dropped = graph.validate_triples([
+        {"subject": "Edmond Dantès", "subject_type": "Person", "relation": "Imprisoned In",
+         "object": "Château d'If", "object_type": "Place", "quote": "Dantès was taken to the Château d'If"},
+        {"subject": "Dantès", "subject_type": "Person", "relation": "is a very long and strange relation, really!",
+         "object": "Mercédès", "object_type": "Person", "quote": "x"},
+        {"subject": "Dantès", "subject_type": "Spaceship", "relation": "loves",
+         "object": "Mercédès", "object_type": "Person", "quote": "x"},
+    ], "Dantès was taken to the Château d'If.", schema="general")
+    assert [t["relation"] for t in kept] == ["imprisoned_in"]
+    assert kept[0]["quote_verified"]
+    assert len(dropped) == 2
+
+
+def test_kestrel_keeps_its_schema_and_other_collections_get_the_general_one():
+    assert graph.schema_name("kestrel") == "kestrel"
+    assert graph.schema_name("monte-cristo") == "general"
+    assert graph.schema_name("my-notes") == "general"
+    prompt = graph.build_prompt({"source": "a.md", "text": "Ada works at Acme."}, "A", schema="general", collection="my-notes")
+    assert '"my-notes"' in prompt and "Ada works at Acme." in prompt and "ErrorCode" not in prompt
+
+
+def test_extract_uses_the_schema_of_the_collection(monkeypatch):
+    seen = {}
+
+    def fake_call(messages, model, cost, schema="kestrel"):
+        seen["schema"] = schema
+        return json.dumps({"triples": [{"subject": "Ada", "subject_type": "Person", "relation": "works_for",
+                                        "object": "Acme", "object_type": "Organization", "quote": "Ada works at Acme"}]})
+
+    monkeypatch.setattr(graph, "call_llm", fake_call)
+    row = graph.extract({"id": "a.md#0", "source": "a.md", "text": "Ada works at Acme."}, "A", "m",
+                        schema="general", collection="notes")
+    assert seen["schema"] == "general"
+    assert row["status"] == "ok" and row["triples"][0]["relation"] == "works_for"

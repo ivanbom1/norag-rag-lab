@@ -8,6 +8,7 @@ There are two kinds of trace:
 
 - **`question`:** one per question asked in the app (`/ask`).
 - **`indexing`:** one per indexing run that actually indexed something: at startup when a document is missing, after the chunk settings change, and when a document is uploaded.
+- **`graph_build`:** one per concept graph build started from the page (part D): the collection, schema, model, passages extracted and failed, LLM calls, tokens and cost, and the size of the graph.
 
 The evaluation CLI makes no traces, so evaluation runs don't fill the store.
 
@@ -42,7 +43,7 @@ Traces are kept 30 days. The app deletes older ones each time it starts (`RETENT
 
 Anyone who can use the laptop, and anyone who can reach the app's `GET /api/traces` and `GET /api/traces/{id}`. There is no login, because the app runs locally for one user. Deploying it would need one.
 
-Traces never leave the machine. Only the LLM call goes to Google, and its text is redacted first (Part C).
+Traces never leave the machine. Only the LLM call goes out, to the provider set in `LLM_URL` (Google by default, or nothing at all with a local model), and its text is redacted first (Part C).
 
 ### Personal data in traces
 
@@ -54,7 +55,7 @@ Names are not removed (see Part C), so a question that names a person keeps that
 
 The cost comes from the token counts the API returns and the list price of gemini-3.5-flash-lite: $0.30 per million input tokens and $2.50 per million output tokens (ai.google.dev pricing page, November 2026). Our free-tier key isn't billed, so the figure is what the same call would cost on a paid key. For example, 365 input + 95 output tokens cost $0.000347.
 
-Retrieval, reranking, embeddings and BM25 run locally and cost nothing in dollars. The graph extraction calls happen when the graph is built, not per question, and aren't traced.
+Retrieval, reranking, embeddings and BM25 run locally and cost nothing in dollars. The graph extraction calls happen when the graph is built, not per question. A build started from the page is traced as one `graph_build` trace with its token total and cost; a build from the terminal isn't traced.
 
 ### From traces to metrics
 
@@ -155,3 +156,36 @@ We don't detect names:
 - **Names and postal addresses** are not detected, so the LLM still sees names next to the placeholders.
 - **Formats outside the patterns** get through: other countries' phone formats, or an email written as "name at domain".
 - **Placeholders the LLM changes** can't be restored: if it writes `[EMAIL 1]` instead of `[EMAIL_1]`, the user sees the placeholder instead of the value.
+
+## D. Added after the deadline: any language model, and concept graphs for any collection
+
+On 15 November, after our `final` tag, the professor asked for two things. They are on the branch `v4-llm-graph` and the tag `final-v2`; `final` is unchanged.
+
+### Any OpenAI-compatible language model
+
+The app read `GOOGLE_API_KEY` and called Gemini at a fixed URL, with model names written in the code. Now every call goes through `app/llm.py`, which reads `LLM_URL`, `LLM_API_KEY` and `LLM_MODEL` from `.env.local`, then `.env` (`LLM_GRAPH_MODEL` optionally sets a separate model for the graph). Answers, the evaluation's judge, and graph extraction all use it. Advanced → Settings shows the model and server in use, so a user can check what they plugged in.
+
+- **Old setups keep working:** with only `GOOGLE_API_KEY` set, the app uses Gemini as before.
+- **No key is fine for a local server:** an empty `LLM_API_KEY` no longer crashes the app at start.
+- **Servers without JSON-schema output:** if the server rejects `response_format` (400), the call is sent again with the schema in the prompt, and the JSON is read from the reply even inside a code fence or after a `<think>` block. This adds one call only on servers that need it.
+- **Cost:** the price is only known for `gemini-3.5-flash-lite`. For another model, `LLM_PRICE_INPUT` / `LLM_PRICE_OUTPUT` set it; otherwise Details shows no cost rather than a wrong one.
+
+### Concept graphs for any collection, built from the page
+
+In V3 the graph only existed for Kestrel and could only be built from the terminal. Now:
+
+- **New collections:** *New collection* creates an empty collection (a folder in `data/corpora/`), and documents are added to it from the page. Collections are the folders there, not a fixed list.
+- **A general schema:** Kestrel keeps its schema, so the V3 graph and results are unchanged. Every other collection uses people, organizations, places, products, concepts, events and works, with free snake_case relation names. A fixed relation list would only fit one kind of document; the cost is that the same link can get two names (`works_for`, `employed_by`), which the graph does not merge.
+- **Build from the page:** *Build concept graph* starts the build in a background thread, 4 passages at a time, and the page polls its progress. Only one build per collection runs at a time. Passages are cached by text hash, so after an upload *Update concept graph* only sends the new passages. The page says when the graph is out of date (a document was added, changed or deleted since the build) and warns before building more than 200 passages.
+- **Use and explore:** when a build succeeds, the graph is switched on as a retriever. *Explore the graph* lists the concepts, most linked first, with a search box. A concept shows its links, each link opens the passage it was extracted from with the quote highlighted, and *Ask about it* writes a question about it.
+- **Failures:** if every passage fails (wrong key, wrong model, quota), the page shows the first error and the build is marked failed. If some fail, the graph is built from the rest and the page says how many failed; *Update* retries them.
+
+### How we checked it
+
+- **Tests** (`tests/test_llm.py`, `tests/test_graph_jobs.py`, new cases in `tests/test_graph.py`): settings from the environment and the Gemini fallback, the retry without JSON schema, JSON read from fences and thinking blocks, the general schema (relation names cleaned, bad types dropped), the schema chosen per collection, a background build from start to ready, out of date after a new document, every passage failing, and a second build refused while one runs.
+- **The API with a fake LLM:** create a collection (bad and duplicate names refused), build its graph, list and open concepts, open a passage, and the messages for a collection with no documents or no question set.
+- **The page against a fake backend:** create a collection, upload, build with progress, graph switched on, explore, open a passage, ask about a concept, and the out-of-date message after a second upload.
+
+- **The real app with Gemini** (15 November): a new collection `test-graph` with one short document of team notes. The build made one call and gave 11 concepts and 10 links, all correct (for example `Data Platform team —owns→ Ingest service`, `Invoice service —uses→ Ingest service`). The question "Which channel gets alerts from the service the Invoice service uses?" was answered correctly (#ingest-oncall) with the graph on, and its trace shows the graph step.
+
+Not checked yet: a model other than Gemini.
